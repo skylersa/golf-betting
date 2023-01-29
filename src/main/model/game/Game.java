@@ -1,35 +1,41 @@
 package model.game;
 
-import model.player.Performance;
-import model.player.Player;
+import model.performance.GameAllPerformance;
+import model.Golfer;
+import model.performance.GameGolferPerformance;
 
 import java.util.ArrayList;
 
 public class Game {
+    private boolean isComplete = false;
     Course course;
-    ArrayList<Player> players;
+    ArrayList<Golfer> golfers;
     
-    public Game(Course course, ArrayList<Player> players) {
+    // REQUIRES: golfers !empty
+    // EFFECTS: create new game to be played on given course by given golfers
+    public Game(Course course, ArrayList<Golfer> golfers) {
         this.course = course;
-        this.players = players;
+        this.golfers = golfers;
     }
     
-    public Performance playGame() {
-        Performance results = new Performance(this.course);
-        for (Player player : players) {
-            for (int i = 0; i < course.getNumHoles(); i++) {
-                playHole(course.getHole(i), player);
+    // REQUIRES: !game.hasBeenPlayed()
+    // MODIFIES: this
+    // EFFECTS: returns the performance of the players
+    public GameAllPerformance playGame() {
+        GameAllPerformance resultsAll = new GameAllPerformance(this);
+        for (Golfer golfer : golfers) {
+            GameGolferPerformance resultsGolfer = new GameGolferPerformance(this, golfer);
+            
+            for (Hole hole : course.holes) {
+                resultsGolfer.addGolferPerformance(hole.playHole(golfer));
             }
+            resultsAll.addGameGolferPerformance(resultsGolfer);
         }
-        return results;
+        
+        return resultsAll;
     }
     
-    // TODO: implement player by player performance...
-    private int playHole(Hole hole, Player player) {
-        int maxDeviation = hole.getPar() - 1;
-        int deviation = (int)(Math.random() * (maxDeviation) * 2) - maxDeviation;
-        int strokes = hole.getPar() + deviation;
-        
-        return strokes;
+    public boolean isComplete() {
+        return isComplete;
     }
 }
