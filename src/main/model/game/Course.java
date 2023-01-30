@@ -12,13 +12,9 @@ public class Course {
         this.numHoles = numHoles;
     
         holes = new Hole[numHoles];
-        //TODO: discover foreach assignment behaviour
-        for (Hole hole : holes) {
-            hole = new Hole();
+        for (int i = 0; i < this.numHoles; i++) {
+            holes[i] = new Hole();
         }
-//        for (int i = 0; i < this.numHoles; i++) {
-//            holes[i] = new Hole();
-//        }
     }
     
     public String getName() {
@@ -27,6 +23,10 @@ public class Course {
     
     public int getNumHoles() {
         return numHoles;
+    }
+    
+    public Hole[] getHoles() {
+        return this.holes;
     }
     
     public Hole getHole(int holeIndex) {

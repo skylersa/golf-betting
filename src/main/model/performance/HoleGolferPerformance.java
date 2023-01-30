@@ -22,6 +22,10 @@ public class HoleGolferPerformance {
         return strokes - hole.getPar();
     }
     
+    public int getStrokes() {
+        return this.strokes;
+    }
+    
     public Hole getHole() {
         return this.hole;
     }

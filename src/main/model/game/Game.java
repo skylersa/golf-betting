@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class Game {
     private boolean isComplete = false;
-    Course course;
-    ArrayList<Golfer> golfers;
+    private Course course;
+    private ArrayList<Golfer> golfers;
     
     // REQUIRES: golfers !empty
     // EFFECTS: create new game to be played on given course by given golfers
@@ -31,11 +31,19 @@ public class Game {
             }
             resultsAll.addGameGolferPerformance(resultsGolfer);
         }
-        
+        this.isComplete = true;
         return resultsAll;
     }
     
     public boolean isComplete() {
         return isComplete;
+    }
+    
+    public ArrayList<Golfer> getGolfers() {
+        return this.golfers;
+    }
+    
+    public Course getCourse() {
+        return this.course;
     }
 }

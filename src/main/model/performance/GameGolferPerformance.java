@@ -16,6 +16,7 @@ public class GameGolferPerformance {
     public GameGolferPerformance(Game game, Golfer golfer) {
         this.game = game;
         this.golfer = golfer;
+        holeGolferPerformances = new ArrayList<>();
     }
     
     // MODIFIES: this
@@ -31,4 +32,15 @@ public class GameGolferPerformance {
         //TODO getBestPerformingHole is a stub
     }
     
+    public Golfer getGolfer() {
+        return golfer;
+    }
+    
+    public Game getGame() {
+        return game;
+    }
+    
+    public ArrayList<HoleGolferPerformance> getHoleGolferPerformances() {
+        return holeGolferPerformances;
+    }
 }

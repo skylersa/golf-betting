@@ -14,8 +14,8 @@ public class CourseTest {
     
     @Test
     public void constructorTest() {
-        Course c1 = new Course("Mini course golf", 1);
-        Course c0 = new Course("Westfield Golf", 18);
+        Course c0 = new Course("Mini course golf", 1);
+        Course c1 = new Course("Westfield Golf", 18);
         
         assertEquals(c0.getName(), "Mini course golf");
         assertEquals(c1.getName(), "Westfield Golf");
@@ -24,12 +24,13 @@ public class CourseTest {
     
         
         for (int holeIndex = 0; holeIndex < 1; holeIndex++) {
-            c0.getHole(holeIndex);
+            int par = c0.getHole(holeIndex).getPar();
+            assertTrue(1 <= par && par <= 5);
         }
     
         for (int holeIndex = 0; holeIndex < 18; holeIndex++) {
-        
+            int par = c1.getHole(holeIndex).getPar();
+            assertTrue(1 <= par && par <= 5);
         }
-
     }
 }

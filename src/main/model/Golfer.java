@@ -12,7 +12,7 @@ public class Golfer {
     //    private int injuryState;
     //    private int weatherresistance;
     
-    // REQUIRES: name is a real person's name
+    // REQUIRES: name is unique to this golfer
     // EFFECTS: create new golfer with given name
     public Golfer(String name) {
         this.name = name;

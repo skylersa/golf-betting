@@ -39,6 +39,13 @@ public class GameAllPerformance {
         return null;
         //TODO getBestPerformingGolfer is a stub
     }
-  
+    
+    public ArrayList<GameGolferPerformance> getGameGolferPerformances() {
+        return this.gameGolferPerformances;
+    }
+    
+    public ArrayList<HoleAllPerformance> getHoleAllPerformances() {
+        return this.holeAllPerformances;
+    }
 }
 

@@ -27,4 +27,8 @@ public class HoleAllPerformance {
         return null;
         //TODO getBestPerformingGolfer is a stub
     }
+    
+    public Hole getHole() {
+        return hole;
+    }
 }
