@@ -35,51 +35,30 @@ public class HoleTest {
     
     @Test
     public void playHoleTest() {
-        HoleGolferPerformance playh0g0 = h0.playHole(g0);
-        HoleGolferPerformance playh1g0 = h1.playHole(g0);
-        HoleGolferPerformance playh2g0 = h2.playHole(g0);
-        HoleGolferPerformance playh3g0 = h3.playHole(g0);
-        HoleGolferPerformance playh4g0 = h4.playHole(g0);
-        HoleGolferPerformance playh0g1 = h0.playHole(g1);
-        HoleGolferPerformance playh1g1 = h1.playHole(g1);
-        HoleGolferPerformance playh2g1 = h2.playHole(g1);
-        HoleGolferPerformance playh3g1 = h3.playHole(g1);
-        HoleGolferPerformance playh4g1 = h4.playHole(g1);
-        HoleGolferPerformance playh0g1 = h0.playHole(g1);
-        HoleGolferPerformance playh1g2 = h1.playHole(g2);
-        HoleGolferPerformance playh2g2 = h2.playHole(g2);
-        HoleGolferPerformance playh3g2 = h3.playHole(g2);
-        HoleGolferPerformance playh4g2 = h4.playHole(g2);
+        playHoleTestIndividual(h0, g0);
+        playHoleTestIndividual(h1, g0);
+        playHoleTestIndividual(h2, g0);
+        playHoleTestIndividual(h3, g0);
+        playHoleTestIndividual(h4, g0);
+        playHoleTestIndividual(h0, g1);
+        playHoleTestIndividual(h1, g1);
+        playHoleTestIndividual(h2, g1);
+        playHoleTestIndividual(h3, g1);
+        playHoleTestIndividual(h4, g1);
+        playHoleTestIndividual(h0, g2);
+        playHoleTestIndividual(h1, g2);
+        playHoleTestIndividual(h2, g2);
+        playHoleTestIndividual(h3, g2);
+        playHoleTestIndividual(h4, g2);
         
-        int h0Max = h0.getPar() + h0.getMaxDeviation();
-        int h1Max = h1.getPar() + h1.getMaxDeviation();
-        int h2Max = h2.getPar() + h2.getMaxDeviation();
-        int h3Max = h3.getPar() + h3.getMaxDeviation();
-        int h4Max = h4.getPar() + h4.getMaxDeviation();
-        
-        int h0Min = h0.getPar() - h0.getMaxDeviation();
-        int h1Min = h1.getPar() - h1.getMaxDeviation();
-        int h2Min = h2.getPar() - h2.getMaxDeviation();
-        int h3Min = h3.getPar() - h3.getMaxDeviation();
-        int h4Min = h4.getPar() - h4.getMaxDeviation();
-        
-        
-//        assertTrue(h0Min <= playh0g0 && playh0g0 <=;
-//        assertTrue(h1Min <= playh1g0 && playh1g0 <=;
-//        assertTrue(h2Min <= playh2g0 && playh2g0 <=;
-//        assertTrue(h3Min <= playh3g0 && playh3g0 <=;
-//        assertTrue(h4Min <= playh4g0 && playh4g0 <=;
-//        assertTrue(h0Min <= playh0g1 && playh0g1 <=;
-//        assertTrue(h1Min <= playh1g1 && playh1g1 <=;
-//        assertTrue(h2Min <= playh2g1 && playh2g1 <=;
-//        assertTrue(h3Min <= playh3g1 && playh3g1 <=;
-//        assertTrue(h4Min <= playh4g1 && playh4g1 <=;
-//        assertTrue(h0Min <= playh0g1 && playh0g1 <=;
-//        assertTrue(h1Min <= playh1g2 && playh1g2 <=;
-//        assertTrue(h2Min <= playh2g2 && playh2g2 <=;
-//        assertTrue(h3Min <= playh3g2 && playh3g2 <=;
-//        assertTrue(h4Min <= playh4g2 && playh4g2 <=;
+    }
     
-    
+    private void playHoleTestIndividual(Hole hole, Golfer golfer) {
+        HoleGolferPerformance hgp = hole.playHole(golfer);
+        int maxStrokes = hole.getPar() + hole.getMaxDeviation();
+        int minStrokes = hole.getPar() - hole.getMaxDeviation();
+        assertTrue((minStrokes <= hgp.getStrokes()) && (hgp.getStrokes() <= maxStrokes));
+        
+        
     }
 }

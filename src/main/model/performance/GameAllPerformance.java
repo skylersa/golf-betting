@@ -14,6 +14,7 @@ public class GameAllPerformance {
     private ArrayList<GameGolferPerformance> gameGolferPerformances = new ArrayList<>();
     private ArrayList<HoleAllPerformance> holeAllPerformances = new ArrayList<>();
     
+    //TODO: calrify this requires
     
     // REQUIRES: game.isComplete()
     // EFFECTS: create new GameAllPerformance on given game
@@ -21,23 +22,29 @@ public class GameAllPerformance {
         this.game = game;
     }
     
+    // REQUIRES: performance.getGolfer() is in this game
     // MODIFIES: this
     // EFFECTS: stores given performance
     public void addGameGolferPerformance(GameGolferPerformance performance) {
         this.gameGolferPerformances.add(performance);
     }
     
+    // REQUIRES: performance.getHole() is in this games course
     // MODIFIES: this
     // EFFECTS: stores given performance
     public void addHoleAllPerformance(HoleAllPerformance performance) {
         this.holeAllPerformances.add(performance);
     }
     
-    // REQUIRES: at least one player's performance stored
-    // EFFECTS: return the player that had the best performance in this game
-    public Golfer getBestPerformingGolfer() {
-        return null;
-        //TODO getBestPerformingGolfer is a stub
+    //TODO implement and test getBestPerformingGolfer
+//    // REQUIRES: at least one player's performance stored
+//    // EFFECTS: return the player that had the best performance in this game
+//    public Golfer getBestPerformingGolfer() {
+//        return null;
+//    }
+    
+    public Game getGame() {
+        return game;
     }
     
     public ArrayList<GameGolferPerformance> getGameGolferPerformances() {

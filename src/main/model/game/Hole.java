@@ -20,7 +20,7 @@ public class Hole {
         this.maxDeviation = this.par - 1;
     }
     
-    // EFFECTS: returns the strokes taken for given golfer to sink thi hole
+    // EFFECTS: returns the strokes taken for given golfer to sink this hole
     public HoleGolferPerformance playHole(Golfer golfer) {
         int deviation = (int)(Math.random() * (maxDeviation) * 2) - maxDeviation;
         int strokes = this.par + deviation;
