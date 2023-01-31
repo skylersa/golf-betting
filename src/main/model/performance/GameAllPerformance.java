@@ -1,7 +1,5 @@
 package model.performance;
 
-import model.Golfer;
-import model.game.Course;
 import model.game.Game;
 
 import java.util.ArrayList;
@@ -34,6 +32,13 @@ public class GameAllPerformance {
     // EFFECTS: stores given performance
     public void addHoleAllPerformance(HoleAllPerformance performance) {
         this.holeAllPerformances.add(performance);
+    }
+    
+    // REQUIRES: all performances holes are in this games course
+    // MODIFIES: this
+    // EFFECTS: stores given performances
+    public void addHoleAllPerformances(ArrayList<HoleAllPerformance> performances) {
+        this.holeAllPerformances.addAll(performances);
     }
     
     //TODO implement and test getBestPerformingGolfer

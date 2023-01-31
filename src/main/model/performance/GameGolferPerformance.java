@@ -1,8 +1,7 @@
 package model.performance;
 
-import model.Golfer;
+import model.game.Golfer;
 import model.game.Game;
-import model.game.Hole;
 
 import java.util.ArrayList;
 
@@ -25,12 +24,14 @@ public class GameGolferPerformance {
         this.holeGolferPerformances.add(performance);
     }
     
-    // REQUIRES: at least one hole performance stored
-    // EFFECTS: returns the hole in which this player performed the best
-    public Hole getBestPerformingHole() {
-        return null;
-        //TODO getBestPerformingHole is a stub
-    }
+    
+    //TODO test and implement getBestPerformingHole
+//    // REQUIRES: at least one hole performance stored
+//    // EFFECTS: returns the hole in which this player performed the best
+//    public Hole getBestPerformingHole() {
+//        return null;
+//
+//    }
     
     public Golfer getGolfer() {
         return golfer;

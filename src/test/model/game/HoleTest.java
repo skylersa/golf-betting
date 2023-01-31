@@ -1,6 +1,5 @@
-package model;
+package model.game;
 
-import model.game.Hole;
 import model.performance.HoleGolferPerformance;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,8 +28,8 @@ public class HoleTest {
         assertTrue(1 <= h0.getPar() && h0.getPar() <= 5);
         assertTrue(1 <= h1.getPar() && h1.getPar() <= 5);
         assertTrue(1 <= h2.getPar() && h2.getPar() <= 5);
-        assertEquals(h3.getPar(), 6);
-        assertEquals(h4.getPar(), 1);
+        assertEquals(6, h3.getPar());
+        assertEquals(1, h4.getPar());
     }
     
     @Test

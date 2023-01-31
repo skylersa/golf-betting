@@ -1,6 +1,6 @@
 package model.performance;
 
-import model.Golfer;
+import model.game.Golfer;
 import model.game.Hole;
 
 public class HoleGolferPerformance {

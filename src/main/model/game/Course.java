@@ -3,7 +3,7 @@ package model.game;
 public class Course {
     private final String name;
     private final int numHoles;
-    Hole[] holes;
+    private Hole[] holes;
     
     // REQUIRES: numHoles > 0
     // EFFECTS: create new Course with given name and and number of holes

@@ -1,16 +1,12 @@
-package model;
+package model.game;
 
-import model.game.Course;
-import model.game.Game;
-import model.game.Hole;
 import model.performance.GameAllPerformance;
 import model.performance.GameGolferPerformance;
-import model.performance.HoleAllPerformance;
-import model.performance.HoleGolferPerformance;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -49,13 +45,13 @@ public class GameTest {
     
     @Test
     public void constructorTest() {
-        assertEquals(g0.getGolfers(), golfers0);
-        assertEquals(g1.getGolfers(), golfers1);
-        assertEquals(g2.getGolfers(), golfers2);
+        assertEquals(golfers0, g0.getGolfers());
+        assertEquals(golfers1, g1.getGolfers());
+        assertEquals(golfers2, g2.getGolfers());
         
-        assertEquals(g0.getCourse(), course0);
-        assertEquals(g1.getCourse(), course1);
-        assertEquals(g2.getCourse(), course2);
+        assertEquals(course0, g0.getCourse());
+        assertEquals(course1, g1.getCourse());
+        assertEquals(course2, g2.getCourse());
     }
     
     //TODO account for HoleAllPerformance coverage
@@ -71,7 +67,7 @@ public class GameTest {
      
         Hole[] hap0HolesPredicted = new Hole[course0.getNumHoles()];
         Hole[] hap1HolesPredicted = new Hole[course1.getNumHoles()];
-        Hole[] hap2holesPredicted = new Hole[course2.getNumHoles()];
+        Hole[] hap2HolesPredicted = new Hole[course2.getNumHoles()];
         
         for (GameGolferPerformance performance : gap0.getGameGolferPerformances()) {
             ggp0Golfers.add(performance.getGolfer());
@@ -94,19 +90,26 @@ public class GameTest {
         }
     
         for (int i = 0; i < gap2.getHoleAllPerformances().size(); i++) {
-            hap2holesPredicted[i] = gap2.getHoleAllPerformances().get(i).getHole();
+            hap2HolesPredicted[i] = gap2.getHoleAllPerformances().get(i).getHole();
         }
         
         assertTrue(g0.isComplete());
         assertTrue(g1.isComplete());
         assertTrue(g2.isComplete());
     
-        assertEquals(ggp0Golfers, golfers0);
-        assertEquals(ggp1Golfers, golfers1);
-        assertEquals(ggp2Golfers, golfers2);
+        assertEquals(golfers0, ggp0Golfers);
+        assertEquals(golfers1, ggp1Golfers);
+        assertEquals(golfers2, ggp2Golfers);
     
-        assertEquals(hap0HolesPredicted, course0.getHoles());
-        assertEquals(hap1HolesPredicted, course0.getHoles());
-        assertEquals(hap2holesPredicted, course0.getHoles());
+    
+        for (int i = 0; i < course0.getHoles().length; i++) {
+            assertEquals(course0.getHole(i), hap0HolesPredicted[i]);
+        }
+        for (int i = 0; i < course1.getHoles().length; i++) {
+            assertEquals(course1.getHole(i), hap1HolesPredicted[i]);
+        }
+        for (int i = 0; i < course2.getHoles().length; i++) {
+            assertEquals(course2.getHole(i), hap2HolesPredicted[i]);
+        }
     }
 }

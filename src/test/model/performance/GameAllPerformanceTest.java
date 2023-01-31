@@ -1,9 +1,10 @@
-package model;
+package model.performance;
 
+import model.game.Golfer;
 import model.game.Course;
 import model.game.Game;
-import model.performance.GameAllPerformance;
-import model.performance.GameGolferPerformance;
+import model.game.Hole;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +24,13 @@ public class GameAllPerformanceTest {
     
     @BeforeEach
     public void setup() {
+        g0 = new Golfer("g0");
+        g1 = new Golfer("g1");
+        g2 = new Golfer("g2");
+        g3 = new Golfer("g3");
+        g4 = new Golfer("g4");
+        g5 = new Golfer("g5");
+        
         ArrayList<Golfer> golfers0 = new ArrayList<>(List.of(g0, g1));
         ArrayList<Golfer> golfers1 = new ArrayList<>(List.of(g2, g3, g4, g5));
         ArrayList<Golfer> golfers2 = new ArrayList<>(List.of(g3, g4));
@@ -47,9 +55,9 @@ public class GameAllPerformanceTest {
     
     @Test
     public void constructorTest() {
-        assertEquals(gap0.getGame(), game0);
-        assertEquals(gap1.getGame(), game1);
-        assertEquals(gap2.getGame(), game2);
+        assertEquals(game0, gap0.getGame());
+        assertEquals(game1, gap1.getGame());
+        assertEquals(game2, gap2.getGame());
     }
     
     @Test
@@ -65,17 +73,44 @@ public class GameAllPerformanceTest {
         gap2.addGameGolferPerformance(g2g3);
         gap2.addGameGolferPerformance(g2g4);
         
-        assertEquals(gap0.getGameGolferPerformances().get(0), g0g0);
-        assertEquals(gap0.getGameGolferPerformances().get(1), g0g1);
+        assertEquals(g0g0, gap0.getGameGolferPerformances().get(0));
+        assertEquals(g0g1, gap0.getGameGolferPerformances().get(1));
         
-        assertEquals(gap1.getGameGolferPerformances().get(0), g1g2);
-        assertEquals(gap1.getGameGolferPerformances().get(1), g1g3);
-        assertEquals(gap1.getGameGolferPerformances().get(2), g1g4);
-        assertEquals(gap1.getGameGolferPerformances().get(3), g1g5);
+        assertEquals(g1g2, gap1.getGameGolferPerformances().get(0));
+        assertEquals(g1g3, gap1.getGameGolferPerformances().get(1));
+        assertEquals(g1g4, gap1.getGameGolferPerformances().get(2));
+        assertEquals(g1g5, gap1.getGameGolferPerformances().get(3));
         
-        assertEquals(gap2.getGameGolferPerformances().get(0), g2g3);
-        assertEquals(gap2.getGameGolferPerformances().get(1), g2g4);
+        assertEquals(g2g3, gap2.getGameGolferPerformances().get(0));
+        assertEquals(g2g4, gap2.getGameGolferPerformances().get(1));
     }
     
+    @Test
+    public void addHoleAllPerformance() {
+        Hole h0, h1, h2;
+        h0 = new Hole();
+        h1 = new Hole();
+        h2 = new Hole();
+        
+        HoleAllPerformance hap0, hap1, hap2;
+        hap0 = new HoleAllPerformance(h0);
+        hap1 = new HoleAllPerformance(h1);
+        hap2 = new HoleAllPerformance(h2);
     
+        gap0.addHoleAllPerformance(hap0);
+        gap0.addHoleAllPerformance(hap1);
+        gap0.addHoleAllPerformance(hap2);
+        gap1.addHoleAllPerformance(hap2);
+        gap2.addHoleAllPerformance(hap2);
+        gap2.addHoleAllPerformance(hap1);
+    
+        assertEquals(hap0, gap0.getHoleAllPerformances().get(0));
+        assertEquals(hap1, gap0.getHoleAllPerformances().get(1));
+        assertEquals(hap2, gap0.getHoleAllPerformances().get(2));
+        assertEquals(hap2, gap1.getHoleAllPerformances().get(0));
+        assertEquals(hap2, gap2.getHoleAllPerformances().get(0));
+        assertEquals(hap1, gap2.getHoleAllPerformances().get(1));
+        //TODO test addHoleAllPerformances
+    
+    }
 }

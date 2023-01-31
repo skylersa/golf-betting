@@ -1,15 +1,16 @@
 package model.game;
 
 import model.performance.GameAllPerformance;
-import model.Golfer;
 import model.performance.GameGolferPerformance;
+import model.performance.HoleAllPerformance;
+import model.performance.HoleGolferPerformance;
 
 import java.util.ArrayList;
 
 public class Game {
     private boolean isComplete = false;
-    private Course course;
-    private ArrayList<Golfer> golfers;
+    private final Course course;
+    private final ArrayList<Golfer> golfers;
     
     // REQUIRES: golfers !empty
     // EFFECTS: create new game to be played on given course by given golfers
@@ -23,14 +24,21 @@ public class Game {
     // EFFECTS: returns the performance of the players
     public GameAllPerformance playGame() {
         GameAllPerformance resultsAll = new GameAllPerformance(this);
+        ArrayList<HoleAllPerformance> resultsHoles = new ArrayList<>();
+        for (Hole hole : course.getHoles()) {
+            resultsHoles.add(new HoleAllPerformance(hole));
+        }
         for (Golfer golfer : golfers) {
             GameGolferPerformance resultsGolfer = new GameGolferPerformance(this, golfer);
             
-            for (Hole hole : course.holes) {
-                resultsGolfer.addGolferPerformance(hole.playHole(golfer));
+            for (int i = 0; i < course.getNumHoles(); i++) {
+                HoleGolferPerformance resultHole = course.getHole(i).playHole(golfer);
+                resultsHoles.get(i).addGolferPerformance(resultHole);
+                resultsGolfer.addGolferPerformance(resultHole);
             }
             resultsAll.addGameGolferPerformance(resultsGolfer);
         }
+        resultsAll.addHoleAllPerformances(resultsHoles);
         this.isComplete = true;
         return resultsAll;
     }

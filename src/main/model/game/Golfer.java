@@ -1,4 +1,4 @@
-package model;
+package model.game;
 
 import model.game.Game;
 import model.performance.GameGolferPerformance;
@@ -25,10 +25,18 @@ public class Golfer {
         this.gamePerformanceHistory.add(performance);
     }
     
-    // REQUIRES: at least one game played
-    // EFFECTS: returns the game in which golfer performed their best
-    public Game getBestGame() {
-        return null;
-        //TODO getBestGame is a stub
+    public String getName() {
+        return name;
     }
+    
+    public ArrayList<GameGolferPerformance> getGamePerformanceHistory() {
+        return gamePerformanceHistory;
+    }
+    
+    //TODO implement and test getBestGame
+//    // REQUIRES: at least one game played
+//    // EFFECTS: returns the game in which golfer performed their best
+//    public Game getBestGame() {
+//        return null;
+//    }
 }

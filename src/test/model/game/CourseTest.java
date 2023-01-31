@@ -1,4 +1,4 @@
-package model;
+package model.game;
 
 import model.game.Course;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,10 +17,10 @@ public class CourseTest {
         Course c0 = new Course("Mini course golf", 1);
         Course c1 = new Course("Westfield Golf", 18);
         
-        assertEquals(c0.getName(), "Mini course golf");
-        assertEquals(c1.getName(), "Westfield Golf");
-        assertEquals(c0.getNumHoles(), 1);
-        assertEquals(c1.getNumHoles(), 18);
+        assertEquals("Mini course golf", c0.getName());
+        assertEquals("Westfield Golf", c1.getName());
+        assertEquals(1, c0.getNumHoles());
+        assertEquals(18, c1.getNumHoles());
     
         
         for (int holeIndex = 0; holeIndex < 1; holeIndex++) {
