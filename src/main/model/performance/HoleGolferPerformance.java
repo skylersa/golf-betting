@@ -3,7 +3,7 @@ package model.performance;
 import model.game.Golfer;
 import model.game.Hole;
 
-public class HoleGolferPerformance {
+public final class HoleGolferPerformance {
     private final Hole hole;
     private final Golfer golfer;
     private final int strokes;

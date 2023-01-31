@@ -5,7 +5,6 @@ import model.performance.HoleGolferPerformance;
 public class Hole {
     private final int par; // expected # of strokes
     private final int maxDeviation;
-    //private int obstacleLevel;
     
     // EFFECTS: create new hole with random[1,5] par
     public Hole() {

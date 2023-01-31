@@ -12,9 +12,7 @@ public class GameAllPerformance {
     private ArrayList<GameGolferPerformance> gameGolferPerformances = new ArrayList<>();
     private ArrayList<HoleAllPerformance> holeAllPerformances = new ArrayList<>();
     
-    //TODO: calrify this requires
-    
-    // REQUIRES: game.isComplete()
+    // REQUIRES: game must be completed or in progress
     // EFFECTS: create new GameAllPerformance on given game
     public GameAllPerformance(Game game) {
         this.game = game;
@@ -27,11 +25,19 @@ public class GameAllPerformance {
         this.gameGolferPerformances.add(performance);
     }
     
+    
     // REQUIRES: performance.getHole() is in this games course
     // MODIFIES: this
     // EFFECTS: stores given performance
     public void addHoleAllPerformance(HoleAllPerformance performance) {
         this.holeAllPerformances.add(performance);
+    }
+    
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS:
+    public void addGameGolferPerformances(ArrayList<GameGolferPerformance> performances) {
+        //TODO addGameGolferPerformances is a stub
     }
     
     // REQUIRES: all performances holes are in this games course

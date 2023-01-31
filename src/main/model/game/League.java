@@ -49,9 +49,6 @@ public class League {
         return new Game(courseToAdd, golfersToAdd);
     }
     
-    //TODO make tournament function?
-    
-    
     public ArrayList<Course> getCourses() {
         return courses;
     }
