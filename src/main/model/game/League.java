@@ -6,6 +6,7 @@ public class League {
     private ArrayList<Golfer> golfers;
     private ArrayList<Course> courses;
     
+    // EFFECTS: new league with no players or courses
     public League() {
         golfers = new ArrayList<>();
         courses = new ArrayList<>();
@@ -18,7 +19,7 @@ public class League {
         this.golfers.add(new Golfer(name));
     }
     
-    // REQUIRES: name is unique
+    // REQUIRES: name is unique, numHoles > 0
     // MODIFIES: this
     // EFFECTS: adds course with given name and number of holes
     public void addCourse(String name, int numHoles) {
@@ -49,4 +50,13 @@ public class League {
     }
     
     //TODO make tournament function?
+    
+    
+    public ArrayList<Course> getCourses() {
+        return courses;
+    }
+    
+    public ArrayList<Golfer> getGolfers() {
+        return golfers;
+    }
 }

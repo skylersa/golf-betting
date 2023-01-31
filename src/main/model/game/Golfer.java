@@ -26,7 +26,7 @@ public class Golfer {
     }
     
     public String getName() {
-        return name;
+        return this.name;
     }
     
     public ArrayList<GameGolferPerformance> getGamePerformanceHistory() {
