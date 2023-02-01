@@ -5,9 +5,6 @@ import model.game.Course;
 import model.game.Game;
 import model.game.League;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -15,29 +12,31 @@ import java.util.Scanner;
  * Represents and manages the console-based ui for this program
  */
 public class ConsoleManager {
-    private Scanner kboard = new Scanner(System.in);
+    private Scanner kboard = new Scanner(System.in).useDelimiter("\n");
     private final League league;
     private final Gambler gambler;
     
+    // EFFECTS: creates new consoleManager with a league and gambler
     private ConsoleManager() {
         gambler = new Gambler();
         league = new League();
         
-        mainMenu();
-        kboard.close();
+        
         
         
         league.addGolfer("Bob Odenkirk");
+        league.addGolfer("Bryan Cranston");
+        league.addGolfer("Arron Paul");
         league.addGolfer("Billiam Zero");
         league.addCourse("WestField Golf", 18);
+        league.addCourse("Albuquerque's finest", 9);
+        league.addCourse("Tiny Golf!", 1);
         
-        
-        Game game = league.makeGame("WestField Golf",
-                new ArrayList<>(Arrays.asList("Bob Odenkirk", "Billiam Zero", "Bryan Cranston")));
-        System.out.println(game.playGame());
     }
     
-    
+    // REQUIRES: //TODO
+    // MODIFIES:
+    // EFFECTS:
     private void mainMenu() {
         System.out.println("Main menu\n1 - Start Game!\n2 - View or add golfers\n3 - View or add course");
         switch (kboard.nextInt()) {
@@ -53,13 +52,19 @@ public class ConsoleManager {
         }
     }
     
+    // REQUIRES: //TODO
+    // MODIFIES:
+    // EFFECTS:
     private void coursesMenu() {
-        if (!(league.getCourses().size() == 0)) {
-            for (Course course : league.getCourses()) {
-                System.out.println(course.getName() + " with " + course.getNumHoles() + " holes");
-            }
+        System.out.println("1 - Add a course\n2 - Return to main menu");
+        if (league.getCourses().size() != 0) {
+            System.out.println("Courses:");
         }
-        System.out.println("Courses menu\n1 - Add a course\n2 - Return to main menu");
+        
+        for (Course course : league.getCourses()) {
+            System.out.println("- " + course.getName() + " with " + course.getNumHoles() + " holes");
+        }
+        
         switch (kboard.nextInt()) {
             case 1:
                 addCourseMenu();
@@ -71,11 +76,56 @@ public class ConsoleManager {
     }
     
     private void addCourseMenu() {
-        //TODO addCourseMenu is a stub
+        System.out.println("What would you like this course's name to be?");
+        String inName = kboard.next();
+        
+        int inNumHoles = -1;
+        while (!(inNumHoles > 0)) {
+            System.out.println("How many holes does it have? (positive integer)");
+            
+            try {
+                inNumHoles = kboard.nextInt();
+            } catch (Exception e) {
+                continue;
+            }
+        }
+        
+        league.addCourse(inName, inNumHoles);
+        
+        coursesMenu();
     }
     
     private void golfersMenu() {
-        //TODO golfersMenu is a stub
+        System.out.println("1 - Add a golfer\n2 - Return to main menu");
+        if (league.getGolfers().size() != 0) {
+            System.out.println("Golfers: (select with name)");
+        }
+        
+        for (String name : league.getGolferNames()) {
+            System.out.println("- " + name);
+        }
+        
+        String choice = kboard.next();
+        switch (choice) {
+            case "1":
+                addCourseMenu();
+                break;
+            case "2":
+                mainMenu();
+                break;
+            default:
+                if (!league.getGolferNames().contains(choice)) {
+                    break;
+                }
+                //TODO golfersMenu is a stub
+        }
+    }
+    
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS:
+    private void viewGolferMenu(String golferName) {
+        //TODO viewGolferMenu is a stub
     }
     
     private void startGameMenu() {
@@ -83,6 +133,7 @@ public class ConsoleManager {
     }
     
     public static void main(String[] args) {
-        new ConsoleManager();
+        ConsoleManager consoleManager = new ConsoleManager();
+        consoleManager.mainMenu();
     }
 }

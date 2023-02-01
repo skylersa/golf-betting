@@ -3,7 +3,7 @@ package model.game;
 import java.util.ArrayList;
 
 /*
- * Represents a league of golfers and course that they can play on. Gives a friendlier manner with which to intereact
+ * Represents a league of golfers and course that they can play on. Gives a friendlier manner with which to interact
  * with the various list of things (using strings)
  */
 public class League {
@@ -52,11 +52,35 @@ public class League {
         return new Game(courseToAdd, golfersToAdd);
     }
     
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS:
+    public Golfer getGolfer(String name) {
+     //TODO getGolfer is a stub
+        return null;
+    }
+    
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS:
+    public Course getCourse(String name) {
+     //TODO getCourse is a stub
+        return null;
+    }
+    
     public ArrayList<Course> getCourses() {
         return courses;
     }
     
     public ArrayList<Golfer> getGolfers() {
         return golfers;
+    }
+    
+    public ArrayList<String> getCourseNames() {
+        return (ArrayList<String>) courses.stream().map(Course::getName);
+    }
+    
+    public ArrayList<String> getGolferNames() {
+        return (ArrayList<String>) golfers.stream().map(Golfer::getName);
     }
 }

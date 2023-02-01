@@ -9,8 +9,7 @@ hopefully educate people not to bet their money away.
 
 ## User stories
 **As a user, I want to...**
-- Setup and see result of individual golf games
+- Setup and see result of golf games
 - Add and remove players from the league
-- Setup games and tournaments
 - See team and player performances over time
 - Make bets on player performances and game outcomes
