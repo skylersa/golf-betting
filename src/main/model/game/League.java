@@ -39,7 +39,6 @@ public class League {
         for (Course course : this.courses) {
             if (course.getName().equals(courseName)) {
                 courseToAdd = course;
-                break;
             }
         }
     
