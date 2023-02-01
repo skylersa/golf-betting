@@ -3,6 +3,11 @@ package model.performance;
 import model.game.Golfer;
 import model.game.Hole;
 
+/*
+ * Represents the performance of one golfer on one hole.
+ * This class is immutable and is the granular performance that the rest of the performance packages hold and manage
+ * See Performance structure.jpg for details the structure of performance holders
+ */
 public final class HoleGolferPerformance {
     private final Hole hole;
     private final Golfer golfer;

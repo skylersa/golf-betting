@@ -7,6 +7,9 @@ import model.performance.HoleGolferPerformance;
 
 import java.util.ArrayList;
 
+/*
+ * Represents a game of golf on a course, played by the list of golfers
+ */
 public class Game {
     private boolean isComplete = false;
     private final Course course;

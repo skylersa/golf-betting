@@ -2,6 +2,10 @@ package model.game;
 
 import model.performance.HoleGolferPerformance;
 
+/*
+ * Represents a hole on a golf course with an expected number of strokes to sink the hole (par)
+ * Note: I've made the choice to include the playHole method on this class (rather than the golfer)
+ */
 public class Hole {
     private final int par; // expected # of strokes
     private final int maxDeviation;

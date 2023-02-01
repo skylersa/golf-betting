@@ -5,6 +5,9 @@ import model.performance.GameGolferPerformance;
 
 import java.util.ArrayList;
 
+/*
+ * represents a golfer with a name and a history of play
+ */
 public class Golfer {
     private final String name;
     ArrayList<GameGolferPerformance> gamePerformanceHistory;

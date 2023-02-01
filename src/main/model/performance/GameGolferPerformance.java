@@ -5,6 +5,11 @@ import model.game.Game;
 
 import java.util.ArrayList;
 
+/*
+ * Represents the performance of one golfer in a game in that entire game.
+ * Notably, it holds the performance of this golfer on each of the game's holes
+ * See Performance structure.jpg for details the structure of performance holders
+ */
 public class GameGolferPerformance {
     private final Game game;
     private final Golfer golfer;

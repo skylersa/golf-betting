@@ -1,5 +1,8 @@
 package model.game;
 
+/*
+ * Represents a golf course with some holes to play golf on
+ */
 public class Course {
     private final String name;
     private final int numHoles;

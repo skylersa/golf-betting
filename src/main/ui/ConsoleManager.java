@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/*
+ * CONTAINS MAIN METHOD
+ * Represents and manages the console-based ui for this program
+ */
 public class ConsoleManager {
     private Scanner kboard = new Scanner(System.in);
     private final League league;

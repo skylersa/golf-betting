@@ -4,6 +4,12 @@ import model.game.Hole;
 
 import java.util.ArrayList;
 
+/*
+ * Represents the performance of all the golfers in a game on one hole.
+ * Like GameGolferPerformance, it holds a list of holeGolferPerformances. But, these are organized by hole (rather than
+ * by golfer line in GameGolferPerformance)
+ * See Performance structure.jpg for details the structure of performance holders
+ */
 public class HoleAllPerformance {
     private final Hole hole;
     private ArrayList<HoleGolferPerformance> holeGolferPerformances;

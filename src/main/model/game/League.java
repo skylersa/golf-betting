@@ -2,6 +2,10 @@ package model.game;
 
 import java.util.ArrayList;
 
+/*
+ * Represents a league of golfers and course that they can play on. Gives a friendlier manner with which to intereact
+ * with the various list of things (using strings)
+ */
 public class League {
     private ArrayList<Golfer> golfers;
     private ArrayList<Course> courses;
