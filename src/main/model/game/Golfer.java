@@ -35,11 +35,4 @@ public class Golfer {
     public ArrayList<GameGolferPerformance> getGamePerformanceHistory() {
         return gamePerformanceHistory;
     }
-    
-    //TODO implement and test getBestGame
-//    // REQUIRES: at least one game played
-//    // EFFECTS: returns the game in which golfer performed their best
-//    public Game getBestGame() {
-//        return null;
-//    }
 }

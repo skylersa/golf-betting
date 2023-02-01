@@ -77,10 +77,21 @@ public class League {
     }
     
     public ArrayList<String> getCourseNames() {
-        return (ArrayList<String>) courses.stream().map(Course::getName);
+        ArrayList<String> courseNames = new ArrayList<>();
+        for (Course course : this.courses) {
+            courseNames.add(course.getName());
+        }
+        return courseNames;
+//        return (ArrayList<String>) courses.stream().map(Course::getName);
     }
     
     public ArrayList<String> getGolferNames() {
-        return (ArrayList<String>) golfers.stream().map(Golfer::getName);
+        ArrayList<String> golferNames = new ArrayList<>();
+        for (Golfer golfer : this.golfers) {
+            golferNames.add(golfer.getName());
+        }
+        return golferNames;
+//        return (ArrayList<String>) golfers.stream().map(Golfer::getName);
     }
+    // TODO add get index for names
 }
