@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,7 +25,7 @@ public class GolferTest {
         g2 = new Golfer("g2");
         g3 = new Golfer("g3");
         
-        ArrayList<Golfer> golfers = new ArrayList<>(List.of(g0, g1, g2, g3)) ;
+        ArrayList<Golfer> golfers = new ArrayList<>(Arrays.asList(g0, g1, g2, g3)) ;
         game0 = new Game(new Course("", 8), golfers);
         game1 = new Game(new Course("", 7), golfers);
 

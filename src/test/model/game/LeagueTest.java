@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -65,10 +66,10 @@ public class LeagueTest {
         l1.addGolfer("bobby");
         l1.addGolfer("jackson");
         
-        Game game0 = l1.makeGame("west", new ArrayList<>(List.of("carlo", "timmy")));
-        Game game1 = l1.makeGame("west", new ArrayList<>(List.of("bobby", "jackson")));
-        Game game2 = l1.makeGame("east", new ArrayList<>(List.of("carlo", "bobby")));
-        Game game3 = l1.makeGame("north", new ArrayList<>(List.of("carlo", "timmy", "bobby")));
+        Game game0 = l1.makeGame("west", new ArrayList<>(Arrays.asList("carlo", "timmy")));
+        Game game1 = l1.makeGame("west", new ArrayList<>(Arrays.asList("bobby", "jackson")));
+        Game game2 = l1.makeGame("east", new ArrayList<>(Arrays.asList("carlo", "bobby")));
+        Game game3 = l1.makeGame("north", new ArrayList<>(Arrays.asList("carlo", "timmy", "bobby")));
         
         assertEquals("west", game0.getCourse().getName());
         assertEquals("west", game1.getCourse().getName());

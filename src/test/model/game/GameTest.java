@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class GameTest {
     private Course course0, course1, course2;
     private Golfer p0, p1, p2, p3, p4, p5, p6, p7, p8;
-    private ArrayList<Golfer> golfers0, golfers1, golfers2;
+    private List<Golfer> golfers0, golfers1, golfers2;
     private Game g0, g1, g2;
     
     @BeforeEach
@@ -30,17 +30,17 @@ public class GameTest {
         p7 = new Golfer("jackman");
         p8 = new Golfer("tommy");
         
-        golfers0 = new ArrayList<>(List.of(p0));
-        golfers1 = new ArrayList<>(List.of(p0, p1, p2, p3, p4, p5));
-        golfers2 = new ArrayList<>(List.of(p1, p2, p3, p4, p5, p6, p7, p8));
+        golfers0 = new ArrayList<>(Arrays.asList(p0));
+        golfers1 = new ArrayList<>(Arrays.asList(p0, p1, p2, p3, p4, p5));
+        golfers2 = new ArrayList<>(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8));
         
         course0 = new Course("westfield golf", 18);
         course1 = new Course("boomtrap", 9);
         course2 = new Course("borneio", 14);
         
-        g0 = new Game(course0, golfers0);
-        g1 = new Game(course1, golfers1);
-        g2 = new Game(course2, golfers2);
+        g0 = new Game(course0, (ArrayList<Golfer>) golfers0);
+        g1 = new Game(course1, (ArrayList<Golfer>) golfers1);
+        g2 = new Game(course2, (ArrayList<Golfer>) golfers2);
     }
     
     @Test

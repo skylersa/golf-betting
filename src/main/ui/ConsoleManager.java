@@ -6,6 +6,7 @@ import model.game.Game;
 import model.game.League;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,7 +33,7 @@ public class ConsoleManager {
         
         
         Game game = league.makeGame("WestField Golf",
-                new ArrayList<>(List.of("Bob Odenkirk", "Billiam Zero")));
+                new ArrayList<>(Arrays.asList("Bob Odenkirk", "Billiam Zero", "Bryan Cranston")));
         System.out.println(game.playGame());
     }
     
