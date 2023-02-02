@@ -52,20 +52,17 @@ public class League {
         return new Game(courseToAdd, golfersToAdd);
     }
     
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    // REQUIRES: given golfer is in this league
+    // EFFECTS: returns the Golfer of given name
     public Golfer getGolfer(String name) {
-     //TODO getGolfer is a stub
-        return null;
+        return this.golfers.get(this.getGolferNames().indexOf(name));
+    
     }
     
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    // REQUIRES: given course is in this league
+    // EFFECTS: returns the Course of given name
     public Course getCourse(String name) {
-     //TODO getCourse is a stub
-        return null;
+        return this.courses.get(this.getCourseNames().indexOf(name));
     }
     
     public ArrayList<Course> getCourses() {
@@ -93,5 +90,7 @@ public class League {
         return golferNames;
 //        return (ArrayList<String>) golfers.stream().map(Golfer::getName);
     }
+    
     // TODO add get index for names
+    
 }

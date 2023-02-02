@@ -1,5 +1,6 @@
 package model.performance;
 
+import model.game.Golfer;
 import model.game.Hole;
 
 import java.util.ArrayList;
@@ -27,13 +28,20 @@ public class HoleAllPerformance {
         this.holeGolferPerformances.add(performance);
     }
     
-    //TODO implement and test getBestPerformingGolfer
-    
-//    // REQUIRES: at least one hole performance stored
-//    // EFFECTS: returns the hole on which players performed the best
-//    public Golfer getBestPerformingGolfer() {
-//        return null;
-//    }
+    //TODO test este
+    // REQUIRES: at least one hole performance stored
+    // EFFECTS: returns the hole on which players performed the best (lowest strokes)
+    public Golfer getBestPerformingGolfer() {
+        Golfer bestGolfer = new Golfer("PLACEHOLDER GOLFER");
+        int bestScore = 100;
+        for (HoleGolferPerformance performance : holeGolferPerformances) {
+            if (performance.getStrokes() < bestScore) {
+                bestGolfer = performance.getGolfer();
+                bestScore = performance.getStrokes();
+            }
+        }
+        return bestGolfer;
+    }
     
     
     public ArrayList<HoleGolferPerformance> getHoleGolferPerformances() {
