@@ -28,21 +28,20 @@ public class HoleAllPerformance {
         this.holeGolferPerformances.add(performance);
     }
     
-    //TODO test este
-    // REQUIRES: at least one hole performance stored
-    // EFFECTS: returns the hole on which players performed the best (lowest strokes)
+    // TODO test getBestPerformingGolfer
+    // REQUIRES: at least one performance stored
+    // EFFECTS: returns the golfer with the best par deviation
     public Golfer getBestPerformingGolfer() {
         Golfer bestGolfer = new Golfer("PLACEHOLDER GOLFER");
-        int bestScore = 100;
+        int bestStrokes = 100;
         for (HoleGolferPerformance performance : holeGolferPerformances) {
-            if (performance.getStrokes() < bestScore) {
+            if (performance.getStrokes() < bestStrokes) {
                 bestGolfer = performance.getGolfer();
-                bestScore = performance.getStrokes();
+                bestStrokes = performance.getStrokes();
             }
         }
         return bestGolfer;
     }
-    
     
     public ArrayList<HoleGolferPerformance> getHoleGolferPerformances() {
         return holeGolferPerformances;

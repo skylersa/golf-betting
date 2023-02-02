@@ -1,8 +1,10 @@
 package model.performance;
 
 import model.game.Game;
+import model.game.Golfer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Represents the performance of all the golfers in a game in that entire game.
@@ -51,12 +53,38 @@ public class GameAllPerformance {
         this.holeAllPerformances.addAll(performances);
     }
     
-    //TODO implement and test getBestPerformingGolfer
-//    // REQUIRES: at least one player's performance stored
-//    // EFFECTS: return the player that had the best performance in this game
-//    public Golfer getBestPerformingGolfer() {
-//        return null;
-//    }
+    //TODO test getBestPerformingGolfer
+    // REQUIRES: at least one player's performance stored
+    // EFFECTS: return the player that had the best performance in this game
+    public Golfer getBestPerformingGolfer() {
+        List<Golfer> bestGolfersPerHole = new ArrayList<>();
+        for (HoleAllPerformance performance : holeAllPerformances) {
+            bestGolfersPerHole.add(performance.getBestPerformingGolfer());
+        }
+        // TODO: extract below to non-golfer specific method for getting most occurences
+        List<Golfer> occurrencesGolfer = new ArrayList<>();
+        List<Integer> occurrencesNumber = new ArrayList<>();
+        
+        for (Golfer golfer : bestGolfersPerHole) {
+            int counterGolferIndex = occurrencesGolfer.indexOf(golfer);
+            if (counterGolferIndex == -1) { // Not in counter yet
+                occurrencesGolfer.add(golfer);
+                occurrencesNumber.add(1);
+            } else { // Already in counter
+                occurrencesNumber.set(counterGolferIndex, occurrencesNumber.get(counterGolferIndex) + 1);
+            }
+        }
+        
+        int most = 0; // PLACEHOLDER VALUES
+        int mostIndex = 200;
+        for (int i = 0; i < occurrencesNumber.size(); i++) {
+            if (occurrencesNumber.get(i) > most) {
+                mostIndex = i;
+            }
+        }
+        return occurrencesGolfer.get(mostIndex);
+        
+    }
     
     public Game getGame() {
         return game;

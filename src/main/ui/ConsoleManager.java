@@ -29,12 +29,11 @@ public class ConsoleManager {
         
         league.addGolfer("Bob Odenkirk");
         league.addGolfer("Bryan Cranston");
-        league.addGolfer("Arron Paul");
+        league.addGolfer("Aaron Paul");
         league.addGolfer("Billiam Zero");
         league.addCourse("WestField Golf", 4);
         league.addCourse("Albuquerque's finest", 3);
         league.addCourse("Tiny Golf!", 1);
-        
     }
     
     // MODIFIES: this
@@ -119,19 +118,13 @@ public class ConsoleManager {
     // EFFECTS: prints a golfer's scorecard in each of their games
     private void viewGolferMenu(String golferName) {
         System.out.println(golferName + "'s stats");
-        ArrayList<GameGolferPerformance> golferHistory = league.getGolfer(golferName).getGamePerformanceHistory();
-        for (GameGolferPerformance perf : golferHistory) {
-            System.out.println("Game at " + perf.getGame().getCourse().getName());
-            System.out.println("Hole Par    ");
-            for (HoleGolferPerformance holePerf : perf.getHoleGolferPerformances()) {
-                System.out.print(holePerf.getHole().getPar() + "  ");
-            }
-            System.out.println("Performance ");
-            for (HoleGolferPerformance holePerf : perf.getHoleGolferPerformances()) {
-                System.out.print(holePerf.getStrokes() + "  ");
-            }
+        for (GameGolferPerformance performance : league.getGolfer(golferName).getGamePerformanceHistory()) {
+            System.out.println("===============");
+            printScoreCard(performance);
         }
+        System.out.println("ENTER to continue");
         kboard.next();
+        golfersMenu();
     }
     
     // MODIFIES: this
@@ -152,30 +145,38 @@ public class ConsoleManager {
         
         // Place pre-game bets
         System.out.println("Who will win? ($100 bet)"); //TODO make variable
-        selectMenu(league.getGolferNames());
+        String winnerChoice = selectMenu(league.getGolferNames());
         
-        int winnerChoice = -1;
-        while (1 < winnerChoice && winnerChoice < league.getGolfers().size() + 1) {
-            winnerChoice = kboard.nextInt();
-        }
         
-        mainGameLoop(courseChoice, golferChoices);
+        gambler.bet(100, mainGameLoop(courseChoice, golferChoices, winnerChoice));
+        // TODO: display bet
+        mainMenu();
     }
     
-    private void mainGameLoop(String courseChoice, ArrayList<String> golferChoices) {
-        // Main game loop
-        Game game = league.makeGame(courseChoice,
-                golferChoices);
+    // REQUIRES: courseChoice is in this league
+    //           golferChoices has >= 2 golfers in it
+    //           winnerChoice must be in golferChoices
+    // MODIFIES: this
+    // EFFECTS: operates main game loop, take bets and play hole for the result of those bets
+    //          updates gambler's balance accordingly
+    //          returns true if the winner of the game is winnerChoice, otherwise false
+    private boolean mainGameLoop(String courseChoice, ArrayList<String> golferChoices, String winnerChoice) {
+        Game game = league.makeGame(courseChoice, golferChoices);
         GameAllPerformance gameAllPerformance = game.playGame();
+        
         for (HoleAllPerformance performance : gameAllPerformance.getHoleAllPerformances()) {
+            // Take hole bets
             System.out.println("Par is " + performance.getHole().getPar() + ". Who will do best on this hole?");
             String holeWinnerChoice = selectMenu(league.getGolferNames());
             
             System.out.println("How much you wanna bet?");
             int holeWinnerBetAmount = kboard.nextInt();
             
+            // Show hole performance
             printScoreCard(performance);
             
+            // TODO: extract to method
+            // Settle hole bets
             boolean won = holeWinnerChoice.equals(performance.getBestPerformingGolfer().getName());
             System.out.println("Your balance was $" + gambler.getBalance());
             gambler.bet(holeWinnerBetAmount, won);
@@ -187,10 +188,29 @@ public class ConsoleManager {
             System.out.println("Your new balance is $" + gambler.getBalance() + "\nENTER TO CONTINUE");
             kboard.next();
         }
+        
+        return winnerChoice.equals(gameAllPerformance.getBestPerformingGolfer().getName());
     }
     
     // REQUIRES: performance is full of HoleGolferPerformances
-    // EFFECTS: prints out a scorecard of given
+    // EFFECTS: prints out a scorecard of given performance horizontally
+    private void printScoreCard(GameGolferPerformance performance) {
+        String spacer = "  ";
+        String parHeader = "PAR:";
+        String strokesBody  = "STROKES:";
+        
+        for (HoleGolferPerformance eachPerformance : performance.getHoleGolferPerformances()) {
+            parHeader += spacer + eachPerformance.getHole().getPar();
+            strokesBody += spacer + eachPerformance.getStrokes();
+        }
+        
+        System.out.println("Game on " + performance.getGame().getCourse().getName());
+        System.out.println(parHeader);
+        System.out.println(strokesBody);
+    }
+    
+    // REQUIRES: performance is full of HoleGolferPerformances
+    // EFFECTS: prints out a scorecard of given performance vertically
     private void printScoreCard(HoleAllPerformance performance) {
         String spacer = "   ";
         System.out.println("STROKES" + spacer + spacer + "GOLFER");
@@ -210,26 +230,6 @@ public class ConsoleManager {
         // TODO: add bad input handling
         return list.get(kboard.nextInt() - 1);
     }
-
-//    // REQUIRES: //TODO
-//    // MODIFIES:
-//    // EFFECTS:
-//    private int selectGolferMenu(boolean allowZero) {
-//        int golferChoice = -1;
-//        int minSelection = 1;
-//        System.out.println("Select golfer: ");
-//        if (allowZero) {
-//            System.out.println("0 - No more golfers!");
-//            minSelection = 0;
-//        }
-//        for (int i = 0; i < league.getCourseNames().size(); i++) {
-//            System.out.println((i + 1) + " - " + league.getGolferNames().get(i));
-//        }
-//        while (!(minSelection <= golferChoice && golferChoice < league.getCourseNames().size() + 1)) {
-//            golferChoice = kboard.nextInt();
-//        }
-//        return golferChoice - 1;
-//    }
     
     public static void main(String[] args) {
         ConsoleManager consoleManager = new ConsoleManager();
