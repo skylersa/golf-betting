@@ -32,18 +32,18 @@ public class GameAllPerformance {
     }
     
     
-    // REQUIRES: performance.getHole() is in this games course
+    // REQUIRES: performance.getHole() is in this games course, performance's golfers are the same as this game's
     // MODIFIES: this
     // EFFECTS: stores given performance
     public void addHoleAllPerformance(HoleAllPerformance performance) {
         this.holeAllPerformances.add(performance);
     }
     
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    // REQUIRES: all performances.getGame() is this game, performance.getGolfer() is in this game
+    // MODIFIES: this
+    // EFFECTS: sotres given performances
     public void addGameGolferPerformances(ArrayList<GameGolferPerformance> performances) {
-        //TODO addGameGolferPerformances is a stub
+        this.gameGolferPerformances.addAll(performances);
     }
     
     // REQUIRES: all performances holes are in this games course
@@ -53,7 +53,7 @@ public class GameAllPerformance {
         this.holeAllPerformances.addAll(performances);
     }
     
-    //TODO test getBestPerformingGolfer
+    // TODO test getBestPerformingGolfer
     // REQUIRES: at least one player's performance stored
     // EFFECTS: return the player that had the best performance in this game
     public Golfer getBestPerformingGolfer() {
@@ -61,7 +61,7 @@ public class GameAllPerformance {
         for (HoleAllPerformance performance : holeAllPerformances) {
             bestGolfersPerHole.add(performance.getBestPerformingGolfer());
         }
-        // TODO: extract below to non-golfer specific method for getting most occurences
+        // TODO: extract below to non-golfer specific method for getting most occurrences
         List<Golfer> occurrencesGolfer = new ArrayList<>();
         List<Integer> occurrencesNumber = new ArrayList<>();
         

@@ -39,15 +39,20 @@ public class ConsoleManager {
     // MODIFIES: this
     // EFFECTS: starts console interface with main menu, initiating full game flow
     private void mainMenu() {
-        System.out.println("Main menu\n1 - Start Game!\n2 - View or add golfers\n3 - View or add course");
-        switch (kboard.nextInt()) {
-            case 1:
+        List<String> options = new ArrayList<>();
+        options.add("Start Game!");
+        options.add("View or add golfers");
+        options.add("View or add course");
+        
+        System.out.println("Main menu");
+        switch (selectFromListMenu(options)) {
+            case "Start Game!":
                 startGameFlow();
                 break;
-            case 2:
+            case "View or add golfers":
                 golfersMenu();
                 break;
-            case 3:
+            case "View or add course":
                 coursesMenu();
                 break;
         }
@@ -56,20 +61,17 @@ public class ConsoleManager {
     // MODIFIES: this
     // EFFECTS: lets user view and add courses
     private void coursesMenu() {
-        System.out.println("1 - Add a course\n2 - Return to main menu");
-        if (league.getCourses().size() != 0) {
-            System.out.println("Courses:");
-        }
+        List<String> options = new ArrayList<>();
+        options.add("Add a course");
+        options.add("Return to main menu");
         
-        for (Course course : league.getCourses()) {
-            System.out.println("- " + course.getName() + " with " + course.getNumHoles() + " holes");
-        }
+        printList(league.getCourseNames());
         
-        switch (kboard.nextInt()) {
-            case 1:
+        switch (selectFromListMenu(options)) {
+            case "Add a course":
                 addCourseMenu();
                 break;
-            case 2:
+            case "Return to main menu":
                 mainMenu();
                 break;
         }
@@ -83,12 +85,12 @@ public class ConsoleManager {
         
         int inNumHoles = -1;
         while (!(inNumHoles > 0)) {
-            System.out.println("How many holes does it have? (positive integer)");
+            System.out.println("How many holes does it have?");
             
             try {
                 inNumHoles = kboard.nextInt();
             } catch (Exception e) {
-                continue;
+                System.out.println("How many holes does it have?");
             }
         }
         
@@ -104,14 +106,22 @@ public class ConsoleManager {
         int choice = kboard.nextInt();
         switch (choice) {
             case 1:
-                addCourseMenu();
+                addGolferMenu();
                 break;
             case 2:
-                viewGolferMenu(selectMenu(league.getGolferNames()));
+                viewGolferMenu(selectFromListMenu(league.getGolferNames()));
                 break;
             default:
                 mainMenu();
         }
+    }
+    
+    // MODIFIES: this
+    // EFFECTS: adds a golfer of user's choice name, sends back to golfersMenu
+    public void addGolferMenu() {
+        System.out.println("What's their name?");
+        league.addGolfer(kboard.next());
+        golfersMenu();
     }
     
     // REQUIRES: given golfer is in league
@@ -122,7 +132,7 @@ public class ConsoleManager {
             System.out.println("===============");
             printScoreCard(performance);
         }
-        System.out.println("ENTER to continue");
+        System.out.println("\nENTER to continue");
         kboard.next();
         golfersMenu();
     }
@@ -132,7 +142,7 @@ public class ConsoleManager {
     private void startGameFlow() {
         // Select a course
         System.out.println("Select a course:");
-        String courseChoice = selectMenu(league.getCourseNames());
+        String courseChoice = selectFromListMenu(league.getCourseNames());
         
         // Select golfers
 //        int golferChoice = -2;
@@ -145,7 +155,7 @@ public class ConsoleManager {
         
         // Place pre-game bets
         System.out.println("Who will win? ($100 bet)"); //TODO make variable
-        String winnerChoice = selectMenu(league.getGolferNames());
+        String winnerChoice = selectFromListMenu(league.getGolferNames());
         
         
         gambler.bet(100, mainGameLoop(courseChoice, golferChoices, winnerChoice));
@@ -167,7 +177,7 @@ public class ConsoleManager {
         for (HoleAllPerformance performance : gameAllPerformance.getHoleAllPerformances()) {
             // Take hole bets
             System.out.println("Par is " + performance.getHole().getPar() + ". Who will do best on this hole?");
-            String holeWinnerChoice = selectMenu(league.getGolferNames());
+            String holeWinnerChoice = selectFromListMenu(league.getGolferNames());
             
             System.out.println("How much you wanna bet?");
             int holeWinnerBetAmount = kboard.nextInt();
@@ -196,12 +206,12 @@ public class ConsoleManager {
     // EFFECTS: prints out a scorecard of given performance horizontally
     private void printScoreCard(GameGolferPerformance performance) {
         String spacer = "  ";
-        String parHeader = "PAR:";
-        String strokesBody  = "STROKES:";
+        StringBuilder parHeader = new StringBuilder("PAR:    ");
+        StringBuilder strokesBody = new StringBuilder("STROKES:");
         
         for (HoleGolferPerformance eachPerformance : performance.getHoleGolferPerformances()) {
-            parHeader += spacer + eachPerformance.getHole().getPar();
-            strokesBody += spacer + eachPerformance.getStrokes();
+            parHeader.append(spacer).append(eachPerformance.getHole().getPar());
+            strokesBody.append(spacer).append(eachPerformance.getStrokes());
         }
         
         System.out.println("Game on " + performance.getGame().getCourse().getName());
@@ -223,12 +233,24 @@ public class ConsoleManager {
     
     // REQUIRES: List has at least one element
     // EFFECTS: prints a menu of the list and asks the user to select an option, returns the selected object
-    private String selectMenu(List<String> list) {
+    private String selectFromListMenu(List<String> list) {
         for (int i = 1; i <= list.size(); i++) {
             System.out.println(i + " - " + list.get(i - 1));
         }
-        // TODO: add bad input handling
-        return list.get(kboard.nextInt() - 1);
+        
+        int choice = -1;
+        while (!(0 <= choice && choice < list.size())) {
+            choice = kboard.nextInt() - 1;
+        }
+        
+        return list.get(choice);
+    }
+    
+    // EFFECTS: prints list with bullet points
+    private void printList(List<String> list) {
+        for (int i = 1; i <= list.size(); i++) {
+            System.out.println(" - " + list.get(i - 1));
+        }
     }
     
     public static void main(String[] args) {

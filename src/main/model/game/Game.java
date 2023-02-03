@@ -22,9 +22,9 @@ public class Game {
         this.golfers = golfers;
     }
     
-    // REQUIRES: !game.hasBeenPlayed()
+    // REQUIRES: !game.isComplete()
     // MODIFIES: this
-    // EFFECTS: returns the performance of the players
+    // EFFECTS: returns the performance of all the golfers in the game
     public GameAllPerformance playGame() {
         GameAllPerformance resultsAll = new GameAllPerformance(this);
         ArrayList<HoleAllPerformance> resultsHoles = new ArrayList<>();
@@ -40,6 +40,7 @@ public class Game {
                 resultsGolfer.addGolferPerformance(resultHole);
             }
             resultsAll.addGameGolferPerformance(resultsGolfer);
+            golfer.addGamePerformance(resultsGolfer);
         }
         resultsAll.addHoleAllPerformances(resultsHoles);
         this.isComplete = true;

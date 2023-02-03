@@ -64,7 +64,7 @@ public class GameTest {
         ArrayList<Golfer> ggp0Golfers = new ArrayList<>();
         ArrayList<Golfer> ggp1Golfers = new ArrayList<>();
         ArrayList<Golfer> ggp2Golfers = new ArrayList<>();
-     
+        
         Hole[] hap0HolesPredicted = new Hole[course0.getNumHoles()];
         Hole[] hap1HolesPredicted = new Hole[course1.getNumHoles()];
         Hole[] hap2HolesPredicted = new Hole[course2.getNumHoles()];
@@ -84,11 +84,11 @@ public class GameTest {
         for (int i = 0; i < gap0.getHoleAllPerformances().size(); i++) {
             hap0HolesPredicted[i] = gap0.getHoleAllPerformances().get(i).getHole();
         }
-    
+        
         for (int i = 0; i < gap1.getHoleAllPerformances().size(); i++) {
             hap1HolesPredicted[i] = gap1.getHoleAllPerformances().get(i).getHole();
         }
-    
+        
         for (int i = 0; i < gap2.getHoleAllPerformances().size(); i++) {
             hap2HolesPredicted[i] = gap2.getHoleAllPerformances().get(i).getHole();
         }
@@ -96,12 +96,12 @@ public class GameTest {
         assertTrue(g0.isComplete());
         assertTrue(g1.isComplete());
         assertTrue(g2.isComplete());
-    
+        
         assertEquals(golfers0, ggp0Golfers);
         assertEquals(golfers1, ggp1Golfers);
         assertEquals(golfers2, ggp2Golfers);
-    
-    
+        
+        
         for (int i = 0; i < course0.getHoles().length; i++) {
             assertEquals(course0.getHole(i), hap0HolesPredicted[i]);
         }
@@ -111,5 +111,21 @@ public class GameTest {
         for (int i = 0; i < course2.getHoles().length; i++) {
             assertEquals(course2.getHole(i), hap2HolesPredicted[i]);
         }
+    
+        assertEquals(gap0.getGameGolferPerformances().get(0), p0.getGamePerformanceHistory().get(0));
+        assertEquals(gap1.getGameGolferPerformances().get(0), p0.getGamePerformanceHistory().get(1));
+        assertEquals(gap1.getGameGolferPerformances().get(1), p1.getGamePerformanceHistory().get(0));
+        assertEquals(gap1.getGameGolferPerformances().get(2), p2.getGamePerformanceHistory().get(0));
+        assertEquals(gap1.getGameGolferPerformances().get(3), p3.getGamePerformanceHistory().get(0));
+        assertEquals(gap1.getGameGolferPerformances().get(4), p4.getGamePerformanceHistory().get(0));
+        assertEquals(gap1.getGameGolferPerformances().get(5), p5.getGamePerformanceHistory().get(0));
+        assertEquals(gap2.getGameGolferPerformances().get(0), p1.getGamePerformanceHistory().get(1));
+        assertEquals(gap2.getGameGolferPerformances().get(1), p2.getGamePerformanceHistory().get(1));
+        assertEquals(gap2.getGameGolferPerformances().get(2), p3.getGamePerformanceHistory().get(1));
+        assertEquals(gap2.getGameGolferPerformances().get(3), p4.getGamePerformanceHistory().get(1));
+        assertEquals(gap2.getGameGolferPerformances().get(4), p5.getGamePerformanceHistory().get(1));
+        assertEquals(gap2.getGameGolferPerformances().get(5), p6.getGamePerformanceHistory().get(0));
+        assertEquals(gap2.getGameGolferPerformances().get(6), p7.getGamePerformanceHistory().get(0));
+        assertEquals(gap2.getGameGolferPerformances().get(7), p8.getGamePerformanceHistory().get(0));
     }
 }
