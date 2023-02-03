@@ -194,6 +194,12 @@ public class ConsoleManager {
         } else {
             System.out.println("You lost $" + betAmount);
         }
+        
+        if (gambler.getBalance() <= 0) {
+            System.out.println("You're out of money! Game over.");
+            System.exit(1);
+        }
+        
         System.out.println("Your new balance is $" + gambler.getBalance() + "\nENTER TO CONTINUE");
         kboard.next();
     }
