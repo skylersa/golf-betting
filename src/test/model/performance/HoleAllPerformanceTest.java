@@ -53,12 +53,12 @@ public class HoleAllPerformanceTest {
     
     @Test
     public void addGolferPerformanceTest() {
-        hap0.addGolferPerformance(h0g1p);
-        hap0.addGolferPerformance(h0g2p);
-        hap1.addGolferPerformance(h1g1p);
-        hap1.addGolferPerformance(h1g2p);
-        hap2.addGolferPerformance(h2g1p);
-        hap2.addGolferPerformance(h2g2p);
+        hap0.addHoleGolferPerformance(h0g1p);
+        hap0.addHoleGolferPerformance(h0g2p);
+        hap1.addHoleGolferPerformance(h1g1p);
+        hap1.addHoleGolferPerformance(h1g2p);
+        hap2.addHoleGolferPerformance(h2g1p);
+        hap2.addHoleGolferPerformance(h2g2p);
     
         assertEquals(h0g1p, hap0.getHoleGolferPerformances().get(0));
         assertEquals(h0g2p, hap0.getHoleGolferPerformances().get(1));
