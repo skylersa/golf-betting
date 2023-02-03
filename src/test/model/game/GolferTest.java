@@ -25,7 +25,7 @@ public class GolferTest {
         g2 = new Golfer("g2");
         g3 = new Golfer("g3");
         
-        ArrayList<Golfer> golfers = new ArrayList<>(Arrays.asList(g0, g1, g2, g3)) ;
+        List<Golfer> golfers = new ArrayList<>(Arrays.asList(g0, g1, g2, g3)) ;
         game0 = new Game(new Course("", 8), golfers);
         game1 = new Game(new Course("", 7), golfers);
 

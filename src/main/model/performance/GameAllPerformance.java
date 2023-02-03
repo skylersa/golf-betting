@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class GameAllPerformance {
     private final Game game;
-    private ArrayList<GameGolferPerformance> gameGolferPerformances = new ArrayList<>();
-    private ArrayList<HoleAllPerformance> holeAllPerformances = new ArrayList<>();
+    private List<GameGolferPerformance> gameGolferPerformances = new ArrayList<>();
+    private List<HoleAllPerformance> holeAllPerformances = new ArrayList<>();
     
     // REQUIRES: game must be completed or in progress
     // EFFECTS: create new GameAllPerformance on given game
@@ -41,7 +41,7 @@ public class GameAllPerformance {
     
     // REQUIRES: all performances.getGame() is this game, performance.getGolfer() is in this game
     // MODIFIES: this
-    // EFFECTS: sotres given performances
+    // EFFECTS: sorts given performances
     public void addGameGolferPerformances(List<GameGolferPerformance> performances) {
         this.gameGolferPerformances.addAll(performances);
     }
@@ -93,11 +93,11 @@ public class GameAllPerformance {
         return game;
     }
     
-    public ArrayList<GameGolferPerformance> getGameGolferPerformances() {
+    public List<GameGolferPerformance> getGameGolferPerformances() {
         return this.gameGolferPerformances;
     }
     
-    public ArrayList<HoleAllPerformance> getHoleAllPerformances() {
+    public List<HoleAllPerformance> getHoleAllPerformances() {
         return this.holeAllPerformances;
     }
 }

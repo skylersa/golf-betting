@@ -1,19 +1,16 @@
 package model.game;
 
-import model.game.Game;
 import model.performance.GameGolferPerformance;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /*
- * represents a golfer with a name and a history of play
+ * Represents a golfer with a name and a history of play
  */
 public class Golfer {
     private final String name;
-    ArrayList<GameGolferPerformance> gamePerformanceHistory;
-    //    private int luck;
-    //    private int injuryState;
-    //    private int weatherresistance;
+    private List<GameGolferPerformance> gamePerformanceHistory;
     
     // REQUIRES: name is unique to this golfer
     // EFFECTS: create new golfer with given name
@@ -32,7 +29,7 @@ public class Golfer {
         return this.name;
     }
     
-    public ArrayList<GameGolferPerformance> getGamePerformanceHistory() {
+    public List<GameGolferPerformance> getGamePerformanceHistory() {
         return gamePerformanceHistory;
     }
 }

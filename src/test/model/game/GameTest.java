@@ -38,9 +38,9 @@ public class GameTest {
         course1 = new Course("boomtrap", 9);
         course2 = new Course("borneio", 14);
         
-        g0 = new Game(course0, (ArrayList<Golfer>) golfers0);
-        g1 = new Game(course1, (ArrayList<Golfer>) golfers1);
-        g2 = new Game(course2, (ArrayList<Golfer>) golfers2);
+        g0 = new Game(course0, golfers0);
+        g1 = new Game(course1, golfers1);
+        g2 = new Game(course2, golfers2);
     }
     
     @Test
@@ -60,9 +60,9 @@ public class GameTest {
         GameAllPerformance gap1 = g1.playGame();
         GameAllPerformance gap2 = g2.playGame();
         
-        ArrayList<Golfer> ggp0Golfers = new ArrayList<>();
-        ArrayList<Golfer> ggp1Golfers = new ArrayList<>();
-        ArrayList<Golfer> ggp2Golfers = new ArrayList<>();
+        List<Golfer> ggp0Golfers = new ArrayList<>();
+        List<Golfer> ggp1Golfers = new ArrayList<>();
+        List<Golfer> ggp2Golfers = new ArrayList<>();
         
         Hole[] hap0HolesPredicted = new Hole[course0.getNumHoles()];
         Hole[] hap1HolesPredicted = new Hole[course1.getNumHoles()];

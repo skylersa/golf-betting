@@ -4,6 +4,7 @@ import model.game.Golfer;
 import model.game.Hole;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Represents the performance of all the golfers in a game on one hole.
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  */
 public class HoleAllPerformance {
     private final Hole hole;
-    private ArrayList<HoleGolferPerformance> holeGolferPerformances;
+    private List<HoleGolferPerformance> holeGolferPerformances;
     
     // EFFECTS: create new HoleAllPerformance on given hole
     public HoleAllPerformance(Hole hole) {
@@ -24,7 +25,7 @@ public class HoleAllPerformance {
     // REQUIRES: performance.getHole() == this.getHole()
     // MODIFIES: this
     // EFFECTS: stores given golfer performance on this hole
-    public void addGolferPerformance(HoleGolferPerformance performance) {
+    public void addHoleGolferPerformance(HoleGolferPerformance performance) {
         this.holeGolferPerformances.add(performance);
     }
     
@@ -42,7 +43,7 @@ public class HoleAllPerformance {
         return bestGolfer;
     }
     
-    public ArrayList<HoleGolferPerformance> getHoleGolferPerformances() {
+    public List<HoleGolferPerformance> getHoleGolferPerformances() {
         return holeGolferPerformances;
     }
     

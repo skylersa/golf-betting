@@ -4,6 +4,7 @@ import model.game.Golfer;
 import model.game.Game;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Represents the performance of one golfer in a game in that entire game.
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public class GameGolferPerformance {
     private final Game game;
     private final Golfer golfer;
-    private ArrayList<HoleGolferPerformance> holeGolferPerformances;
+    private List<HoleGolferPerformance> holeGolferPerformances;
     
     // REQUIRES: game.isComplete()
     // EFFECTS: creates new GameGolferPerformance with given game and golfer
@@ -37,7 +38,7 @@ public class GameGolferPerformance {
         return game;
     }
     
-    public ArrayList<HoleGolferPerformance> getHoleGolferPerformances() {
+    public List<HoleGolferPerformance> getHoleGolferPerformances() {
         return holeGolferPerformances;
     }
 }

@@ -1,14 +1,15 @@
 package model.game;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Represents a league of golfers and course that they can play on. Gives a friendlier manner with which to interact
  * with the various list of things (using strings)
  */
 public class League {
-    private ArrayList<Golfer> golfers;
-    private ArrayList<Course> courses;
+    private List<Golfer> golfers;
+    private List<Course> courses;
     
     // EFFECTS: new league with no players or courses
     public League() {
@@ -34,7 +35,7 @@ public class League {
     //           courseName has been added as course
     // EFFECTS: return a game with the given golfers on the given course
     //          does not play the game
-    public Game makeGame(String courseName, ArrayList<String> golferNames) {
+    public Game makeGame(String courseName, List<String> golferNames) {
         Course courseToAdd = new Course("placeholder course name", 69);
         for (Course course : this.courses) {
             if (course.getName().equals(courseName)) {
@@ -42,7 +43,7 @@ public class League {
             }
         }
     
-        ArrayList<Golfer> golfersToAdd = new ArrayList<>();
+        List<Golfer> golfersToAdd = new ArrayList<>();
         for (Golfer golfer : this.golfers) {
             if (golferNames.contains(golfer.getName())) {
                 golfersToAdd.add(golfer);
@@ -65,29 +66,27 @@ public class League {
         return this.courses.get(this.getCourseNames().indexOf(name));
     }
     
-    public ArrayList<Course> getCourses() {
+    public List<Course> getCourses() {
         return courses;
     }
     
-    public ArrayList<Golfer> getGolfers() {
+    public List<Golfer> getGolfers() {
         return golfers;
     }
     
-    public ArrayList<String> getCourseNames() {
-        ArrayList<String> courseNames = new ArrayList<>();
+    public List<String> getCourseNames() {
+        List<String> courseNames = new ArrayList<>();
         for (Course course : this.courses) {
             courseNames.add(course.getName());
         }
         return courseNames;
-//        return (ArrayList<String>) courses.stream().map(Course::getName);
     }
     
-    public ArrayList<String> getGolferNames() {
-        ArrayList<String> golferNames = new ArrayList<>();
+    public List<String> getGolferNames() {
+        List<String> golferNames = new ArrayList<>();
         for (Golfer golfer : this.golfers) {
             golferNames.add(golfer.getName());
         }
         return golferNames;
-//        return (ArrayList<String>) golfers.stream().map(Golfer::getName);
     }
 }

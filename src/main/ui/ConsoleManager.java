@@ -162,7 +162,7 @@ public class ConsoleManager {
     // EFFECTS: operates main game loop, take bets and play hole for the result of those bets
     //          updates gambler's balance accordingly
     //          returns true if the winner of the game is winnerChoice, otherwise false
-    private boolean mainGameLoop(String courseChoice, ArrayList<String> golferChoices, String winnerChoice) {
+    private boolean mainGameLoop(String courseChoice, List<String> golferChoices, String winnerChoice) {
         Game game = league.makeGame(courseChoice, golferChoices);
         GameAllPerformance gameAllPerformance = game.playGame();
         

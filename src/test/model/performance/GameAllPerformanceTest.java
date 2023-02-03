@@ -34,9 +34,9 @@ public class GameAllPerformanceTest {
         g4 = new Golfer("g4");
         g5 = new Golfer("g5");
         
-        ArrayList<Golfer> golfers0 = new ArrayList<>(Arrays.asList(g0, g1));
-        ArrayList<Golfer> golfers1 = new ArrayList<>(Arrays.asList(g2, g3, g4, g5));
-        ArrayList<Golfer> golfers2 = new ArrayList<>(Arrays.asList(g3, g4));
+        List<Golfer> golfers0 = new ArrayList<>(Arrays.asList(g0, g1));
+        List<Golfer> golfers1 = new ArrayList<>(Arrays.asList(g2, g3, g4, g5));
+        List<Golfer> golfers2 = new ArrayList<>(Arrays.asList(g3, g4));
         
         game0 = new Game(new Course("c", 4), golfers0);
         game1 = new Game(new Course("b", 3), golfers1);
@@ -130,17 +130,17 @@ public class GameAllPerformanceTest {
         hap1 = new HoleAllPerformance(h1);
         hap2 = new HoleAllPerformance(h2);
     
-        hap0.addGolferPerformance(new HoleGolferPerformance(h0, g0, 2));
-        hap0.addGolferPerformance(new HoleGolferPerformance(h0, g1, 6));
-        hap0.addGolferPerformance(new HoleGolferPerformance(h0, g2, 7));
+        hap0.addHoleGolferPerformance(new HoleGolferPerformance(h0, g0, 2));
+        hap0.addHoleGolferPerformance(new HoleGolferPerformance(h0, g1, 6));
+        hap0.addHoleGolferPerformance(new HoleGolferPerformance(h0, g2, 7));
     
-        hap1.addGolferPerformance(new HoleGolferPerformance(h1, g0, 2));
-        hap1.addGolferPerformance(new HoleGolferPerformance(h1, g1, 3));
-        hap1.addGolferPerformance(new HoleGolferPerformance(h1, g2, 3));
+        hap1.addHoleGolferPerformance(new HoleGolferPerformance(h1, g0, 2));
+        hap1.addHoleGolferPerformance(new HoleGolferPerformance(h1, g1, 3));
+        hap1.addHoleGolferPerformance(new HoleGolferPerformance(h1, g2, 3));
     
-        hap2.addGolferPerformance(new HoleGolferPerformance(h2, g0, 25));
-        hap2.addGolferPerformance(new HoleGolferPerformance(h2, g1, 2));
-        hap2.addGolferPerformance(new HoleGolferPerformance(h2, g2, 25));
+        hap2.addHoleGolferPerformance(new HoleGolferPerformance(h2, g0, 25));
+        hap2.addHoleGolferPerformance(new HoleGolferPerformance(h2, g1, 2));
+        hap2.addHoleGolferPerformance(new HoleGolferPerformance(h2, g2, 25));
         
         
         List<HoleAllPerformance> haps0 = new ArrayList<>();
@@ -161,17 +161,17 @@ public class GameAllPerformanceTest {
         hap1 = new HoleAllPerformance(h1);
         hap2 = new HoleAllPerformance(h2);
         
-        hap0.addGolferPerformance(new HoleGolferPerformance(h0, g0, 6));
-        hap0.addGolferPerformance(new HoleGolferPerformance(h0, g1, 1));
-        hap0.addGolferPerformance(new HoleGolferPerformance(h0, g2, 6));
+        hap0.addHoleGolferPerformance(new HoleGolferPerformance(h0, g0, 6));
+        hap0.addHoleGolferPerformance(new HoleGolferPerformance(h0, g1, 1));
+        hap0.addHoleGolferPerformance(new HoleGolferPerformance(h0, g2, 6));
         
-        hap1.addGolferPerformance(new HoleGolferPerformance(h1, g0, 4));
-        hap1.addGolferPerformance(new HoleGolferPerformance(h1, g1, 3));
-        hap1.addGolferPerformance(new HoleGolferPerformance(h1, g2, 4));
+        hap1.addHoleGolferPerformance(new HoleGolferPerformance(h1, g0, 4));
+        hap1.addHoleGolferPerformance(new HoleGolferPerformance(h1, g1, 3));
+        hap1.addHoleGolferPerformance(new HoleGolferPerformance(h1, g2, 4));
         
-        hap2.addGolferPerformance(new HoleGolferPerformance(h2, g0, 8));
-        hap2.addGolferPerformance(new HoleGolferPerformance(h2, g1, 8));
-        hap2.addGolferPerformance(new HoleGolferPerformance(h2, g2, 8));
+        hap2.addHoleGolferPerformance(new HoleGolferPerformance(h2, g0, 8));
+        hap2.addHoleGolferPerformance(new HoleGolferPerformance(h2, g1, 8));
+        hap2.addHoleGolferPerformance(new HoleGolferPerformance(h2, g2, 8));
         
         
         List<HoleAllPerformance> haps0 = new ArrayList<>();

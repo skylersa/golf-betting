@@ -6,6 +6,7 @@ import model.performance.HoleAllPerformance;
 import model.performance.HoleGolferPerformance;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Represents a game of golf on a course, played by the list of golfers
@@ -13,11 +14,11 @@ import java.util.ArrayList;
 public class Game {
     private boolean isComplete = false;
     private final Course course;
-    private final ArrayList<Golfer> golfers;
+    private final List<Golfer> golfers;
     
     // REQUIRES: golfers !empty
     // EFFECTS: create new game to be played on given course by given golfers
-    public Game(Course course, ArrayList<Golfer> golfers) {
+    public Game(Course course, List<Golfer> golfers) {
         this.course = course;
         this.golfers = golfers;
     }
@@ -27,7 +28,7 @@ public class Game {
     // EFFECTS: returns the performance of all the golfers in the game
     public GameAllPerformance playGame() {
         GameAllPerformance resultsAll = new GameAllPerformance(this);
-        ArrayList<HoleAllPerformance> resultsHoles = new ArrayList<>();
+        List<HoleAllPerformance> resultsHoles = new ArrayList<>();
         for (Hole hole : course.getHoles()) {
             resultsHoles.add(new HoleAllPerformance(hole));
         }
@@ -36,7 +37,7 @@ public class Game {
             
             for (int i = 0; i < course.getNumHoles(); i++) {
                 HoleGolferPerformance resultHole = course.getHole(i).playHole(golfer);
-                resultsHoles.get(i).addGolferPerformance(resultHole);
+                resultsHoles.get(i).addHoleGolferPerformance(resultHole);
                 resultsGolfer.addGolferPerformance(resultHole);
             }
             resultsAll.addGameGolferPerformance(resultsGolfer);
@@ -51,7 +52,7 @@ public class Game {
         return isComplete;
     }
     
-    public ArrayList<Golfer> getGolfers() {
+    public List<Golfer> getGolfers() {
         return this.golfers;
     }
     
