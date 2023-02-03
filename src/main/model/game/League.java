@@ -90,7 +90,4 @@ public class League {
         return golferNames;
 //        return (ArrayList<String>) golfers.stream().map(Golfer::getName);
     }
-    
-    // TODO add get index for names
-    
 }

@@ -54,7 +54,6 @@ public class GameTest {
         assertEquals(course2, g2.getCourse());
     }
     
-    //TODO account for HoleAllPerformance coverage
     @Test
     public void playGameTest() {
         GameAllPerformance gap0 = g0.playGame();

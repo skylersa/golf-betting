@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HoleTest {
     private Golfer g0, g1, g2;
-    private Hole h0, h1, h2, h3, h4;
+    private Hole h0, h1, h2, h3, h4, h5, h6, h7, h8, h9;
     
     @BeforeEach
     public void setup() {
@@ -21,13 +21,32 @@ public class HoleTest {
         h2 = new Hole();
         h3 = new Hole(6);
         h4 = new Hole(1);
+        h5 = new Hole();
+        h6 = new Hole();
+        h7 = new Hole();
+        h8 = new Hole();
+        h9 = new Hole();
+        
     }
     
     @Test
     public void constructorTest() {
-        assertTrue(1 <= h0.getPar() && h0.getPar() <= 5);
-        assertTrue(1 <= h1.getPar() && h1.getPar() <= 5);
-        assertTrue(1 <= h2.getPar() && h2.getPar() <= 5);
+        assertTrue(Hole.MIN_PAR <= h0.getPar());
+        assertTrue(Hole.MIN_PAR <= h1.getPar());
+        assertTrue(Hole.MIN_PAR <= h2.getPar());
+        assertTrue(Hole.MIN_PAR <= h5.getPar());
+        assertTrue(Hole.MIN_PAR <= h6.getPar());
+        assertTrue(Hole.MIN_PAR <= h7.getPar());
+        assertTrue(Hole.MIN_PAR <= h8.getPar());
+        assertTrue(Hole.MIN_PAR <= h9.getPar());
+        assertTrue(h0.getPar() <= Hole.MAX_PAR);
+        assertTrue(h1.getPar() <= Hole.MAX_PAR);
+        assertTrue(h2.getPar() <= Hole.MAX_PAR);
+        assertTrue(h5.getPar() <= Hole.MAX_PAR);
+        assertTrue(h6.getPar() <= Hole.MAX_PAR);
+        assertTrue(h7.getPar() <= Hole.MAX_PAR);
+        assertTrue(h8.getPar() <= Hole.MAX_PAR);
+        assertTrue(h9.getPar() <= Hole.MAX_PAR);
         assertEquals(6, h3.getPar());
         assertEquals(1, h4.getPar());
     }

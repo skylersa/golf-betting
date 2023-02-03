@@ -29,15 +29,6 @@ public class GameGolferPerformance {
         this.holeGolferPerformances.add(performance);
     }
     
-    
-    //TODO test and implement getBestPerformingHole
-//    // REQUIRES: at least one hole performance stored
-//    // EFFECTS: returns the hole in which this player performed the best
-//    public Hole getBestPerformingHole() {
-//        return null;
-//
-//    }
-    
     public Golfer getGolfer() {
         return golfer;
     }

@@ -7,12 +7,15 @@ import model.performance.HoleGolferPerformance;
  * Note: I've made the choice to include the playHole method on this class (rather than the golfer)
  */
 public class Hole {
+    public static final int MIN_PAR = 2;
+    public static final int MAX_PAR = 6;
+    
     private final int par; // expected # of strokes
     private final int maxDeviation;
     
-    // EFFECTS: create new hole with random[1,5] par
+    // EFFECTS: create new hole with random[MIN_PAR, MAX_PAR] par
     public Hole() {
-        this((int)(Math.random() * 5) + 1);
+        this((int) (Math.random() * (MAX_PAR - MIN_PAR) + MIN_PAR));
     }
     
     // REQUIRES: par >= 1

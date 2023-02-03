@@ -1,7 +1,6 @@
 package ui;
 
 import model.gambling.Gambler;
-import model.game.Course;
 import model.game.Game;
 import model.game.League;
 import model.performance.GameAllPerformance;
@@ -144,7 +143,7 @@ public class ConsoleManager {
         System.out.println("Select a course:");
         String courseChoice = selectFromListMenu(league.getCourseNames());
         
-        // Select golfers
+        // TODO: Select golfers
 //        int golferChoice = -2;
         ArrayList<String> golferChoices = new ArrayList<>();
 //        while (golferChoice != -1) {
@@ -154,12 +153,14 @@ public class ConsoleManager {
         golferChoices.addAll(league.getGolferNames());
         
         // Place pre-game bets
-        System.out.println("Who will win? ($100 bet)"); //TODO make variable
+        System.out.println("Who will win?");
         String winnerChoice = selectFromListMenu(league.getGolferNames());
+        System.out.println("How much you wanna bet?");
+        int winnerChoiceBetAmount = kboard.nextInt();
         
+        boolean won = mainGameLoop(courseChoice, golferChoices, winnerChoice);
         
-        gambler.bet(100, mainGameLoop(courseChoice, golferChoices, winnerChoice));
-        // TODO: display bet
+        settleBet(won,winnerChoiceBetAmount);
         mainMenu();
     }
     
@@ -185,21 +186,25 @@ public class ConsoleManager {
             // Show hole performance
             printScoreCard(performance);
             
-            // TODO: extract to method
-            // Settle hole bets
             boolean won = holeWinnerChoice.equals(performance.getBestPerformingGolfer().getName());
-            System.out.println("Your balance was $" + gambler.getBalance());
-            gambler.bet(holeWinnerBetAmount, won);
-            if (won) {
-                System.out.println("You won $" + holeWinnerBetAmount);
-            } else {
-                System.out.println("You lost $" + holeWinnerBetAmount);
-            }
-            System.out.println("Your new balance is $" + gambler.getBalance() + "\nENTER TO CONTINUE");
-            kboard.next();
+            settleBet(won, holeWinnerBetAmount);
         }
-        
         return winnerChoice.equals(gameAllPerformance.getBestPerformingGolfer().getName());
+    }
+    
+    // REQUIRES: betAmount >= 0
+    // MODIFIES: this
+    // EFFECTS: changes gambler placing according to bet performance, print results to console
+    private void settleBet(boolean won, int betAmount) {
+        System.out.println("Your balance was $" + gambler.getBalance());
+        gambler.bet(won, betAmount);
+        if (won) {
+            System.out.println("You won $" + betAmount);
+        } else {
+            System.out.println("You lost $" + betAmount);
+        }
+        System.out.println("Your new balance is $" + gambler.getBalance() + "\nENTER TO CONTINUE");
+        kboard.next();
     }
     
     // REQUIRES: performance is full of HoleGolferPerformances

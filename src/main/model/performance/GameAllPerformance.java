@@ -49,7 +49,7 @@ public class GameAllPerformance {
     // REQUIRES: all performances holes are in this games course
     // MODIFIES: this
     // EFFECTS: stores given performances
-    public void addHoleAllPerformances(ArrayList<HoleAllPerformance> performances) {
+    public void addHoleAllPerformances(List<HoleAllPerformance> performances) {
         this.holeAllPerformances.addAll(performances);
     }
     

@@ -111,7 +111,41 @@ public class GameAllPerformanceTest {
         assertEquals(hap2, gap1.getHoleAllPerformances().get(0));
         assertEquals(hap2, gap2.getHoleAllPerformances().get(0));
         assertEquals(hap1, gap2.getHoleAllPerformances().get(1));
-        //TODO test addHoleAllPerformances
     
+    }
+    
+    @Test
+    public void addHoleAllPerformances() {
+        Hole h0, h1, h2;
+        h0 = new Hole();
+        h1 = new Hole();
+        h2 = new Hole();
+        
+        HoleAllPerformance hap0, hap1, hap2;
+        hap0 = new HoleAllPerformance(h0);
+        hap1 = new HoleAllPerformance(h1);
+        hap2 = new HoleAllPerformance(h2);
+        List<HoleAllPerformance> haps0 = new ArrayList<>();
+        List<HoleAllPerformance> haps1 = new ArrayList<>();
+        List<HoleAllPerformance> haps2 = new ArrayList<>();
+        
+        haps0.add(hap0);
+        haps0.add(hap1);
+        haps0.add(hap2);
+        haps1.add(hap2);
+        haps2.add(hap2);
+        haps2.add(hap1);
+    
+        gap0.addHoleAllPerformances(haps0);
+        gap1.addHoleAllPerformances(haps1);
+        gap2.addHoleAllPerformances(haps2);
+        
+        assertEquals(hap0, gap0.getHoleAllPerformances().get(0));
+        assertEquals(hap1, gap0.getHoleAllPerformances().get(1));
+        assertEquals(hap2, gap0.getHoleAllPerformances().get(2));
+        assertEquals(hap2, gap1.getHoleAllPerformances().get(0));
+        assertEquals(hap2, gap2.getHoleAllPerformances().get(0));
+        assertEquals(hap1, gap2.getHoleAllPerformances().get(1));
+        
     }
 }

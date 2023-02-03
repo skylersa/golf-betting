@@ -15,7 +15,7 @@ public class Gambler {
     // REQUIRES: 0 < amountPlaced <= this.getBalance()
     // MODIFIES: this
     // EFFECTS: adds or removes amountPlaced from this balance based on whether thy won.
-    public void bet(int amountPlaced, boolean won) {
+    public void bet(boolean won, int amountPlaced) {
         if (won) {
             balance += amountPlaced;
         } else {
