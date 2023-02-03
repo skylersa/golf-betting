@@ -42,7 +42,7 @@ public class GameAllPerformance {
     // REQUIRES: all performances.getGame() is this game, performance.getGolfer() is in this game
     // MODIFIES: this
     // EFFECTS: sotres given performances
-    public void addGameGolferPerformances(ArrayList<GameGolferPerformance> performances) {
+    public void addGameGolferPerformances(List<GameGolferPerformance> performances) {
         this.gameGolferPerformances.addAll(performances);
     }
     
@@ -53,7 +53,6 @@ public class GameAllPerformance {
         this.holeAllPerformances.addAll(performances);
     }
     
-    // TODO test getBestPerformingGolfer
     // REQUIRES: at least one player's performance stored
     // EFFECTS: return the player that had the best performance in this game
     public Golfer getBestPerformingGolfer() {
@@ -61,7 +60,11 @@ public class GameAllPerformance {
         for (HoleAllPerformance performance : holeAllPerformances) {
             bestGolfersPerHole.add(performance.getBestPerformingGolfer());
         }
-        // TODO: extract below to non-golfer specific method for getting most occurrences
+        return mostOccurredGolfer(bestGolfersPerHole);
+    
+    }
+    
+    private Golfer mostOccurredGolfer(List<Golfer> bestGolfersPerHole) {
         List<Golfer> occurrencesGolfer = new ArrayList<>();
         List<Integer> occurrencesNumber = new ArrayList<>();
         
@@ -80,10 +83,10 @@ public class GameAllPerformance {
         for (int i = 0; i < occurrencesNumber.size(); i++) {
             if (occurrencesNumber.get(i) > most) {
                 mostIndex = i;
+                most = occurrencesNumber.get(i);
             }
         }
         return occurrencesGolfer.get(mostIndex);
-        
     }
     
     public Game getGame() {

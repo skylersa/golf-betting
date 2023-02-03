@@ -10,6 +10,6 @@ hopefully educate people not to bet their money away.
 ## User stories
 **As a user, I want to...**
 - Setup and see result of golf games
-- Add and remove players from the league
+- Add players to the league
 - See team and player performances over time
 - Make bets on player performances and game outcomes

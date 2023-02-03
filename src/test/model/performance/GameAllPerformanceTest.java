@@ -21,6 +21,8 @@ public class GameAllPerformanceTest {
     private GameGolferPerformance g0g0, g0g1;
     private GameGolferPerformance g1g2, g1g3, g1g4, g1g5;
     private GameGolferPerformance g2g3, g2g4;
+    private Hole h0, h1, h2;
+    
     
     
     @BeforeEach
@@ -52,6 +54,10 @@ public class GameAllPerformanceTest {
         g1g5 = new GameGolferPerformance(game1, g5);
         g2g3 = new GameGolferPerformance(game2, g3);
         g2g4 = new GameGolferPerformance(game2, g4);
+    
+        h0 = new Hole();
+        h1 = new Hole();
+        h2 = new Hole();
     }
     
     @Test
@@ -87,12 +93,107 @@ public class GameAllPerformanceTest {
     }
     
     @Test
-    public void addHoleAllPerformance() {
-        Hole h0, h1, h2;
-        h0 = new Hole();
-        h1 = new Hole();
-        h2 = new Hole();
+    public void addGameGolferPerformancesTest() {
+        List<GameGolferPerformance> gap0List = new ArrayList<>();
+        List<GameGolferPerformance> gap1List = new ArrayList<>();
+        List<GameGolferPerformance> gap2list = new ArrayList<>();
         
+        gap0List.add(g0g0);
+        gap0List.add(g0g1);
+        gap1List.add(g1g2);
+        gap1List.add(g1g3);
+        gap1List.add(g1g4);
+        gap1List.add(g1g5);
+        gap2list.add(g2g3);
+        gap2list.add(g2g4);
+    
+        gap0.addGameGolferPerformances(gap0List);
+        gap1.addGameGolferPerformances(gap1List);
+        gap2.addGameGolferPerformances(gap2list);
+        
+        assertEquals(g0g0, gap0.getGameGolferPerformances().get(0));
+        assertEquals(g0g1, gap0.getGameGolferPerformances().get(1));
+        
+        assertEquals(g1g2, gap1.getGameGolferPerformances().get(0));
+        assertEquals(g1g3, gap1.getGameGolferPerformances().get(1));
+        assertEquals(g1g4, gap1.getGameGolferPerformances().get(2));
+        assertEquals(g1g5, gap1.getGameGolferPerformances().get(3));
+        
+        assertEquals(g2g3, gap2.getGameGolferPerformances().get(0));
+        assertEquals(g2g4, gap2.getGameGolferPerformances().get(1));
+    }
+    
+    @Test
+    public void getBestPerformingGolfer1Test() {
+        HoleAllPerformance hap0, hap1, hap2;
+        hap0 = new HoleAllPerformance(h0);
+        hap1 = new HoleAllPerformance(h1);
+        hap2 = new HoleAllPerformance(h2);
+    
+        hap0.addGolferPerformance(new HoleGolferPerformance(h0, g0, 2));
+        hap0.addGolferPerformance(new HoleGolferPerformance(h0, g1, 6));
+        hap0.addGolferPerformance(new HoleGolferPerformance(h0, g2, 7));
+    
+        hap1.addGolferPerformance(new HoleGolferPerformance(h1, g0, 2));
+        hap1.addGolferPerformance(new HoleGolferPerformance(h1, g1, 3));
+        hap1.addGolferPerformance(new HoleGolferPerformance(h1, g2, 3));
+    
+        hap2.addGolferPerformance(new HoleGolferPerformance(h2, g0, 25));
+        hap2.addGolferPerformance(new HoleGolferPerformance(h2, g1, 2));
+        hap2.addGolferPerformance(new HoleGolferPerformance(h2, g2, 25));
+        
+        
+        List<HoleAllPerformance> haps0 = new ArrayList<>();
+    
+        haps0.add(hap0);
+        haps0.add(hap1);
+        haps0.add(hap2);
+        
+        gap0.addHoleAllPerformances(haps0);
+        
+        assertEquals(g0, gap0.getBestPerformingGolfer());
+    }
+    
+    @Test
+    public void getBestPerformingGolfer2Test() {
+        HoleAllPerformance hap0, hap1, hap2;
+        hap0 = new HoleAllPerformance(h0);
+        hap1 = new HoleAllPerformance(h1);
+        hap2 = new HoleAllPerformance(h2);
+        
+        hap0.addGolferPerformance(new HoleGolferPerformance(h0, g0, 6));
+        hap0.addGolferPerformance(new HoleGolferPerformance(h0, g1, 1));
+        hap0.addGolferPerformance(new HoleGolferPerformance(h0, g2, 6));
+        
+        hap1.addGolferPerformance(new HoleGolferPerformance(h1, g0, 4));
+        hap1.addGolferPerformance(new HoleGolferPerformance(h1, g1, 3));
+        hap1.addGolferPerformance(new HoleGolferPerformance(h1, g2, 4));
+        
+        hap2.addGolferPerformance(new HoleGolferPerformance(h2, g0, 8));
+        hap2.addGolferPerformance(new HoleGolferPerformance(h2, g1, 8));
+        hap2.addGolferPerformance(new HoleGolferPerformance(h2, g2, 8));
+        
+        
+        List<HoleAllPerformance> haps0 = new ArrayList<>();
+        List<HoleAllPerformance> haps1 = new ArrayList<>();
+        List<HoleAllPerformance> haps2 = new ArrayList<>();
+        
+        haps0.add(hap0);
+        haps0.add(hap1);
+        haps0.add(hap2);
+        haps1.add(hap2);
+        haps2.add(hap2);
+        haps2.add(hap1);
+        
+        gap0.addHoleAllPerformances(haps0);
+        gap0.addHoleAllPerformances(haps1);
+        gap0.addHoleAllPerformances(haps2);
+        
+        assertEquals(g1, gap0.getBestPerformingGolfer());
+    }
+    
+    @Test
+    public void addHoleAllPerformance() {
         HoleAllPerformance hap0, hap1, hap2;
         hap0 = new HoleAllPerformance(h0);
         hap1 = new HoleAllPerformance(h1);
@@ -116,11 +217,6 @@ public class GameAllPerformanceTest {
     
     @Test
     public void addHoleAllPerformances() {
-        Hole h0, h1, h2;
-        h0 = new Hole();
-        h1 = new Hole();
-        h2 = new Hole();
-        
         HoleAllPerformance hap0, hap1, hap2;
         hap0 = new HoleAllPerformance(h0);
         hap1 = new HoleAllPerformance(h1);
