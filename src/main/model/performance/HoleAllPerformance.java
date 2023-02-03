@@ -28,7 +28,6 @@ public class HoleAllPerformance {
         this.holeGolferPerformances.add(performance);
     }
     
-    // TODO test getBestPerformingGolfer
     // REQUIRES: at least one performance stored
     // EFFECTS: returns the golfer with the best par deviation
     public Golfer getBestPerformingGolfer() {

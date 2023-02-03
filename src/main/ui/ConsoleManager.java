@@ -143,22 +143,13 @@ public class ConsoleManager {
         System.out.println("Select a course:");
         String courseChoice = selectFromListMenu(league.getCourseNames());
         
-        // TODO: Select golfers
-//        int golferChoice = -2;
-        ArrayList<String> golferChoices = new ArrayList<>();
-//        while (golferChoice != -1) {
-//            golferChoice = selectGolferMenu(golferChoiceIndexes.size() >= 2);
-//            golferChoiceIndexes.add(golferChoice);
-//        }
-        golferChoices.addAll(league.getGolferNames());
-        
         // Place pre-game bets
         System.out.println("Who will win?");
         String winnerChoice = selectFromListMenu(league.getGolferNames());
         System.out.println("How much you wanna bet?");
         int winnerChoiceBetAmount = kboard.nextInt();
         
-        boolean won = mainGameLoop(courseChoice, golferChoices, winnerChoice);
+        boolean won = mainGameLoop(courseChoice, league.getGolferNames(), winnerChoice);
         
         settleBet(won,winnerChoiceBetAmount);
         mainMenu();
