@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static java.lang.Integer.*;
+
 /*
  * CONTAINS MAIN METHOD
  * Represents and manages the console-based ui for this program
@@ -245,7 +247,12 @@ public class ConsoleManager {
         
         int choice = -1;
         while (!(0 <= choice && choice < list.size())) {
-            choice = kboard.nextInt() - 1;
+            try {
+                choice = parseInt(kboard.next()) - 1;
+            } catch (Exception e) {
+                System.out.println("Please enter a number that is listed");
+                choice = -1;
+            }
         }
         
         return list.get(choice);
