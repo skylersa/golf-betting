@@ -66,14 +66,7 @@ public class League {
         return this.courses.get(this.getCourseNames().indexOf(name));
     }
     
-    public List<Course> getCourses() {
-        return courses;
-    }
-    
-    public List<Golfer> getGolfers() {
-        return golfers;
-    }
-    
+    // EFFECTS: return the names of the courses in the league
     public List<String> getCourseNames() {
         List<String> courseNames = new ArrayList<>();
         for (Course course : this.courses) {
@@ -82,11 +75,20 @@ public class League {
         return courseNames;
     }
     
+    // EFFECTS: return the names of the golfers in the league
     public List<String> getGolferNames() {
         List<String> golferNames = new ArrayList<>();
         for (Golfer golfer : this.golfers) {
             golferNames.add(golfer.getName());
         }
         return golferNames;
+    }
+    
+    public List<Course> getCourses() {
+        return courses;
+    }
+    
+    public List<Golfer> getGolfers() {
+        return golfers;
     }
 }

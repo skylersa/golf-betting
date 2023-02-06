@@ -23,7 +23,7 @@ public class Game {
         this.golfers = golfers;
     }
     
-    // REQUIRES: !game.isComplete()
+    // REQUIRES: !this.isComplete()
     // MODIFIES: this
     // EFFECTS: returns the performance of all the golfers in the game
     public GameAllPerformance playGame() {

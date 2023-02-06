@@ -64,6 +64,8 @@ public class GameAllPerformance {
     
     }
     
+    // REQUIRES: >= 1 Golfer in given list
+    // EFFECTS: returns the golfer that occurs the most times in the given list
     private Golfer mostOccurredGolfer(List<Golfer> bestGolfersPerHole) {
         List<Golfer> occurrencesGolfer = new ArrayList<>();
         List<Integer> occurrencesNumber = new ArrayList<>();

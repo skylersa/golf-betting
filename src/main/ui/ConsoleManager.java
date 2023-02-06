@@ -101,16 +101,19 @@ public class ConsoleManager {
     // MODIFIES: this
     // EFFECTS: lets user select golfers to view more in-depth as well as add golfers
     private void golfersMenu() {
-        System.out.println("1 - Add a golfer\n2 - View a golfer's stats\n3 - Return to main menu");
-        int choice = kboard.nextInt();
-        switch (choice) {
-            case 1:
+        List<String> options = new ArrayList<>();
+        options.add("Add a golfer");
+        options.add("View a golfer's stats");
+        options.add("Return to main menu");
+        
+        switch (selectFromListMenu(options)) {
+            case "Add a golfer":
                 addGolferMenu();
                 break;
-            case 2:
+            case "View a golfer's stats":
                 viewGolferMenu(selectFromListMenu(league.getGolferNames()));
                 break;
-            default:
+            case "Return to main menu":
                 mainMenu();
         }
     }
@@ -145,11 +148,11 @@ public class ConsoleManager {
         
         // Place pre-game bets
         System.out.println("Who will win?");
-        String winnerChoice = selectFromListMenu(league.getGolferNames());
+        String gameWinnerBetChoice = selectFromListMenu(league.getGolferNames());
         System.out.println("How much you wanna bet?");
         int winnerChoiceBetAmount = kboard.nextInt();
         
-        boolean won = mainGameLoop(courseChoice, league.getGolferNames(), winnerChoice);
+        boolean won = mainGameLoop(courseChoice, league.getGolferNames(), gameWinnerBetChoice);
         
         settleBet(won,winnerChoiceBetAmount);
         mainMenu();
@@ -167,14 +170,14 @@ public class ConsoleManager {
         GameAllPerformance gameAllPerformance = game.playGame();
         
         for (HoleAllPerformance performance : gameAllPerformance.getHoleAllPerformances()) {
-            // Take hole bets
-            System.out.println("Par is " + performance.getHole().getPar() + ". Who will do best on this hole?");
+            System.out.println("Par at this hole is "
+                    + performance.getHole().getPar()
+                    + ". Who will do best on this hole?");
             String holeWinnerChoice = selectFromListMenu(league.getGolferNames());
             
             System.out.println("How much you wanna bet?");
             int holeWinnerBetAmount = kboard.nextInt();
             
-            // Show hole performance
             printScoreCard(performance);
             
             boolean won = holeWinnerChoice.equals(performance.getBestPerformingGolfer().getName());
@@ -255,6 +258,7 @@ public class ConsoleManager {
         }
     }
     
+    // EFFECTS: Begins game at main menu
     public static void main(String[] args) {
         ConsoleManager consoleManager = new ConsoleManager();
         consoleManager.mainMenu();

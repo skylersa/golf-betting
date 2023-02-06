@@ -33,7 +33,7 @@ public class HoleAllPerformance {
     // EFFECTS: returns the golfer with the best par deviation
     public Golfer getBestPerformingGolfer() {
         Golfer bestGolfer = new Golfer("PLACEHOLDER GOLFER");
-        int bestStrokes = 100;
+        int bestStrokes = 1000;
         for (HoleGolferPerformance performance : holeGolferPerformances) {
             if (performance.getStrokes() < bestStrokes) {
                 bestGolfer = performance.getGolfer();
