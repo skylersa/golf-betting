@@ -8,7 +8,7 @@ import model.performance.HoleGolferPerformance;
  */
 public class Hole {
     public static final int MIN_PAR = 2;
-    public static final int MAX_PAR = 6;
+    public static final int MAX_PAR = 8;
     
     private final int par; // expected # of strokes
     private final int maxDeviation;

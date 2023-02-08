@@ -2,7 +2,7 @@ package ui;
 
 import model.gambling.Gambler;
 import model.game.Game;
-import model.game.League;
+import model.gambling.League;
 import model.performance.GameAllPerformance;
 import model.performance.GameGolferPerformance;
 import model.performance.HoleAllPerformance;
@@ -132,8 +132,8 @@ public class ConsoleManager {
     // EFFECTS: prints a golfer's scorecard in each of their games
     private void viewGolferMenu(String golferName) {
         System.out.println(golferName + "'s stats");
-        for (GameGolferPerformance performance : league.getGolfer(golferName).getGamePerformanceHistory()) {
-            System.out.println("===============");
+        for (GameGolferPerformance performance : league.getGolfer(golferName).getPerformanceHistory()) {
+            System.out.println("=================================");
             printScoreCard(performance);
         }
         System.out.println("\nENTER to continue");

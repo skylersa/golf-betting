@@ -1,8 +1,5 @@
 package model.game;
 
-import model.game.Course;
-import model.game.Game;
-import model.game.Golfer;
 import model.performance.GameGolferPerformance;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -59,13 +56,13 @@ public class GolferTest {
         g3.addGamePerformance(g3g0p);
         g3.addGamePerformance(g3g1p);
     
-        assertEquals(g0g0p, g0.getGamePerformanceHistory().get(0));
-        assertEquals(g0g1p, g0.getGamePerformanceHistory().get(1));
-        assertEquals(g1g0p, g1.getGamePerformanceHistory().get(0));
-        assertEquals(g1g1p, g1.getGamePerformanceHistory().get(1));
-        assertEquals(g2g0p, g2.getGamePerformanceHistory().get(0));
-        assertEquals(g2g1p, g2.getGamePerformanceHistory().get(1));
-        assertEquals(g3g0p, g3.getGamePerformanceHistory().get(0));
-        assertEquals(g3g1p, g3.getGamePerformanceHistory().get(1));
+        assertEquals(g0g0p, g0.getPerformanceHistory().get(0));
+        assertEquals(g0g1p, g0.getPerformanceHistory().get(1));
+        assertEquals(g1g0p, g1.getPerformanceHistory().get(0));
+        assertEquals(g1g1p, g1.getPerformanceHistory().get(1));
+        assertEquals(g2g0p, g2.getPerformanceHistory().get(0));
+        assertEquals(g2g1p, g2.getPerformanceHistory().get(1));
+        assertEquals(g3g0p, g3.getPerformanceHistory().get(0));
+        assertEquals(g3g1p, g3.getPerformanceHistory().get(1));
     }
 }

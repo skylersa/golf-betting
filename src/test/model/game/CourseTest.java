@@ -25,12 +25,12 @@ public class CourseTest {
         
         for (int holeIndex = 0; holeIndex < 1; holeIndex++) {
             int par = c0.getHole(holeIndex).getPar();
-            assertTrue(1 <= par && par <= 5);
+            assertTrue(Hole.MIN_PAR <= par && par <= Hole.MAX_PAR);
         }
     
         for (int holeIndex = 0; holeIndex < 18; holeIndex++) {
             int par = c1.getHole(holeIndex).getPar();
-            assertTrue(1 <= par && par <= 5);
+            assertTrue(Hole.MIN_PAR <= par && par <= Hole.MAX_PAR);
         }
     }
 }

@@ -1,4 +1,8 @@
-package model.game;
+package model.gambling;
+
+import model.game.Course;
+import model.game.Game;
+import model.game.Golfer;
 
 import java.util.ArrayList;
 import java.util.List;

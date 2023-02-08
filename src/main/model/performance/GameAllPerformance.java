@@ -61,7 +61,6 @@ public class GameAllPerformance {
             bestGolfersPerHole.add(performance.getBestPerformingGolfer());
         }
         return mostOccurredGolfer(bestGolfersPerHole);
-    
     }
     
     // REQUIRES: >= 1 Golfer in given list

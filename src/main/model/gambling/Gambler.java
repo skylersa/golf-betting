@@ -2,6 +2,7 @@ package model.gambling;
 
 /*
  * Represents a gambler with a balance, the player of this game, who can win and lose bets
+ * Note: does not handle bankruptcy, ui must handle game overs
  */
 public class Gambler {
     public static final int INITIAL_BALANCE = 5000;

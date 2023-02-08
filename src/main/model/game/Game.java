@@ -25,7 +25,8 @@ public class Game {
     
     // REQUIRES: !this.isComplete()
     // MODIFIES: this
-    // EFFECTS: returns the performance of all the golfers in the game
+    // EFFECTS: returns the performance of all the golfers in the game, adds golfers' respective performances to their
+    // performance history
     public GameAllPerformance playGame() {
         GameAllPerformance resultsAll = new GameAllPerformance(this);
         List<HoleAllPerformance> resultsHoles = new ArrayList<>();

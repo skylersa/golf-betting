@@ -29,7 +29,7 @@ public class Golfer {
         return this.name;
     }
     
-    public List<GameGolferPerformance> getGamePerformanceHistory() {
+    public List<GameGolferPerformance> getPerformanceHistory() {
         return gamePerformanceHistory;
     }
 }
