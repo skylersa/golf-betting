@@ -48,14 +48,17 @@ public class GameTest {
         assertEquals(golfers0, game0.getGolfers());
         assertEquals(golfers1, game1.getGolfers());
         assertEquals(golfers2, game2.getGolfers());
+        assertEquals(golfers3, game3.getGolfers());
         
         assertEquals(course0, game0.getCourse());
         assertEquals(course1, game1.getCourse());
         assertEquals(course2, game2.getCourse());
+        assertEquals(course1, game3.getCourse());
         
         assertFalse(game0.isComplete());
         assertFalse(game1.isComplete());
         assertFalse(game2.isComplete());
+        assertFalse(game3.isComplete());
     }
     
     @Test

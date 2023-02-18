@@ -3,6 +3,7 @@ package model.gambling;
 import model.game.Course;
 import model.game.Game;
 import model.game.Golfer;
+import ui.exceptions.RepeatGolferException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,12 @@ public class League {
     // REQUIRES: name is unique
     // MODIFIES: this
     // EFFECTS: adds golfer with given name
-    public void addGolfer(String name) {
-        this.golfers.add(new Golfer(name));
+    public void addGolfer(String name) throws RepeatGolferException {
+        if (getGolferNames().contains(name)) {
+            throw new RepeatGolferException(name);
+        } else {
+            this.golfers.add(new Golfer(name));
+        }
     }
     
     // REQUIRES: name is unique, numHoles > 0

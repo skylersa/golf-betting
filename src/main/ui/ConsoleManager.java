@@ -3,10 +3,13 @@ package ui;
 import model.gambling.Gambler;
 import model.game.Game;
 import model.gambling.League;
+import model.game.Hole;
 import model.performance.GameAllPerformance;
 import model.performance.GameGolferPerformance;
 import model.performance.HoleAllPerformance;
 import model.performance.HoleGolferPerformance;
+import ui.exceptions.NegativeBetException;
+import ui.exceptions.RepeatGolferException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +31,14 @@ public class ConsoleManager {
         gambler = new Gambler();
         league = new League();
         
-        league.addGolfer("Bob Odenkirk");
-        league.addGolfer("Bryan Cranston");
-        league.addGolfer("Aaron Paul");
-        league.addGolfer("Billiam Zero");
+        try {
+            league.addGolfer("Bob Odenkirk");
+            league.addGolfer("Bryan Cranston");
+            league.addGolfer("Aaron Paul");
+            league.addGolfer("Billiam Zero");
+        } catch (RepeatGolferException e) {
+            throw new Error(e);
+        }
         league.addCourse("WestField Golf", 4);
         league.addCourse("Albuquerque's finest", 3);
         league.addCourse("Tiny Golf!", 1);
@@ -122,10 +129,15 @@ public class ConsoleManager {
     
     // MODIFIES: this
     // EFFECTS: adds a golfer of user's choice name, sends back to golfersMenu
-    public void addGolferMenu() {
+    private void addGolferMenu() {
         System.out.println("What's their name?");
-        league.addGolfer(kboard.next());
-        golfersMenu();
+        try {
+            league.addGolfer(kboard.next());
+            golfersMenu();
+        } catch (RepeatGolferException e) {
+            System.out.println("Please choose a unique name");
+            addGolferMenu();
+        }
     }
     
     // REQUIRES: given golfer is in league
@@ -151,8 +163,7 @@ public class ConsoleManager {
         // Place pre-game bets
         System.out.println("Who will win?");
         String gameWinnerBetChoice = selectFromListMenu(league.getGolferNames());
-        System.out.println("How much you wanna bet?");
-        int winnerChoiceBetAmount = kboard.nextInt();
+        int winnerChoiceBetAmount = takeBetAmount();
         
         boolean won = mainGameLoop(courseChoice, league.getGolferNames(), gameWinnerBetChoice);
         
@@ -177,16 +188,45 @@ public class ConsoleManager {
                     + ". Who will do best on this hole?");
             String holeWinnerChoice = selectFromListMenu(league.getGolferNames());
             
-            System.out.println("How much you wanna bet?");
-            int holeWinnerBetAmount = kboard.nextInt();
-            
+            int holeWinnerBetAmount = takeBetAmount();
+    
             printScoreCard(performance);
             
             boolean won = holeWinnerChoice.equals(performance.getBestPerformingGolfer().getName());
             settleBet(won, holeWinnerBetAmount);
         }
+        
+        printScoreCard(gameAllPerformance);
+        System.out.println("ENTER to continue");
+        kboard.next();
+        
         return winnerChoice.equals(gameAllPerformance.getBestPerformingGolfer().getName());
     }
+    
+    // EFFECTS: prints "How much you wanna bet?" and returns entered bet amount
+    //    returned amount is always non-negative, not always within player budget
+    private int takeBetAmount() {
+        System.out.println("How much you wanna bet?");
+        int betAmount;
+        while (true) {
+            try {
+                betAmount = parseInt(kboard.next());
+                if (betAmount < 0) {
+                    throw new NegativeBetException();
+                }
+            
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a number:");
+                betAmount = -1;
+            } catch (NegativeBetException e) {
+                System.out.println("Please enter a positive number");
+                betAmount = -1;
+            }
+        }
+        return betAmount;
+    }
+    
     
     // REQUIRES: betAmount >= 0
     // MODIFIES: this
@@ -205,9 +245,34 @@ public class ConsoleManager {
             System.exit(1);
         }
         
-        System.out.println("Your new balance is $" + gambler.getBalance() + "\nENTER TO CONTINUE");
+        System.out.println("Your new balance is $" + gambler.getBalance() + "\nENTER to continue");
         kboard.next();
     }
+    
+    // REQUIRES: gameAllPerformance is full of GameGolferPerformances and HoleAllPerformances
+    // EFFECTS: prints out a scorecard of the game, players down the side and holes across the top
+    private void printScoreCard(GameAllPerformance gameAllPerformance) {
+        String spacer = "  ";
+        StringBuilder parHeader = new StringBuilder("PAR:    ");
+        List<StringBuilder> strokesBody = new ArrayList<>();
+    
+        for (Hole hole : gameAllPerformance.getGame().getCourse().getHoles()) {
+            parHeader.append(spacer).append(hole.getPar());
+        }
+        for (GameGolferPerformance gameGolferPerformance : gameAllPerformance.getGameGolferPerformances()) {
+            StringBuilder currentHoleLine = new StringBuilder(gameGolferPerformance.getGolfer().getName());
+            for (HoleGolferPerformance holeGolferPerformance : gameGolferPerformance.getHoleGolferPerformances()) {
+                currentHoleLine.append(spacer).append(holeGolferPerformance.getStrokes());
+            }
+            strokesBody.add(currentHoleLine);
+        }
+    
+        System.out.println(parHeader);
+        for (StringBuilder strokesBodyPart : strokesBody) {
+            System.out.println(strokesBodyPart);
+        }
+    }
+    
     
     // REQUIRES: performance is full of HoleGolferPerformances
     // EFFECTS: prints out a scorecard of given performance horizontally
@@ -246,11 +311,19 @@ public class ConsoleManager {
         }
         
         int choice = -1;
-        while (!(0 <= choice && choice < list.size())) {
+        while (true) {
             try {
                 choice = parseInt(kboard.next()) - 1;
-            } catch (Exception e) {
-                System.out.println("Please enter a number that is listed");
+                if (!(0 <= choice && choice < list.size())) {
+                    throw new IndexOutOfBoundsException();
+                }
+                
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a number");
+                choice = -1;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Please enter a number on the list");
                 choice = -1;
             }
         }

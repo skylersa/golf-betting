@@ -3,6 +3,7 @@ package model.game;
 import model.gambling.League;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ui.exceptions.RepeatGolferException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,10 +24,14 @@ public class LeagueTest {
         l1.addCourse("east", 1);
         l1.addCourse("north", 15);
         
-        l1.addGolfer("carlo");
-        l1.addGolfer("timmy");
-        l1.addGolfer("bobby");
-        l1.addGolfer("jackson");
+        try {
+            l1.addGolfer("carlo");
+            l1.addGolfer("timmy");
+            l1.addGolfer("bobby");
+            l1.addGolfer("jackson");
+        } catch (RepeatGolferException e) {
+            throw new Error(e);
+        }
     
     }
     
