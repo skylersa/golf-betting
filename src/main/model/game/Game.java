@@ -4,6 +4,9 @@ import model.performance.GameAllPerformance;
 import model.performance.GameGolferPerformance;
 import model.performance.HoleAllPerformance;
 import model.performance.HoleGolferPerformance;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +14,7 @@ import java.util.List;
 /*
  * Represents a game of golf on a course, played by the list of golfers
  */
-public class Game {
+public class Game implements Writable {
     private boolean isComplete = false;
     private final Course course;
     private final List<Golfer> golfers;
@@ -58,5 +61,20 @@ public class Game {
     
     public Course getCourse() {
         return this.course;
+    }
+    
+    @Override
+    public JSONObject toJson() {
+        JSONArray golfersJson = new JSONArray();
+        for (Golfer golfer : golfers) {
+            golfersJson.put(golfer.toJson());
+        }
+        
+        JSONObject json = new JSONObject();
+        json.put("complete", this.isComplete);
+        json.put("course", this.course);
+        json.put("golfers", golfersJson);
+        
+        return json;
     }
 }

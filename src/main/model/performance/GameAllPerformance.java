@@ -2,6 +2,9 @@ package model.performance;
 
 import model.game.Game;
 import model.game.Golfer;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +16,7 @@ import java.util.List;
  *     a list of all the golfers' performances on each hole
  * See Performance structure.jpg for details the structure of performance holders
  */
-public class GameAllPerformance {
+public class GameAllPerformance implements Writable {
     private final Game game;
     private List<GameGolferPerformance> gameGolferPerformances = new ArrayList<>();
     private List<HoleAllPerformance> holeAllPerformances = new ArrayList<>();
@@ -100,6 +103,27 @@ public class GameAllPerformance {
     
     public List<HoleAllPerformance> getHoleAllPerformances() {
         return this.holeAllPerformances;
+    }
+    
+    @Override
+    public JSONObject toJson() {
+        JSONArray ggpJson = new JSONArray();
+        JSONArray hapJson = new JSONArray();
+        
+        for (GameGolferPerformance ggp : gameGolferPerformances) {
+            ggpJson.put(ggp.toJson());
+        }
+        
+        for (HoleAllPerformance hap : holeAllPerformances) {
+            hapJson.put(hap.toJson());
+        }
+    
+    
+        JSONObject json = new JSONObject();
+        json.put("game", this.game);
+        json.put("gameGolferPerformances", ggpJson);
+        json.put("holeAllPerformances", hapJson);
+        return json;
     }
 }
 

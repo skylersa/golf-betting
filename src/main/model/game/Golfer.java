@@ -1,9 +1,12 @@
 package model.game;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 /*
  * Represents a golfer with a name
  */
-public class Golfer {
+public class Golfer implements Writable {
     private final String name;
     
     // REQUIRES: name is unique to this golfer
@@ -14,5 +17,10 @@ public class Golfer {
     
     public String getName() {
         return this.name;
+    }
+    
+    @Override
+    public JSONObject toJson() {
+        return new JSONObject().put("name", this.name);
     }
 }

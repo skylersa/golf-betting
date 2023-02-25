@@ -7,6 +7,9 @@ import model.game.Game;
 import model.game.Golfer;
 import model.performance.GameAllPerformance;
 import model.performance.GameGolferPerformance;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +18,7 @@ import java.util.List;
  * Represents a league of golfers and course that they can play on. Gives a friendlier manner with which to interact
  * with the various list of things (using strings)
  */
-public class League {
+public class League implements Writable {
     private List<Golfer> golfers;
     private List<Course> courses;
     private final Gambler gambler;
@@ -145,5 +148,26 @@ public class League {
     
     public Gambler getGambler() {
         return gambler;
+    }
+    
+    @Override
+    public JSONObject toJson() {
+        JSONArray golfersJson = new JSONArray();
+        JSONArray coursesJson = new JSONArray();
+        
+        for (Golfer golfer : golfers) {
+            golfersJson.put(golfer.toJson());
+        }
+        
+        for (Course course : courses) {
+            coursesJson.put(course.toJson());
+        }
+        
+        JSONObject json = new JSONObject();
+        json.put("golfers", golfersJson);
+        json.put("courses", coursesJson);
+        json.put("gambler", gambler.toJson());
+        
+        return json;
     }
 }

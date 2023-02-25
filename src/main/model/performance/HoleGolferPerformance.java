@@ -2,13 +2,16 @@ package model.performance;
 
 import model.game.Golfer;
 import model.game.Hole;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 /*
  * Represents the performance of one golfer on one hole.
  * This class is immutable and is the granular performance that the rest of the performance packages hold and manage
  * See Performance structure.jpg for details the structure of performance holders
  */
-public final class HoleGolferPerformance {
+public final class HoleGolferPerformance implements Writable {
     private final Hole hole;
     private final Golfer golfer;
     private final int strokes;
@@ -37,5 +40,15 @@ public final class HoleGolferPerformance {
     
     public Golfer getGolfer() {
         return this.golfer;
+    }
+    
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("hole", this.hole);
+        json.put("golfer", this.golfer);
+        json.put("strokes", this.strokes);
+        
+        return json;
     }
 }

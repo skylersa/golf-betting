@@ -1,12 +1,14 @@
 package model.game;
 
 import model.performance.HoleGolferPerformance;
+import org.json.JSONObject;
+import persistence.Writable;
 
 /*
  * Represents a hole on a golf course with an expected number of strokes to sink the hole (par)
  * Note: I've made the choice to include the playHole method on this class (rather than the golfer)
  */
-public class Hole {
+public class Hole implements Writable {
     public static final int MIN_PAR = 2;
     public static final int MAX_PAR = 8;
     
@@ -39,5 +41,12 @@ public class Hole {
     
     public int getMaxDeviation() {
         return maxDeviation;
+    }
+    
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("par", this.par);
+        return json;
     }
 }

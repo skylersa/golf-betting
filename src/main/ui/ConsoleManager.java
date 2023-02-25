@@ -23,7 +23,7 @@ public class ConsoleManager {
     private Scanner kboard = new Scanner(System.in).useDelimiter("\n");
     private final League league;
     
-    // EFFECTS: creates new consoleManager with a league and gambler
+    // EFFECTS: creates new consoleManager with a league
     private ConsoleManager() {
         league = new League();
         
@@ -47,6 +47,7 @@ public class ConsoleManager {
         options.add("Start Game!");
         options.add("View or add golfers");
         options.add("View or add course");
+        options.add("Save, Load, Quit");
         
         System.out.println("Main menu");
         switch (selectFromListMenu(options)) {
@@ -58,6 +59,28 @@ public class ConsoleManager {
                 break;
             case "View or add course":
                 coursesMenu();
+                break;
+            case "Save, Load, Quit":
+                saveLoadQuitMenu();
+                break;
+        }
+    }
+    
+    private void saveLoadQuitMenu() {
+        List<String> options = new ArrayList<>();
+        options.add("Save");
+        options.add("Load");
+        options.add("Quit");
+    
+        switch (selectFromListMenu(options)) {
+            case "Save":
+                // TODO: save function
+                break;
+            case "Load":
+                // TODO: load function
+                break;
+            case "Quit":
+                System.exit(15);
                 break;
         }
     }

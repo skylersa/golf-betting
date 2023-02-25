@@ -1,9 +1,13 @@
 package model.game;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 /*
  * Represents a golf course with some holes to play golf on
  */
-public class Course {
+public class Course  implements Writable {
     private final String name;
     private final int numHoles;
     private Hole[] holes;
@@ -34,5 +38,20 @@ public class Course {
     
     public Hole getHole(int holeIndex) {
         return holes[holeIndex];
+    }
+    
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        
+        json.put("name", this.name);
+        
+        JSONArray holesJson = new JSONArray();
+        for (Hole hole : holes) {
+            hole.toJson();
+        }
+        json.put("holes", holesJson);
+        
+        return json;
     }
 }

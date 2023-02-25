@@ -1,10 +1,13 @@
 package model.gambling;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 /*
  * Represents a gambler with a balance, the player of this game, who can win and lose bets
  * Note: does not handle bankruptcy, ui must handle game overs
  */
-public class Gambler {
+public class Gambler implements Writable {
     public static final int INITIAL_BALANCE = 5000;
     private int balance;
     
@@ -26,5 +29,12 @@ public class Gambler {
     
     public int getBalance() {
         return balance;
+    }
+    
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("balance", this.balance);
+        return json;
     }
 }
