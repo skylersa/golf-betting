@@ -92,13 +92,15 @@ public class ConsoleManager {
         String inName = kboard.next();
         
         int inNumHoles = -1;
+        System.out.println("How many holes does it have?");
+        
         while (!(inNumHoles > 0)) {
-            System.out.println("How many holes does it have?");
             
             try {
-                inNumHoles = kboard.nextInt();
-            } catch (Exception e) {
-                System.out.println("How many holes does it have?");
+                inNumHoles = Integer.parseInt(kboard.next());
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a positive number");
+                inNumHoles = -1;
             }
         }
         
