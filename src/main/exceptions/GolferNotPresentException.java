@@ -1,7 +1,5 @@
 package exceptions;
 
-import model.game.Golfer;
-
 public class GolferNotPresentException extends RuntimeException {
     
     public GolferNotPresentException() {

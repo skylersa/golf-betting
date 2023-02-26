@@ -1,11 +1,11 @@
 package model.gambling;
 
 import exceptions.GolferNotPresentException;
+import exceptions.RepeatGolferException;
 import model.game.Course;
 import model.game.Game;
 import model.game.Golfer;
 import model.performance.GameAllPerformance;
-import exceptions.RepeatGolferException;
 import model.performance.GameGolferPerformance;
 
 import java.util.ArrayList;

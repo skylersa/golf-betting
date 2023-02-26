@@ -1,12 +1,7 @@
 package model.game;
 
-import model.performance.GameGolferPerformance;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /*
- * Represents a golfer with a name and a history of play
+ * Represents a golfer with a name
  */
 public class Golfer {
     private final String name;

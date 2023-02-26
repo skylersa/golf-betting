@@ -1,17 +1,16 @@
 package model.game;
 
+import exceptions.RepeatGolferException;
 import model.gambling.League;
 import model.performance.GameAllPerformance;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import exceptions.RepeatGolferException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LeagueTest {
     private League l0, l1;

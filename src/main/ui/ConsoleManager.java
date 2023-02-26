@@ -1,19 +1,19 @@
 package ui;
 
+import exceptions.NegativeBetException;
+import exceptions.RepeatGolferException;
 import model.gambling.League;
 import model.game.Hole;
 import model.performance.GameAllPerformance;
 import model.performance.GameGolferPerformance;
 import model.performance.HoleAllPerformance;
 import model.performance.HoleGolferPerformance;
-import exceptions.NegativeBetException;
-import exceptions.RepeatGolferException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static java.lang.Integer.*;
+import static java.lang.Integer.parseInt;
 
 /*
  * CONTAINS MAIN METHOD
