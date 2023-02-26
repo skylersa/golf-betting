@@ -15,8 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
- * Represents a league of golfers and course that they can play on. Gives a friendlier manner with which to interact
- * with the various list of things (using strings)
+ * Represents a league of golfers and course that they can play on and their histories of perforances.
+ * Gives a friendlier manner with which to interact
+ *th the various list of things (using strings)
  */
 public class League implements Writable {
     private List<Golfer> golfers;

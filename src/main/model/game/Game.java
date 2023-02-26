@@ -72,7 +72,7 @@ public class Game implements Writable {
         
         JSONObject json = new JSONObject();
         json.put("complete", this.isComplete);
-        json.put("course", this.course);
+        json.put("course", this.course.toJson());
         json.put("golfers", golfersJson);
         
         return json;
