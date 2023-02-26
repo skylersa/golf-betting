@@ -10,26 +10,14 @@ import java.util.List;
  */
 public class Golfer {
     private final String name;
-    private List<GameGolferPerformance> gamePerformanceHistory;
     
     // REQUIRES: name is unique to this golfer
     // EFFECTS: create new golfer with given name
     public Golfer(String name) {
         this.name = name;
-        gamePerformanceHistory = new ArrayList<>();
-    }
-    
-    // MODIFIES: this
-    // EFFECTS: add given performance to golfer's history
-    public void addGamePerformance(GameGolferPerformance performance) {
-        this.gamePerformanceHistory.add(performance);
     }
     
     public String getName() {
         return this.name;
-    }
-    
-    public List<GameGolferPerformance> getPerformanceHistory() {
-        return gamePerformanceHistory;
     }
 }

@@ -1,9 +1,12 @@
 package model.gambling;
 
+import exceptions.GolferNotPresentException;
 import model.game.Course;
 import model.game.Game;
 import model.game.Golfer;
-import ui.exceptions.RepeatGolferException;
+import model.performance.GameAllPerformance;
+import exceptions.RepeatGolferException;
+import model.performance.GameGolferPerformance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +18,19 @@ import java.util.List;
 public class League {
     private List<Golfer> golfers;
     private List<Course> courses;
+    private final Gambler gambler;
+    
+    private List<Game> game;
+    private List<GameAllPerformance> performances;
+    
     
     // EFFECTS: new league with no players or courses
     public League() {
         golfers = new ArrayList<>();
         courses = new ArrayList<>();
+        gambler = new Gambler();
+        
+        performances = new ArrayList<>();
     }
     
     // REQUIRES: name is unique
@@ -44,30 +55,61 @@ public class League {
     //           courseName has been added as course
     // EFFECTS: return a game with the given golfers on the given course
     //          does not play the game
-    public Game makeGame(String courseName, List<String> golferNames) {
-        Course courseToAdd = new Course("placeholder course name", 69);
+    public GameAllPerformance playGame(String courseName, List<String> golferNames) {
+        Course courseToAdd = null;
+        
         for (Course course : this.courses) {
             if (course.getName().equals(courseName)) {
                 courseToAdd = course;
             }
         }
-    
+        if (courseToAdd == null) {
+            throw new NullPointerException();
+        }
+        
+        
         List<Golfer> golfersToAdd = new ArrayList<>();
-        for (Golfer golfer : this.golfers) {
-            if (golferNames.contains(golfer.getName())) {
-                golfersToAdd.add(golfer);
+        for (String golferName : golferNames) {
+            golfersToAdd.add(this.getGolfer(golferName));
+        }
+        if (golferNames.size() != golfersToAdd.size()) {
+            throw new GolferNotPresentException();
+        }
+        
+        Game game = new Game(courseToAdd, golfersToAdd);
+        GameAllPerformance gameAllPerformance = game.playGame();
+        
+        performances.add(gameAllPerformance);
+        return gameAllPerformance;
+    }
+    
+    
+    // EFFECTS: returns all stored game performances for given golfer
+    public List<GameGolferPerformance> getGolferHistory(String golferName) {
+        Golfer golfer = this.getGolfer(golferName);
+        
+        List<GameGolferPerformance> result = new ArrayList<>();
+        for (GameAllPerformance gameAllPerformance : performances) {
+            for (GameGolferPerformance gameGolferPerformance : gameAllPerformance.getGameGolferPerformances()) {
+                if (gameGolferPerformance.getGolfer() == golfer) {
+                    result.add(gameGolferPerformance);
+                }
             }
         }
         
-        return new Game(courseToAdd, golfersToAdd);
+        return result;
     }
     
     // REQUIRES: given golfer is in this league
     // EFFECTS: returns the Golfer of given name
     public Golfer getGolfer(String name) {
-        return this.golfers.get(this.getGolferNames().indexOf(name));
-    
+        try {
+            return this.golfers.get(this.getGolferNames().indexOf(name));
+        } catch (IndexOutOfBoundsException e) {
+            throw new GolferNotPresentException(name, e);
+        }
     }
+    
     
     // REQUIRES: given course is in this league
     // EFFECTS: returns the Course of given name
@@ -99,5 +141,9 @@ public class League {
     
     public List<Golfer> getGolfers() {
         return golfers;
+    }
+    
+    public Gambler getGambler() {
+        return gambler;
     }
 }

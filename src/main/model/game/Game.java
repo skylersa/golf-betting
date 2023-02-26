@@ -42,7 +42,6 @@ public class Game {
                 resultsGolfer.addGolferPerformance(resultHole);
             }
             resultsAll.addGameGolferPerformance(resultsGolfer);
-            golfer.addGamePerformance(resultsGolfer);
         }
         resultsAll.addHoleAllPerformances(resultsHoles);
         this.isComplete = true;

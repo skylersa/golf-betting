@@ -1,4 +1,4 @@
-package ui.exceptions;
+package exceptions;
 
 // Exception is thrown when a golfer with the given name is already in the league
 public class RepeatGolferException extends Exception {

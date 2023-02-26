@@ -44,25 +44,4 @@ public class GolferTest {
         assertEquals("g2", g2.getName());
         assertEquals("g3", g3.getName());
     }
-    
-    @Test
-    public void addGamePerformanceTest() {
-        g0.addGamePerformance(g0g0p);
-        g0.addGamePerformance(g0g1p);
-        g1.addGamePerformance(g1g0p);
-        g1.addGamePerformance(g1g1p);
-        g2.addGamePerformance(g2g0p);
-        g2.addGamePerformance(g2g1p);
-        g3.addGamePerformance(g3g0p);
-        g3.addGamePerformance(g3g1p);
-    
-        assertEquals(g0g0p, g0.getPerformanceHistory().get(0));
-        assertEquals(g0g1p, g0.getPerformanceHistory().get(1));
-        assertEquals(g1g0p, g1.getPerformanceHistory().get(0));
-        assertEquals(g1g1p, g1.getPerformanceHistory().get(1));
-        assertEquals(g2g0p, g2.getPerformanceHistory().get(0));
-        assertEquals(g2g1p, g2.getPerformanceHistory().get(1));
-        assertEquals(g3g0p, g3.getPerformanceHistory().get(0));
-        assertEquals(g3g1p, g3.getPerformanceHistory().get(1));
-    }
 }

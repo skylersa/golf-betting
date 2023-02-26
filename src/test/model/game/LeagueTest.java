@@ -1,9 +1,10 @@
 package model.game;
 
 import model.gambling.League;
+import model.performance.GameAllPerformance;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ui.exceptions.RepeatGolferException;
+import exceptions.RepeatGolferException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,34 +62,43 @@ public class LeagueTest {
     }
     
     @Test
-    public void makeGameL1Test() {
+    public void playGameTest() {
+        GameAllPerformance gap0 = l1.playGame("west", new ArrayList<>(Arrays.asList("carlo", "timmy")));
+        GameAllPerformance gap1 = l1.playGame("west", new ArrayList<>(Arrays.asList("bobby", "jackson")));
+        GameAllPerformance gap2 = l1.playGame("east", new ArrayList<>(Arrays.asList("carlo", "bobby")));
+        GameAllPerformance gap3 = l1.playGame("north", new ArrayList<>(Arrays.asList("carlo", "timmy", "bobby")));
         
-        Game game0 = l1.makeGame("west", new ArrayList<>(Arrays.asList("carlo", "timmy")));
-        Game game1 = l1.makeGame("west", new ArrayList<>(Arrays.asList("bobby", "jackson")));
-        Game game2 = l1.makeGame("east", new ArrayList<>(Arrays.asList("carlo", "bobby")));
-        Game game3 = l1.makeGame("north", new ArrayList<>(Arrays.asList("carlo", "timmy", "bobby")));
+        assertEquals("west", gap0.getGame().getCourse().getName());
+        assertEquals("west", gap1.getGame().getCourse().getName());
+        assertEquals("east", gap2.getGame().getCourse().getName());
+        assertEquals("north", gap3.getGame().getCourse().getName());
         
-        assertEquals("west", game0.getCourse().getName());
-        assertEquals("west", game1.getCourse().getName());
-        assertEquals("east", game2.getCourse().getName());
-        assertEquals("north", game3.getCourse().getName());
-        
-        assertEquals("carlo", game0.getGolfers().get(0).getName());
-        assertEquals("timmy", game0.getGolfers().get(1).getName());
-        assertEquals("bobby", game1.getGolfers().get(0).getName());
-        assertEquals("jackson", game1.getGolfers().get(1).getName());
-        assertEquals("carlo", game2.getGolfers().get(0).getName());
-        assertEquals("bobby", game2.getGolfers().get(1).getName());
-        assertEquals("carlo", game3.getGolfers().get(0).getName());
-        assertEquals("timmy", game3.getGolfers().get(1).getName());
-        assertEquals("bobby", game3.getGolfers().get(2).getName());
+        assertEquals("carlo", gap0.getGame().getGolfers().get(0).getName());
+        assertEquals("timmy", gap0.getGame().getGolfers().get(1).getName());
+        assertEquals("bobby", gap1.getGame().getGolfers().get(0).getName());
+        assertEquals("jackson", gap1.getGame().getGolfers().get(1).getName());
+        assertEquals("carlo", gap2.getGame().getGolfers().get(0).getName());
+        assertEquals("bobby", gap2.getGame().getGolfers().get(1).getName());
+        assertEquals("carlo", gap3.getGame().getGolfers().get(0).getName());
+        assertEquals("timmy", gap3.getGame().getGolfers().get(1).getName());
+        assertEquals("bobby", gap3.getGame().getGolfers().get(2).getName());
     }
-    
     @Test
-    public void getCourseTest() {
-        assertEquals(l1.getCourses().get(0), l1.getCourse("west"));
-        assertEquals(l1.getCourses().get(1), l1.getCourse("east"));
-        assertEquals(l1.getCourses().get(2), l1.getCourse("north"));
+    public void getGolferPerformanceHistoryTest() {
+        GameAllPerformance gap0 = l1.playGame("west", new ArrayList<>(Arrays.asList("carlo", "timmy")));
+        GameAllPerformance gap1 = l1.playGame("west", new ArrayList<>(Arrays.asList("bobby", "jackson")));
+        GameAllPerformance gap2 = l1.playGame("east", new ArrayList<>(Arrays.asList("carlo", "bobby")));
+        GameAllPerformance gap3 = l1.playGame("north", new ArrayList<>(Arrays.asList("carlo", "timmy", "bobby")));
+        
+        assertEquals("carlo", l1.getGolferHistory("carlo").get(0).getGame().getGolfers().get(0).getName());
+        assertEquals("timmy", l1.getGolferHistory("timmy").get(0).getGame().getGolfers().get(1).getName());
+        assertEquals("bobby", l1.getGolferHistory("bobby").get(0).getGame().getGolfers().get(0).getName());
+        assertEquals("jackson", l1.getGolferHistory("jackson").get(0).getGame().getGolfers().get(1).getName());
+        assertEquals("carlo", l1.getGolferHistory("carlo").get(1).getGame().getGolfers().get(0).getName());
+        assertEquals("bobby", l1.getGolferHistory("bobby").get(1).getGame().getGolfers().get(1).getName());
+        assertEquals("carlo", l1.getGolferHistory("carlo").get(2).getGame().getGolfers().get(0).getName());
+        assertEquals("timmy", l1.getGolferHistory("timmy").get(0).getGame().getGolfers().get(1).getName());
+        assertEquals("bobby", l1.getGolferHistory("bobby").get(2).getGame().getGolfers().get(2).getName());
     }
     
     @Test
@@ -100,7 +110,24 @@ public class LeagueTest {
     }
     
     @Test
-    public void getGolfersTest() {
+    public void getCourseTest() {
+        assertEquals(l1.getCourses().get(0), l1.getCourse("west"));
+        assertEquals(l1.getCourses().get(1), l1.getCourse("east"));
+        assertEquals(l1.getCourses().get(2), l1.getCourse("north"));
+    }
+    
+    @Test
+    public void getCourseNamesTest() {
+        List<String> expectedCourses = new ArrayList<>();
+        expectedCourses.add("west");
+        expectedCourses.add("east");
+        expectedCourses.add("north");
+        
+        assertEquals(expectedCourses, l1.getCourseNames());
+    }
+    
+    @Test
+    public void getGolferNamesTest() {
         List<String> expectedGolfers = new ArrayList<>();
         expectedGolfers.add("carlo");
         expectedGolfers.add("timmy");
@@ -110,13 +137,5 @@ public class LeagueTest {
         assertEquals(expectedGolfers, l1.getGolferNames());
     }
     
-    @Test
-    public void getGolferNamesTest() {
-        List<String> expectedCourses = new ArrayList<>();
-        expectedCourses.add("west");
-        expectedCourses.add("east");
-        expectedCourses.add("north");
-        
-        assertEquals(expectedCourses, l1.getCourseNames());
-    }
+    
 }

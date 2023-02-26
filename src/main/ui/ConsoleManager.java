@@ -1,15 +1,13 @@
 package ui;
 
-import model.gambling.Gambler;
-import model.game.Game;
 import model.gambling.League;
 import model.game.Hole;
 import model.performance.GameAllPerformance;
 import model.performance.GameGolferPerformance;
 import model.performance.HoleAllPerformance;
 import model.performance.HoleGolferPerformance;
-import ui.exceptions.NegativeBetException;
-import ui.exceptions.RepeatGolferException;
+import exceptions.NegativeBetException;
+import exceptions.RepeatGolferException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +22,9 @@ import static java.lang.Integer.*;
 public class ConsoleManager {
     private Scanner kboard = new Scanner(System.in).useDelimiter("\n");
     private final League league;
-    private final Gambler gambler;
     
     // EFFECTS: creates new consoleManager with a league and gambler
     private ConsoleManager() {
-        gambler = new Gambler();
         league = new League();
         
         try {
@@ -146,7 +142,7 @@ public class ConsoleManager {
     // EFFECTS: prints a golfer's scorecard in each of their games
     private void viewGolferMenu(String golferName) {
         System.out.println(golferName + "'s stats");
-        for (GameGolferPerformance performance : league.getGolfer(golferName).getPerformanceHistory()) {
+        for (GameGolferPerformance performance : league.getGolferHistory(golferName)) {
             System.out.println("=================================");
             printScoreCard(performance);
         }
@@ -181,8 +177,7 @@ public class ConsoleManager {
     //          updates gambler's balance accordingly
     //          returns true if the winner of the game is winnerChoice, otherwise false
     private boolean mainGameLoop(String courseChoice, List<String> golferChoices, String winnerChoice) {
-        Game game = league.makeGame(courseChoice, golferChoices);
-        GameAllPerformance gameAllPerformance = game.playGame();
+        GameAllPerformance gameAllPerformance = league.playGame(courseChoice, golferChoices);
         
         for (HoleAllPerformance performance : gameAllPerformance.getHoleAllPerformances()) {
             System.out.println("Par at this hole is "
@@ -234,20 +229,20 @@ public class ConsoleManager {
     // MODIFIES: this
     // EFFECTS: changes gambler placing according to bet performance, print results to console
     private void settleBet(boolean won, int betAmount) {
-        System.out.println("Your balance was $" + gambler.getBalance());
-        gambler.bet(won, betAmount);
+        System.out.println("Your balance was $" + league.getGambler().getBalance());
+        league.getGambler().bet(won, betAmount);
         if (won) {
             System.out.println("You won $" + betAmount);
         } else {
             System.out.println("You lost $" + betAmount);
         }
         
-        if (gambler.getBalance() <= 0) {
+        if (league.getGambler().getBalance() <= 0) {
             System.out.println("You're out of money! Game over.");
             System.exit(1);
         }
         
-        System.out.println("Your new balance is $" + gambler.getBalance() + "\nENTER to continue");
+        System.out.println("Your new balance is $" + league.getGambler().getBalance() + "\nENTER to continue");
         kboard.next();
     }
     

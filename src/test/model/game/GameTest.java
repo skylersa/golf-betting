@@ -101,9 +101,6 @@ public class GameTest {
                 
                 assertEquals(golferExpected, golferActual);
                 assertEquals(holeExpected, holeActual);
-                
-                assertTrue(golfers.get(golferI).getPerformanceHistory().
-                        contains(gap.getGameGolferPerformances().get(golferI)));
             }
         }
     }
