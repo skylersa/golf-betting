@@ -23,7 +23,6 @@ public class League implements Writable {
     private List<Course> courses;
     private final Gambler gambler;
     
-    private List<Game> game;
     private List<GameAllPerformance> performances;
     
     
@@ -154,18 +153,25 @@ public class League implements Writable {
     public JSONObject toJson() {
         JSONArray golfersJson = new JSONArray();
         JSONArray coursesJson = new JSONArray();
+        JSONArray performancesJson = new JSONArray();
         
-        for (Golfer golfer : golfers) {
+        for (Golfer golfer : this.golfers) {
             golfersJson.put(golfer.toJson());
         }
         
-        for (Course course : courses) {
+        for (Course course : this.courses) {
             coursesJson.put(course.toJson());
+        }
+        
+        for (GameAllPerformance gap : this.performances) {
+            performancesJson.put(gap.toJson());
+    
         }
         
         JSONObject json = new JSONObject();
         json.put("golfers", golfersJson);
         json.put("courses", coursesJson);
+        json.put("performances", performancesJson);
         json.put("gambler", gambler.toJson());
         
         return json;

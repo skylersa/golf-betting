@@ -48,7 +48,7 @@ public class Course  implements Writable {
         
         JSONArray holesJson = new JSONArray();
         for (Hole hole : holes) {
-            hole.toJson();
+            holesJson.put(hole.toJson());
         }
         json.put("holes", holesJson);
         

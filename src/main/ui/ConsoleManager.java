@@ -8,7 +8,9 @@ import model.performance.GameAllPerformance;
 import model.performance.GameGolferPerformance;
 import model.performance.HoleAllPerformance;
 import model.performance.HoleGolferPerformance;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -20,12 +22,16 @@ import static java.lang.Integer.parseInt;
  * Represents and manages the console-based ui for this program
  */
 public class ConsoleManager {
+    private static final String JSON_STORE = "./data/league.json";
     private Scanner kboard = new Scanner(System.in).useDelimiter("\n");
+    private JsonWriter jsonWriter;
+    
     private final League league;
     
     // EFFECTS: creates new consoleManager with a league
     private ConsoleManager() {
         league = new League();
+        jsonWriter = new JsonWriter(JSON_STORE);
         
         try {
             league.addGolfer("Bob Odenkirk");
@@ -47,7 +53,7 @@ public class ConsoleManager {
         options.add("Start Game!");
         options.add("View or add golfers");
         options.add("View or add course");
-        options.add("Save, Load, Quit");
+        options.add("Save, Load, or Quit");
         
         System.out.println("Main menu");
         switch (selectFromListMenu(options)) {
@@ -60,7 +66,7 @@ public class ConsoleManager {
             case "View or add course":
                 coursesMenu();
                 break;
-            case "Save, Load, Quit":
+            case "Save, Load, or Quit":
                 saveLoadQuitMenu();
                 break;
         }
@@ -74,10 +80,19 @@ public class ConsoleManager {
     
         switch (selectFromListMenu(options)) {
             case "Save":
-                // TODO: save function
+                try {
+                    jsonWriter.open();
+                    jsonWriter.write(this.league);
+                    jsonWriter.close();
+                    System.out.println("Saved!");
+                } catch (FileNotFoundException e) {
+                    System.out.println("Could find file " + JSON_STORE);
+                }
+                mainMenu();
                 break;
             case "Load":
                 // TODO: load function
+                mainMenu();
                 break;
             case "Quit":
                 System.exit(15);

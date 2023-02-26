@@ -45,8 +45,8 @@ public final class HoleGolferPerformance implements Writable {
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("hole", this.hole);
-        json.put("golfer", this.golfer);
+        json.put("hole", this.hole.toJson());
+        json.put("golfer", this.golfer.toJson());
         json.put("strokes", this.strokes);
         
         return json;

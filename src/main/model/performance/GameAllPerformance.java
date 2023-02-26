@@ -15,6 +15,7 @@ import java.util.List;
  *     a list of each of the golfers' performances in the game
  *     a list of all the golfers' performances on each hole
  * See Performance structure.jpg for details the structure of performance holders
+ * TODO: Simplify data structure into 2,3,4d array
  */
 public class GameAllPerformance implements Writable {
     private final Game game;
@@ -120,7 +121,7 @@ public class GameAllPerformance implements Writable {
     
     
         JSONObject json = new JSONObject();
-        json.put("game", this.game);
+        json.put("game", this.game.toJson());
         json.put("gameGolferPerformances", ggpJson);
         json.put("holeAllPerformances", hapJson);
         return json;
