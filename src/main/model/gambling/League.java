@@ -6,7 +6,6 @@ import model.game.Course;
 import model.game.Game;
 import model.game.Golfer;
 import model.performance.GameAllPerformance;
-import model.performance.GameGolferPerformance;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -29,11 +28,10 @@ public class League implements Writable {
     
     // EFFECTS: new league with no players or courses
     public League() {
-        golfers = new ArrayList<>();
-        courses = new ArrayList<>();
-        gambler = new Gambler();
-        
-        performances = new ArrayList<>();
+        this.golfers = new ArrayList<>();
+        this.courses = new ArrayList<>();
+        this.gambler = new Gambler();
+        this.performances = new ArrayList<>();
     }
     
     // REQUIRES: name is unique

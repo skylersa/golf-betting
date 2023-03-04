@@ -53,12 +53,13 @@ public class GameAllPerformance implements Writable {
     // EFFECTS:
     public Golfer getBestPerformingGolfer() {
         //TODO getBestPerformingGolfer is a stub
+        return null;
     }
     
     // MODIFIES: //TODO
     // EFFECTS:
     public Integer[] getHolePerformance(Hole hole) {
-        int holeIndex = holes.indexOf(Hole);
+        int holeIndex = holes.indexOf(hole);
         if (holeIndex == -1) {
             throw new HoleNotPresentException();
         }
@@ -75,7 +76,7 @@ public class GameAllPerformance implements Writable {
             throw new GolferNotPresentException();
         }
         
-        Integer[] result = new Integer[];
+        Integer[] result = new Integer[holes.size()];
         for (int i = 0; i < holes.size(); i++) {
             result[i] = performances[i][golferIndex];
         }
@@ -95,7 +96,7 @@ public class GameAllPerformance implements Writable {
     public JSONObject toJson() {
         JSONArray holesJson = new JSONArray();
         JSONArray golfersJson = new JSONArray();
-        JSONArray
+        JSONArray performancesJson = new JSONArray();
         
         for (Hole hole : holes) {
             holesJson.put(hole.toJson());
@@ -104,7 +105,19 @@ public class GameAllPerformance implements Writable {
         for (Golfer golfer : golfers) {
             golfersJson.put(golfer.toJson());
         }
-        //TODO toJson is a stub
+        for (Integer[] holePerf : performances) {
+            JSONArray holePerfJson = new JSONArray();
+            for (Integer strokeCount : holePerf) {
+                holePerfJson.put(strokeCount);
+            }
+        }
+        
+        JSONObject json = new JSONObject();
+        json.put("holes", holesJson);
+        json.put("golfers", golfersJson);
+        json.put("performances", performancesJson);
+        
+        return json;
     }
 }
 

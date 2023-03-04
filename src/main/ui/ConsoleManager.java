@@ -5,8 +5,6 @@ import exceptions.RepeatGolferException;
 import model.gambling.League;
 import model.game.Hole;
 import model.performance.GameAllPerformance;
-import model.performance.GameGolferPerformance;
-import model.performance.HoleAllPerformance;
 import model.performance.HoleGolferPerformance;
 import persistence.JsonWriter;
 
