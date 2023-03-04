@@ -1,0 +1,19 @@
+Index: src/main/model/game/Game.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package model.game;\r\n\r\nimport model.performance.GameAllPerformance;\r\nimport model.performance.GameGolferPerformance;\r\nimport model.performance.HoleAllPerformance;\r\nimport model.performance.HoleGolferPerformance;\r\nimport org.json.JSONArray;\r\nimport org.json.JSONObject;\r\nimport persistence.Writable;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\n/*\r\n * Represents a game of golf on a course, played by the list of golfers\r\n */\r\npublic class Game implements Writable {\r\n    private boolean isComplete = false;\r\n    private final Course course;\r\n    private final List<Golfer> golfers;\r\n    \r\n    // REQUIRES: golfers !empty\r\n    // EFFECTS: create new game to be played on given course by given golfers\r\n    public Game(Course course, List<Golfer> golfers) {\r\n        this.course = course;\r\n        this.golfers = golfers;\r\n    }\r\n    \r\n    // REQUIRES: !this.isComplete()\r\n    // MODIFIES: this\r\n    // EFFECTS: returns the performance of all the golfers in the game, adds golfers' respective performances to their\r\n    // performance history\r\n    public GameAllPerformance playGame() {\r\n        GameAllPerformance resultsAll = new GameAllPerformance(this);\r\n        List<HoleAllPerformance> resultsHoles = new ArrayList<>();\r\n        for (Hole hole : course.getHoles()) {\r\n            resultsHoles.add(new HoleAllPerformance(hole));\r\n        }\r\n        for (Golfer golfer : golfers) {\r\n            GameGolferPerformance resultsGolfer = new GameGolferPerformance(this, golfer);\r\n            \r\n            for (int i = 0; i < course.getNumHoles(); i++) {\r\n                HoleGolferPerformance resultHole = course.getHole(i).playHole(golfer);\r\n                resultsHoles.get(i).addHoleGolferPerformance(resultHole);\r\n                resultsGolfer.addGolferPerformance(resultHole);\r\n            }\r\n            resultsAll.addGameGolferPerformance(resultsGolfer);\r\n        }\r\n        resultsAll.addHoleAllPerformances(resultsHoles);\r\n        this.isComplete = true;\r\n        return resultsAll;\r\n    }\r\n    \r\n    public boolean isComplete() {\r\n        return isComplete;\r\n    }\r\n    \r\n    public List<Golfer> getGolfers() {\r\n        return this.golfers;\r\n    }\r\n    \r\n    public Course getCourse() {\r\n        return this.course;\r\n    }\r\n    \r\n    @Override\r\n    public JSONObject toJson() {\r\n        JSONArray golfersJson = new JSONArray();\r\n        for (Golfer golfer : golfers) {\r\n            golfersJson.put(golfer.toJson());\r\n        }\r\n        \r\n        JSONObject json = new JSONObject();\r\n        json.put(\"complete\", this.isComplete);\r\n        json.put(\"course\", this.course);\r\n        json.put(\"golfers\", golfersJson);\r\n        \r\n        return json;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/model/game/Game.java b/src/main/model/game/Game.java
+--- a/src/main/model/game/Game.java	(revision b1e1638171d66ad2e7797230e7d511485ab17c33)
++++ b/src/main/model/game/Game.java	(date 1677695691981)
+@@ -72,7 +72,7 @@
+         
+         JSONObject json = new JSONObject();
+         json.put("complete", this.isComplete);
+-        json.put("course", this.course);
++        json.put("course", this.course.toJson());
+         json.put("golfers", golfersJson);
+         
+         return json;
