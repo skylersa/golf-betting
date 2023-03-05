@@ -1,0 +1,37 @@
+Index: README.md
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># My Personal Project\r\n\r\n## A subtitle\r\n\r\nA *bulleted* list:\r\n- item 1\r\n- item 2\r\n- item 3\r\n\r\nAn example of text with **bold** and *italic* fonts.  
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/README.md b/README.md
+--- a/README.md	
++++ b/README.md	
+@@ -1,10 +1,17 @@
+-# My Personal Project
++# Skyler's golf betting
+ 
+-## A subtitle
++## Who, what, when, why?
++This program will act as a fake golf league with players in
++tournaments. The interface will allow users to gamble their cash on the outcomes
++of the games as well as the individual player performances. This will
++hopefully educate people not to bet their money away.
+ 
+-A *bulleted* list:
+-- item 1
+-- item 2
+-- item 3
+ 
+-An example of text with **bold** and *italic* fonts.  
+\ No newline at end of file
++## User stories
++**As a user, I want to...**
++- Setup and see result of golf games
++- Add players to the league
++- See player performances over time
++- Make bets on player performances and game outcomes
++- Have the option to save my golf betting progress
++- Have the option to load my golf betting progess
+\ No newline at end of file

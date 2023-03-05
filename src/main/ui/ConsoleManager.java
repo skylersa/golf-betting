@@ -5,7 +5,7 @@ import exceptions.RepeatGolferException;
 import model.gambling.League;
 import model.game.Hole;
 import model.performance.GameAllPerformance;
-import model.performance.HoleGolferPerformance;
+import model.performance.GameGolferPerformance;
 import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
@@ -20,7 +20,10 @@ import static java.lang.Integer.parseInt;
  * Represents and manages the console-based ui for this program
  */
 public class ConsoleManager {
+    private static ConsoleManager consoleManager;
+    private static ScoreCardPrinter scoreCardPrinter;
     private static final String JSON_STORE = "./data/league.json";
+    
     private Scanner kboard = new Scanner(System.in).useDelimiter("\n");
     private JsonWriter jsonWriter;
     
@@ -180,7 +183,7 @@ public class ConsoleManager {
         System.out.println(golferName + "'s stats");
         for (GameGolferPerformance performance : league.getGolferHistory(golferName)) {
             System.out.println("=================================");
-            printScoreCard(performance);
+            scoreCardPrinter.printScoreCard(performance);
         }
         System.out.println("\nENTER to continue");
         kboard.next();
@@ -213,27 +216,27 @@ public class ConsoleManager {
     //          updates gambler's balance accordingly
     //          returns true if the winner of the game is winnerChoice, otherwise false
     private boolean mainGameLoop(String courseChoice, List<String> golferChoices, String winnerChoice) {
-        GameAllPerformance gameAllPerformance = league.playGame(courseChoice, golferChoices);
+        GameAllPerformance gap = league.playGame(courseChoice, golferChoices);
         
-        for (HoleAllPerformance performance : gameAllPerformance.getHoleAllPerformances()) {
+        for (Hole hole : gap.getHoles()) {
             System.out.println("Par at this hole is "
-                    + performance.getHole().getPar()
-                    + ". Who will do best on this hole?");
+                    + hole.getPar()
+                    + ". Who will win this hole?");
             String holeWinnerChoice = selectFromListMenu(league.getGolferNames());
             
             int holeWinnerBetAmount = takeBetAmount();
     
-            printScoreCard(performance);
+            scoreCardPrinter.printScoreCard(gap.getHolePerformance(hole));
             
-            boolean won = holeWinnerChoice.equals(performance.getBestPerformingGolfer().getName());
+            boolean won = holeWinnerChoice.equals(gap.getBestPerformingGolfer().getName());
             settleBet(won, holeWinnerBetAmount);
         }
         
-        printScoreCard(gameAllPerformance);
+        scoreCardPrinter.printScoreCard(gap);
         System.out.println("ENTER to continue");
         kboard.next();
         
-        return winnerChoice.equals(gameAllPerformance.getBestPerformingGolfer().getName());
+        return winnerChoice.equals(gap.getBestPerformingGolfer().getName());
     }
     
     // EFFECTS: prints "How much you wanna bet?" and returns entered bet amount
@@ -282,59 +285,7 @@ public class ConsoleManager {
         kboard.next();
     }
     
-    // REQUIRES: gameAllPerformance is full of GameGolferPerformances and HoleAllPerformances
-    // EFFECTS: prints out a scorecard of the game, players down the side and holes across the top
-    private void printScoreCard(GameAllPerformance gameAllPerformance) {
-        String spacer = "  ";
-        StringBuilder parHeader = new StringBuilder("PAR:    ");
-        List<StringBuilder> strokesBody = new ArrayList<>();
-    
-        for (Hole hole : gameAllPerformance.getGame().getCourse().getHoles()) {
-            parHeader.append(spacer).append(hole.getPar());
-        }
-        for (GameGolferPerformance gameGolferPerformance : gameAllPerformance.getGameGolferPerformances()) {
-            StringBuilder currentHoleLine = new StringBuilder(gameGolferPerformance.getGolfer().getName());
-            for (HoleGolferPerformance holeGolferPerformance : gameGolferPerformance.getHoleGolferPerformances()) {
-                currentHoleLine.append(spacer).append(holeGolferPerformance.getStrokes());
-            }
-            strokesBody.add(currentHoleLine);
-        }
-    
-        System.out.println(parHeader);
-        for (StringBuilder strokesBodyPart : strokesBody) {
-            System.out.println(strokesBodyPart);
-        }
-    }
-    
-    
-    // REQUIRES: performance is full of HoleGolferPerformances
-    // EFFECTS: prints out a scorecard of given performance horizontally
-    private void printScoreCard(GameGolferPerformance performance) {
-        String spacer = "  ";
-        StringBuilder parHeader = new StringBuilder("PAR:    ");
-        StringBuilder strokesBody = new StringBuilder("STROKES:");
-        
-        for (HoleGolferPerformance eachPerformance : performance.getHoleGolferPerformances()) {
-            parHeader.append(spacer).append(eachPerformance.getHole().getPar());
-            strokesBody.append(spacer).append(eachPerformance.getStrokes());
-        }
-        
-        System.out.println("Game on " + performance.getGame().getCourse().getName());
-        System.out.println(parHeader);
-        System.out.println(strokesBody);
-    }
-    
-    // REQUIRES: performance is full of HoleGolferPerformances
-    // EFFECTS: prints out a scorecard of given performance vertically
-    private void printScoreCard(HoleAllPerformance performance) {
-        String spacer = "   ";
-        System.out.println("STROKES" + spacer + spacer + "GOLFER");
-        for (HoleGolferPerformance eachPerformance : performance.getHoleGolferPerformances()) {
-            System.out.println(spacer + eachPerformance.getStrokes()
-                    + ".........." + eachPerformance.getGolfer().getName());
-        }
-        
-    }
+   
     
     // REQUIRES: List has at least one element
     // EFFECTS: prints a menu of the list and asks the user to select an option, returns the selected object
@@ -373,7 +324,8 @@ public class ConsoleManager {
     
     // EFFECTS: Begins game at main menu
     public static void main(String[] args) {
-        ConsoleManager consoleManager = new ConsoleManager();
+        consoleManager = new ConsoleManager();
+        scoreCardPrinter = new ScoreCardPrinter();
         consoleManager.mainMenu();
     }
 }

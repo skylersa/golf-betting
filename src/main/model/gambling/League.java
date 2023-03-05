@@ -1,16 +1,19 @@
 package model.gambling;
 
+import exceptions.CourseNotPresentException;
 import exceptions.GolferNotPresentException;
 import exceptions.RepeatGolferException;
 import model.game.Course;
-import model.game.Game;
 import model.game.Golfer;
+import model.game.Hole;
 import model.performance.GameAllPerformance;
+import model.performance.GameGolferPerformance;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -57,31 +60,46 @@ public class League implements Writable {
     // EFFECTS: return a game with the given golfers on the given course
     //          does not play the game
     public GameAllPerformance playGame(String courseName, List<String> golferNames) {
-        Course courseToAdd = null;
-        
-        for (Course course : this.courses) {
-            if (course.getName().equals(courseName)) {
-                courseToAdd = course;
+        Course course = null;
+        List<Golfer> golfers = new ArrayList<>();
+    
+        for (Course c : this.courses) {
+            if (c.getName().equals(courseName)) {
+                course = c;
+                break;
             }
         }
-        if (courseToAdd == null) {
-            throw new NullPointerException();
+        for (Golfer g : this.golfers) {
+            if (golferNames.contains(g.getName())) {
+                golfers.add(g);
+            }
         }
         
-        
-        List<Golfer> golfersToAdd = new ArrayList<>();
-        for (String golferName : golferNames) {
-            golfersToAdd.add(this.getGolfer(golferName));
+        if (course == null) {
+            throw new CourseNotPresentException();
         }
-        if (golferNames.size() != golfersToAdd.size()) {
+        if (golferNames.size() != golfers.size()) {
             throw new GolferNotPresentException();
         }
         
-        Game game = new Game(courseToAdd, golfersToAdd);
-        GameAllPerformance gameAllPerformance = game.playGame();
         
-        performances.add(gameAllPerformance);
-        return gameAllPerformance;
+        GameAllPerformance gap = new GameAllPerformance(Arrays.asList(course.getHoles()), golfers);
+        
+        return playGame(gap);
+    }
+    
+    // REQUIRES: TODO
+    // MODIFIES:
+    // EFFECTS:
+    private GameAllPerformance playGame(GameAllPerformance gap) {
+        for (Hole hole : gap.getHoles()) {
+            for (Golfer golfer : gap.getGolfers()) {
+                gap.addHolePerformance(hole.playHole(golfer));
+            }
+        }
+        
+        performances.add(gap);
+        return gap;
     }
     
     
@@ -90,12 +108,8 @@ public class League implements Writable {
         Golfer golfer = this.getGolfer(golferName);
         
         List<GameGolferPerformance> result = new ArrayList<>();
-        for (GameAllPerformance gameAllPerformance : performances) {
-            for (GameGolferPerformance gameGolferPerformance : gameAllPerformance.getGameGolferPerformances()) {
-                if (gameGolferPerformance.getGolfer() == golfer) {
-                    result.add(gameGolferPerformance);
-                }
-            }
+        for (GameAllPerformance performance : performances) {
+            result.add(performance.getGolferPerformance(golfer));
         }
         
         return result;

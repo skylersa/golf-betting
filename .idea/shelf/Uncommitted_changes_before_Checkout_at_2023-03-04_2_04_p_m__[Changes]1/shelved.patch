@@ -1,0 +1,182 @@
+Index: src/main/ui/Main.java
+===================================================================
+diff --git a/src/main/ui/Main.java b/src/main/ui/Main.java
+deleted file mode 100644
+--- a/src/main/ui/Main.java	
++++ /dev/null	
+@@ -1,7 +0,0 @@
+-package ui;
+-
+-public class Main {
+-    public static void main(String[] args) {
+-
+-    }
+-}
+Index: src/main/model/MyModel.java
+===================================================================
+diff --git a/src/main/model/MyModel.java b/src/main/model/MyModel.java
+deleted file mode 100644
+--- a/src/main/model/MyModel.java	
++++ /dev/null	
+@@ -1,5 +0,0 @@
+-package model;
+-
+-public class MyModel {
+-    // delete or rename this class!
+-}
+Index: src/main/model/GamePerformance.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/model/GamePerformance.java b/src/main/model/GamePerformance.java
+new file mode 100644
+--- /dev/null	
++++ b/src/main/model/GamePerformance.java	
+@@ -0,0 +1,122 @@
++package model.performance;
++
++import exceptions.GolferNotPresentException;
++import exceptions.HoleNotPresentException;
++import model.game.Game;
++import model.game.Golfer;
++import model.game.Hole;
++import org.json.JSONArray;
++import org.json.JSONObject;
++import persistence.Writable;
++
++import java.util.ArrayList;
++import java.util.List;
++
++/*
++ * Represents the performance of all the golfers in a game in that entire game.
++ * Holds a 2d List of HoleGolferPerformances. The dimensions hold
++ *     - 1st holes vertically
++ *     - 2nd players horizontally
++ */
++public class GamePerformance implements Writable {
++    private List<Hole> holes;
++    private List<Golfer> golfers;
++    private Integer[][] performances;
++    
++    // REQUIRES: game must be completed or in progress
++    // EFFECTS: create new GameAllPerformance on given game
++    public GamePerformance(List<Hole> holes, List<Golfer> golfers) {
++        this.holes = new ArrayList<>(holes);
++        this.golfers = new ArrayList<>(golfers);
++        performances = new Integer[this.holes.size()][golfers.size()];
++    }
++    
++    // MODIFIES: this
++    // EFFECTS: stores given performance
++    // If given golfer or hole is not present, throw relevant notPresentException
++    public void addHolePerformance(HoleGolferPerformance hgp) {
++        int golferIndex = golfers.indexOf(hgp.getGolfer());
++        int holeIndex = holes.indexOf(hgp.getHole());
++        if (golferIndex == -1) {
++            throw new GolferNotPresentException();
++        }
++        if (holeIndex == -1) {
++            throw new HoleNotPresentException();
++        }
++        
++        performances[holeIndex][golferIndex] = hgp.getStrokes();
++        
++    }
++    
++    // REQUIRES: //TODO
++    // MODIFIES:
++    // EFFECTS:
++    public Golfer getBestPerformingGolfer() {
++        //TODO getBestPerformingGolfer is a stub
++        return null;
++    }
++    
++    // MODIFIES: //TODO
++    // EFFECTS:
++    public Integer[] getHolePerformance(Hole hole) {
++        int holeIndex = holes.indexOf(hole);
++        if (holeIndex == -1) {
++            throw new HoleNotPresentException();
++        }
++        
++        return performances[holeIndex];
++    }
++    
++    // REQUIRES: //TODO
++    // MODIFIES:
++    // EFFECTS:
++    public Integer[] getGolferPerformance(Golfer golfer) {
++        int golferIndex = golfers.indexOf(golfer);
++        if (golferIndex == -1) {
++            throw new GolferNotPresentException();
++        }
++        
++        Integer[] result = new Integer[holes.size()];
++        for (int i = 0; i < holes.size(); i++) {
++            result[i] = performances[i][golferIndex];
++        }
++        
++        return result;
++    }
++    
++    public List<Hole> getHoles() {
++        return holes;
++    }
++    
++    public List<Golfer> getGolfers() {
++        return golfers;
++    }
++    
++    @Override
++    public JSONObject toJson() {
++        JSONArray holesJson = new JSONArray();
++        JSONArray golfersJson = new JSONArray();
++        JSONArray performancesJson = new JSONArray();
++        
++        for (Hole hole : holes) {
++            holesJson.put(hole.toJson());
++        }
++        
++        for (Golfer golfer : golfers) {
++            golfersJson.put(golfer.toJson());
++        }
++        for (Integer[] holePerf : performances) {
++            JSONArray holePerfJson = new JSONArray();
++            for (Integer strokeCount : holePerf) {
++                holePerfJson.put(strokeCount);
++            }
++        }
++        
++        JSONObject json = new JSONObject();
++        json.put("holes", holesJson);
++        json.put("golfers", golfersJson);
++        json.put("performances", performancesJson);
++        
++        return json;
++    }
++}
+Index: src/main/model/Golfer.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/model/Golfer.java b/src/main/model/Golfer.java
+new file mode 100644
+--- /dev/null	
++++ b/src/main/model/Golfer.java	
+@@ -0,0 +1,14 @@
++package model;
++
++/*
++ * Represents a golfer with a name and how much money they've lost or won the player
++ */
++public class Golfer {
++    private String name;
++    private int winnings; // negative means losings
++    
++    public Golfer(String name) {
++        this.name = name;
++        
++    }
++}
