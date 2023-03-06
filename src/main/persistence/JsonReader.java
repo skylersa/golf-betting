@@ -1,12 +1,17 @@
 package persistence;
 
+import exceptions.RepeatGolferException;
 import model.gambling.League;
+import model.game.Hole;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 // Represents a reader that reads league from JSON data stored in file
@@ -42,30 +47,53 @@ public class JsonReader {
     private League parseLeague(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         League league = new League();
-        addGolfers(league, jsonObject);
-        addCourses(league, jsonObject);
-        addPerformances(league, jsonObject);
+        addGolfers(league, jsonObject.getJSONArray("golfers"));
+        addCourses(league, jsonObject.getJSONArray("courses"));
+        addPerformances(league, jsonObject.getJSONObject("performances"));
         return league;
     }
     
     // REQUIRES: TODO
     // MODIFIES:
     // EFFECTS:
-    private void addGolfers(League league, JSONObject json) {
-        //TODO addGolfers is a stub
+    private void addGolfers(League league, JSONArray golfersJson) {
+        for (Object golferJson : golfersJson) {
+            JSONObject golferJsonCasted = (JSONObject) golferJson;
+            try {
+                league.addGolfer(golferJsonCasted.getString("name"));
+            } catch (RepeatGolferException e) {
+                throw new Error("Json edited between runs?", e);
+            }
+        }
+    }
+    
+    // MODIFIES: league
+    // EFFECTS: adds the courses contained in given JSONArray to the league
+    private void addCourses(League league, JSONArray coursesJson) {
+        for (Object golferJson : coursesJson) {
+            JSONObject golferJsonCasted = (JSONObject) golferJson;
+            addCourse(league, golferJsonCasted);
+        }
     }
     
     // REQUIRES: TODO
-    // MODIFIES: 
-    // EFFECTS: 
-    private void addCourses(League league, JSONObject json) {
-        //TODO addCourses is a stub
+    // MODIFIES:
+    // EFFECTS:
+    private void addCourse(League league, JSONObject json) {
+        List<Hole> holes = new ArrayList<>();
+        JSONArray holesJson = json.getJSONArray("holes");
+        for (Object holeJson : holesJson) {
+            JSONObject holeJsonCasted = (JSONObject) holeJson;
+            holes.add(new Hole(holeJsonCasted.getInt("par")));
+        }
+        
+        league.addCourse(json.getString("name"), holes);
     }
     
-    // REQUIRES: TODO
+    // REQUIRES: TODO: specify/ensure golfers and holes exist in league already
     // MODIFIES: 
     // EFFECTS: 
-    private void addPerformances(League league,JSONObject json) {
+    private void addPerformances(League league, JSONObject performancesJson) {
         //TODO addPerformances is a stub
     }
 }

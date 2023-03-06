@@ -55,6 +55,13 @@ public class League implements Writable {
         this.courses.add(new Course(name, numHoles));
     }
     
+    // REQUIRES: TODO
+    // MODIFIES:
+    // EFFECTS:
+    public void addCourse(String name, List<Hole> holes) {
+        this.courses.add(new Course(name, holes));
+    }
+    
     // REQUIRES: golferNames have been added as golfers
     //           courseName has been added as course
     // EFFECTS: return a game with the given golfers on the given course

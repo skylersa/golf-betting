@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.util.List;
+
 /*
  * Represents a golf course with some holes to play golf on
  */
@@ -22,6 +24,18 @@ public class Course  implements Writable {
         for (int i = 0; i < this.numHoles; i++) {
             holes[i] = new Hole();
         }
+    }
+    
+    // REQUIRES: TODO
+    // MODIFIES:
+    // EFFECTS:
+    public Course(String name, List<Hole> holes) {
+        this.name = name;
+        this.holes = new Hole[holes.size()];
+        for (int i = 0; i < holes.size(); i++) {
+            this.holes[i] = holes.get(i);
+        }
+        
     }
     
     public String getName() {
