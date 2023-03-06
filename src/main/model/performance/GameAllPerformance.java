@@ -18,7 +18,7 @@ import java.util.List;
  *     - 1st holes vertically
  *     - 2nd players horizontally
  * TODO simplify name
- * TODO add getNext for performant construction
+ * TODO add addNext for performant construction
  */
 public class GameAllPerformance implements Writable {
     private List<Hole> holes;
@@ -115,6 +115,11 @@ public class GameAllPerformance implements Writable {
         return golfers;
     }
     
+    public Integer[][] getPerformances() {
+        return performances.clone();
+        
+    }
+    
     @Override
     public JSONObject toJson() {
         JSONArray holesJson = new JSONArray();
@@ -128,11 +133,13 @@ public class GameAllPerformance implements Writable {
         for (Golfer golfer : golfers) {
             golfersJson.put(golfer.toJson());
         }
+        
         for (Integer[] holePerf : performances) {
             JSONArray holePerfJson = new JSONArray();
             for (Integer strokeCount : holePerf) {
                 holePerfJson.put(strokeCount);
             }
+            performancesJson.put(holePerfJson);
         }
         
         JSONObject json = new JSONObject();

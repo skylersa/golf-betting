@@ -1,8 +1,5 @@
 package model.performance;
 
-import model.game.Golfer;
-import model.game.Course;
-import model.game.Game;
 import model.game.Hole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,74 +11,73 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GameGolferPerformanceTest {
-    private GameGolferPerformance g0g0p, g1g0p, g2g0p, g0g1p, g1g1p, g2g1p, g0g2p, g1g2p, g2g2p;
-    private Game game0, game1, game2;
-    private Golfer g0, g1, g2;
+    private Hole h0, h1, h2, h3;
+    private GameGolferPerformance hap0, hap1, hap2, hap3;
+    private List<Hole> holes0, holes1, holes2, holes3;
+    private List<Integer> strokes0, strokes1, strokes2, strokes3;
+    
     
     @BeforeEach
     public void setup() {
-        g0 = new Golfer("g0");
-        g1 = new Golfer("g1");
-        g2 = new Golfer("g2");
-        List<Golfer> golfers = new ArrayList<>(Arrays.asList(g0, g1, g2));
-        
-        game0 = new Game(new Course("", 3), golfers);
-        game1 = new Game(new Course("", 4), golfers);
-        game2 = new Game(new Course("", 5), golfers);
-        
-        g0g0p = new GameGolferPerformance(game0, g0);
-        g1g0p = new GameGolferPerformance(game1, g0);
-        g2g0p = new GameGolferPerformance(game2, g0);
-        g0g1p = new GameGolferPerformance(game0, g1);
-        g1g1p = new GameGolferPerformance(game1, g1);
-        g2g1p = new GameGolferPerformance(game2, g1);
-        g0g2p = new GameGolferPerformance(game0, g2);
-        g1g2p = new GameGolferPerformance(game1, g2);
-        g2g2p = new GameGolferPerformance(game2, g2);
-    }
-    
-    @Test
-    public void constructorTest() {
-        assertEquals(game0, g0g0p.getGame());
-        assertEquals(game1, g1g0p.getGame());
-        assertEquals(game2, g2g0p.getGame());
-        assertEquals(game0, g0g1p.getGame());
-        assertEquals(game1, g1g1p.getGame());
-        assertEquals(game2, g2g1p.getGame());
-        assertEquals(game0, g0g2p.getGame());
-        assertEquals(game1, g1g2p.getGame());
-        assertEquals(game2, g2g2p.getGame());
-    
-        assertEquals(g0, g0g0p.getGolfer());
-        assertEquals(g0, g1g0p.getGolfer());
-        assertEquals(g0, g2g0p.getGolfer());
-        assertEquals(g1, g0g1p.getGolfer());
-        assertEquals(g1, g1g1p.getGolfer());
-        assertEquals(g1, g2g1p.getGolfer());
-        assertEquals(g2, g0g2p.getGolfer());
-        assertEquals(g2, g1g2p.getGolfer());
-        assertEquals(g2, g2g2p.getGolfer());
-    }
-    
-    @Test
-    public void addGolferPerformanceTest() {
-        Hole h1, h2, h3;
+        h0 = new Hole(0);
         h1 = new Hole(1);
         h2 = new Hole(2);
         h3 = new Hole(3);
+        holes0 = new ArrayList<>(Arrays.asList(h0));
+        holes1 = new ArrayList<>(Arrays.asList(h0, h1));
+        holes2 = new ArrayList<>(Arrays.asList(h0, h1, h2));
+        holes3 = new ArrayList<>(Arrays.asList(h0, h1, h2, h3));
+        
+        strokes0 = new ArrayList<>(Arrays.asList(5));
+        strokes1 = new ArrayList<>(Arrays.asList(4, 3));
+        strokes2 = new ArrayList<>(Arrays.asList(6, 1, 8));
+        strokes3 = new ArrayList<>(Arrays.asList(2, 5, 9, 4));
+        
+        
+        hap0 = new GameGolferPerformance(holes0, strokes0);
+        hap1 = new GameGolferPerformance(holes1, strokes1);
+        hap2 = new GameGolferPerformance(holes2, strokes2);
+        hap3 = new GameGolferPerformance(holes3, strokes3);
+    }
     
-        HoleGolferPerformance hgp0, hgp1, hgp2;
-        hgp0 = new HoleGolferPerformance(h1, g0, 3);
-        hgp1 = new HoleGolferPerformance(h2, g1, 3);
-        hgp2 = new HoleGolferPerformance(h3, g2, 3);
-    
-        g0g0p.addGolferPerformance(hgp0);
-        g0g0p.addGolferPerformance(hgp1);
-        g1g0p.addGolferPerformance(hgp2);
-    
-        assertEquals(hgp0, g0g0p.getHoleGolferPerformances().get(0));
-        assertEquals(hgp1, g0g0p.getHoleGolferPerformances().get(1));
-        assertEquals(hgp2, g1g0p.getHoleGolferPerformances().get(0));
-    
+    @Test
+    public void constructorAndGetterTest() {
+        assertEquals(strokes0, hap0.getStrokes());
+        assertEquals(strokes1, hap1.getStrokes());
+        assertEquals(strokes2, hap2.getStrokes());
+        assertEquals(strokes3, hap3.getStrokes());
+        
+        assertEquals(holes0, hap0.getHoles());
+        assertEquals(holes1, hap1.getHoles());
+        assertEquals(holes2, hap2.getHoles());
+        assertEquals(holes3, hap3.getHoles());
+        
+        assertEquals(holes0.get(0), hap0.getHole(0));
+        
+        assertEquals(holes1.get(0), hap1.getHole(0));
+        assertEquals(holes1.get(1), hap1.getHole(1));
+        
+        assertEquals(holes2.get(0), hap2.getHole(0));
+        assertEquals(holes2.get(1), hap2.getHole(1));
+        assertEquals(holes2.get(2), hap2.getHole(2));
+        
+        assertEquals(holes3.get(0), hap3.getHole(0));
+        assertEquals(holes3.get(1), hap3.getHole(1));
+        assertEquals(holes3.get(2), hap3.getHole(2));
+        assertEquals(holes3.get(3), hap3.getHole(3));
+        
+        assertEquals(strokes0.get(0), hap0.getStroke(0));
+        
+        assertEquals(strokes1.get(0), hap1.getStroke(0));
+        assertEquals(strokes1.get(1), hap1.getStroke(1));
+        
+        assertEquals(strokes2.get(0), hap2.getStroke(0));
+        assertEquals(strokes2.get(1), hap2.getStroke(1));
+        assertEquals(strokes2.get(2), hap2.getStroke(2));
+        
+        assertEquals(strokes3.get(0), hap3.getStroke(0));
+        assertEquals(strokes3.get(1), hap3.getStroke(1));
+        assertEquals(strokes3.get(2), hap3.getStroke(2));
+        assertEquals(strokes3.get(3), hap3.getStroke(3));
     }
 }

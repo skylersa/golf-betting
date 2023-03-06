@@ -9,7 +9,7 @@ import java.util.List;
 /*
  * TODO
  */
-public final class HoleAllPerformance  {
+public final class HoleAllPerformance {
     private List<Golfer> golfers;
     private List<Integer> strokes;
     

@@ -14,8 +14,9 @@ public final class GameGolferPerformance {
     private List<Hole> holes;
     private List<Integer> strokes;
     
-    // REQUIRES: game.isComplete()
-    // EFFECTS: creates new GameGolferPerformance with given game and golfer
+    // REQUIRES: TODO
+    // MODIFIES:
+    // EFFECTS:
     public GameGolferPerformance(List<Hole> holes, List<Integer> strokes) {
         if (holes.size() != strokes.size()) {
             throw new InputMismatchException();

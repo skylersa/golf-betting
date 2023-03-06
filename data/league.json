@@ -3,17 +3,17 @@
         {
             "name": "WestField Golf",
             "holes": [
-                {"par": 3},
-                {"par": 7},
                 {"par": 2},
-                {"par": 2}
+                {"par": 2},
+                {"par": 3},
+                {"par": 3}
             ]
         },
         {
             "name": "Albuquerque's finest",
             "holes": [
-                {"par": 5},
-                {"par": 5},
+                {"par": 7},
+                {"par": 7},
                 {"par": 7}
             ]
         },
@@ -28,116 +28,38 @@
         {"name": "Aaron Paul"},
         {"name": "Billiam Zero"}
     ],
-    "gambler": {"balance": 5002},
+    "gambler": {"balance": 5004},
     "performances": [{
-        "game": {
-            "course": "model.game.Course@5bcab519",
-            "golfers": [
-                {"name": "Bob Odenkirk"},
-                {"name": "Bryan Cranston"},
-                {"name": "Aaron Paul"},
-                {"name": "Billiam Zero"}
+        "golfers": [
+            {"name": "Bob Odenkirk"},
+            {"name": "Bryan Cranston"},
+            {"name": "Aaron Paul"},
+            {"name": "Billiam Zero"}
+        ],
+        "performances": [
+            [
+                10,
+                11,
+                3,
+                11
             ],
-            "complete": true
-        },
-        "holeAllPerformances": [{
-            "hole": {"par": 7},
-            "holeGolferPerformances": [
-                {
-                    "hole": {"par": 7},
-                    "strokes": 1,
-                    "golfer": {"name": "Bob Odenkirk"}
-                },
-                {
-                    "hole": {"par": 7},
-                    "strokes": 3,
-                    "golfer": {"name": "Bryan Cranston"}
-                },
-                {
-                    "hole": {"par": 7},
-                    "strokes": 8,
-                    "golfer": {"name": "Aaron Paul"}
-                },
-                {
-                    "hole": {"par": 7},
-                    "strokes": 7,
-                    "golfer": {"name": "Billiam Zero"}
-                }
+            [
+                2,
+                11,
+                9,
+                5
+            ],
+            [
+                2,
+                11,
+                7,
+                1
             ]
-        }],
-        "gameGolferPerformances": [
-            {
-                "game": {
-                    "course": "model.game.Course@5bcab519",
-                    "golfers": [
-                        {"name": "Bob Odenkirk"},
-                        {"name": "Bryan Cranston"},
-                        {"name": "Aaron Paul"},
-                        {"name": "Billiam Zero"}
-                    ],
-                    "complete": true
-                },
-                "holeGolferPerformances": [{
-                    "hole": {"par": 7},
-                    "strokes": 1,
-                    "golfer": {"name": "Bob Odenkirk"}
-                }],
-                "golfer": {"name": "Bob Odenkirk"}
-            },
-            {
-                "game": {
-                    "course": "model.game.Course@5bcab519",
-                    "golfers": [
-                        {"name": "Bob Odenkirk"},
-                        {"name": "Bryan Cranston"},
-                        {"name": "Aaron Paul"},
-                        {"name": "Billiam Zero"}
-                    ],
-                    "complete": true
-                },
-                "holeGolferPerformances": [{
-                    "hole": {"par": 7},
-                    "strokes": 3,
-                    "golfer": {"name": "Bryan Cranston"}
-                }],
-                "golfer": {"name": "Bryan Cranston"}
-            },
-            {
-                "game": {
-                    "course": "model.game.Course@5bcab519",
-                    "golfers": [
-                        {"name": "Bob Odenkirk"},
-                        {"name": "Bryan Cranston"},
-                        {"name": "Aaron Paul"},
-                        {"name": "Billiam Zero"}
-                    ],
-                    "complete": true
-                },
-                "holeGolferPerformances": [{
-                    "hole": {"par": 7},
-                    "strokes": 8,
-                    "golfer": {"name": "Aaron Paul"}
-                }],
-                "golfer": {"name": "Aaron Paul"}
-            },
-            {
-                "game": {
-                    "course": "model.game.Course@5bcab519",
-                    "golfers": [
-                        {"name": "Bob Odenkirk"},
-                        {"name": "Bryan Cranston"},
-                        {"name": "Aaron Paul"},
-                        {"name": "Billiam Zero"}
-                    ],
-                    "complete": true
-                },
-                "holeGolferPerformances": [{
-                    "hole": {"par": 7},
-                    "strokes": 7,
-                    "golfer": {"name": "Billiam Zero"}
-                }],
-                "golfer": {"name": "Billiam Zero"}
-            }
+        ],
+        "holes": [
+            {"par": 7},
+            {"par": 7},
+            {"par": 7}
         ]
     }]
 }

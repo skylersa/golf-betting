@@ -109,7 +109,9 @@ public class League implements Writable {
         
         List<GameGolferPerformance> result = new ArrayList<>();
         for (GameAllPerformance performance : performances) {
-            result.add(performance.getGolferPerformance(golfer));
+            if (performance.getGolfers().contains(golfer)) {
+                result.add(performance.getGolferPerformance(golfer));
+            }
         }
         
         return result;
@@ -166,7 +168,7 @@ public class League implements Writable {
     public JSONObject toJson() {
         JSONArray golfersJson = new JSONArray();
         JSONArray coursesJson = new JSONArray();
-        JSONArray performancesJson = new JSONArray();
+        JSONArray totalStrokesJson = new JSONArray();
         
         for (Golfer golfer : this.golfers) {
             golfersJson.put(golfer.toJson());
@@ -177,14 +179,14 @@ public class League implements Writable {
         }
         
         for (GameAllPerformance gap : this.performances) {
-            performancesJson.put(gap.toJson());
+            totalStrokesJson.put(gap.toJson());
     
         }
         
         JSONObject json = new JSONObject();
         json.put("golfers", golfersJson);
         json.put("courses", coursesJson);
-        json.put("performances", performancesJson);
+        json.put("strokes", totalStrokesJson);
         json.put("gambler", gambler.toJson());
         
         return json;

@@ -47,12 +47,4 @@ public class HoleGolferPerformanceTest {
         assertEquals(2, hgp2.getStrokes());
         assertEquals(6, hgp3.getStrokes());
     }
-    
-    @Test
-    public void getParDeviationTest() {
-        assertEquals(3-4, hgp0.getParDeviation());
-        assertEquals(7-6, hgp1.getParDeviation());
-        assertEquals(2-8, hgp2.getParDeviation());
-        assertEquals(6-10, hgp3.getParDeviation());
-    }
 }

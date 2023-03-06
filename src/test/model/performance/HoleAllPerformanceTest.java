@@ -1,72 +1,84 @@
 package model.performance;
 
 import model.game.Golfer;
-import model.game.Hole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HoleAllPerformanceTest {
-    private Hole h0, h1, h2, h3;
-    private HoleAllPerformance hap0, hap1, hap2, hap3, hap4, hap5;
+    private Golfer g0, g1, g2, g3;
+    private HoleAllPerformance hap0, hap1, hap2, hap3;
+    private List<Golfer> golfers0, golfers1, golfers2, golfers3;
+    private List<Integer> strokes0, strokes1, strokes2, strokes3;
     
-    private HoleGolferPerformance h0g1p, h0g2p, h1g1p, h1g2p, h2g1p, h2g2p, h3g1p, h3g2p;
     
     @BeforeEach
     public void setup() {
-        hap0 = new HoleAllPerformance(h0);
-        hap1 = new HoleAllPerformance(h0);
-        hap2 = new HoleAllPerformance(h1);
-        hap3 = new HoleAllPerformance(h2);
-        hap4 = new HoleAllPerformance(h3);
-        hap5 = new HoleAllPerformance(h3);
-        
-        Golfer g1 = new Golfer("1");
-        Golfer g2 = new Golfer("2");
-        Golfer g3 = new Golfer("3");
-        Golfer g4 = new Golfer("4");
-        Golfer g5 = new Golfer("5");
-        Golfer g6 = new Golfer("6");
-        Golfer g7 = new Golfer("7");
-        Golfer g8 = new Golfer("8");
-        
-        h0g1p = new HoleGolferPerformance(h0, g1, 1);
-        h0g2p = new HoleGolferPerformance(h0, g2, 2);
-        h1g1p = new HoleGolferPerformance(h1, g3, 3);
-        h1g2p = new HoleGolferPerformance(h1, g4, 4);
-        h2g1p = new HoleGolferPerformance(h2, g5, 5);
-        h2g2p = new HoleGolferPerformance(h2, g6, 6);
-        h3g1p = new HoleGolferPerformance(h3, g7, 7);
-        h3g2p = new HoleGolferPerformance(h3, g8, 8);
+        g0 = new Golfer("0");
+        g1 = new Golfer("1");
+        g2 = new Golfer("2");
+        g3 = new Golfer("3");
+        golfers0 = new ArrayList<>(Arrays.asList(g0));
+        golfers1 = new ArrayList<>(Arrays.asList(g0, g1));
+        golfers2 = new ArrayList<>(Arrays.asList(g0, g1, g2));
+        golfers3 = new ArrayList<>(Arrays.asList(g0, g1, g2, g3));
+    
+        strokes0 = new ArrayList<>(Arrays.asList(5));
+        strokes1 = new ArrayList<>(Arrays.asList(4, 3));
+        strokes2 = new ArrayList<>(Arrays.asList(6, 1, 8));
+        strokes3 = new ArrayList<>(Arrays.asList(2, 5, 9, 4));
+    
+    
+        hap0 = new HoleAllPerformance(golfers0, strokes0);
+        hap1 = new HoleAllPerformance(golfers1, strokes1);
+        hap2 = new HoleAllPerformance(golfers2, strokes2);
+        hap3 = new HoleAllPerformance(golfers3, strokes3);
     }
     
     @Test
-    public void constructorTest() {
-        assertEquals(h0, hap0.getHole());
-        assertEquals(h0, hap1.getHole());
-        assertEquals(h1, hap2.getHole());
-        assertEquals(h2, hap3.getHole());
-        assertEquals(h3, hap4.getHole());
-        assertEquals(h3, hap5.getHole());
-    }
+    public void constructorAndGetterTest() {
+        assertEquals(strokes0, hap0.getStrokes());
+        assertEquals(strokes1, hap1.getStrokes());
+        assertEquals(strokes2, hap2.getStrokes());
+        assertEquals(strokes3, hap3.getStrokes());
+        
+        assertEquals(golfers0, hap0.getGolfers());
+        assertEquals(golfers1, hap1.getGolfers());
+        assertEquals(golfers2, hap2.getGolfers());
+        assertEquals(golfers3, hap3.getGolfers());
     
-    @Test
-    public void addGolferPerformanceTest() {
-        hap0.addHoleGolferPerformance(h0g1p);
-        hap0.addHoleGolferPerformance(h0g2p);
-        hap1.addHoleGolferPerformance(h1g1p);
-        hap1.addHoleGolferPerformance(h1g2p);
-        hap2.addHoleGolferPerformance(h2g1p);
-        hap2.addHoleGolferPerformance(h2g2p);
+        assertEquals(golfers0.get(0), hap0.getGolfer(0));
+        
+        assertEquals(golfers1.get(0), hap1.getGolfer(0));
+        assertEquals(golfers1.get(1), hap1.getGolfer(1));
+        
+        assertEquals(golfers2.get(0), hap2.getGolfer(0));
+        assertEquals(golfers2.get(1), hap2.getGolfer(1));
+        assertEquals(golfers2.get(2), hap2.getGolfer(2));
+        
+        assertEquals(golfers3.get(0), hap3.getGolfer(0));
+        assertEquals(golfers3.get(1), hap3.getGolfer(1));
+        assertEquals(golfers3.get(2), hap3.getGolfer(2));
+        assertEquals(golfers3.get(3), hap3.getGolfer(3));
     
-        assertEquals(h0g1p, hap0.getHoleGolferPerformances().get(0));
-        assertEquals(h0g2p, hap0.getHoleGolferPerformances().get(1));
-        assertEquals(h1g1p, hap1.getHoleGolferPerformances().get(0));
-        assertEquals(h1g2p, hap1.getHoleGolferPerformances().get(1));
-        assertEquals(h2g1p, hap2.getHoleGolferPerformances().get(0));
-        assertEquals(h2g2p, hap2.getHoleGolferPerformances().get(1));
+        assertEquals(strokes0.get(0), hap0.getStroke(0));
     
+        assertEquals(strokes1.get(0), hap1.getStroke(0));
+        assertEquals(strokes1.get(1), hap1.getStroke(1));
+    
+        assertEquals(strokes2.get(0), hap2.getStroke(0));
+        assertEquals(strokes2.get(1), hap2.getStroke(1));
+        assertEquals(strokes2.get(2), hap2.getStroke(2));
+    
+        assertEquals(strokes3.get(0), hap3.getStroke(0));
+        assertEquals(strokes3.get(1), hap3.getStroke(1));
+        assertEquals(strokes3.get(2), hap3.getStroke(2));
+        assertEquals(strokes3.get(3), hap3.getStroke(3));
     }
 }
 
