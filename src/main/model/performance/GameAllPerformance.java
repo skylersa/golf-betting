@@ -120,7 +120,7 @@ public class GameAllPerformance implements Writable {
         return courseName;
     }
     
-    public Integer[][] getPerformances() {
+    public Integer[][] getStrokes() {
         return performances.clone();
         
     }

@@ -1,5 +1,6 @@
 package exceptions;
 
+// Thrown when a Golfer, especially identified by its name, is not present where they ought to be
 public class GolferNotPresentException extends RuntimeException {
     
     public GolferNotPresentException() {

@@ -2,6 +2,7 @@ package exceptions;
 
 import model.game.Hole;
 
+// Thrown when a given Hole does not exist where it ought to
 public class HoleNotPresentException extends RuntimeException {
     
     public HoleNotPresentException() {

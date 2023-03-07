@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 // Represents a reader that reads league from JSON data stored in file
-// Takem from JsonSerializationDemo, Thank you!
+// Taken and expanded upon from JsonSerializationDemo, Thank you!
 public class JsonReader {
     private String source;
     

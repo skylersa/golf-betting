@@ -28,7 +28,7 @@ public class ScoreCardPrinter {
             parString.append(SPACER).append(gap.getHoles().get(i).getPar());
             for (int j = 0; j < strokeStrings.size(); j++) {
                 StringBuilder strokeString = strokeStrings.get(j);
-                strokeString.append(SPACER).append(gap.getPerformances()[i][j]);
+                strokeString.append(SPACER).append(gap.getStrokes()[i][j]);
             }
         }
         System.out.println(parString);
