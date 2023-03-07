@@ -11,6 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+// TODO: test toJson, exception throws, getBest
 public class GameAllPerformanceTest {
     private GameAllPerformance gap1x1, gap2x2, gap3x4, gap4x3; // holesxgolfers
     private Golfer g0, g1, g2, g3;

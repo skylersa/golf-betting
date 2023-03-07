@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+// TODO: test toJson
 public class HoleGolferPerformanceTest {
     Hole h0, h1, h2, h3;
     Golfer g0, g1, g2, g3;

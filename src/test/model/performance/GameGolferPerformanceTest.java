@@ -10,6 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+// TODO: test to Json + exception throw
 public class GameGolferPerformanceTest {
     private Hole h0, h1, h2, h3;
     private GameGolferPerformance hap0, hap1, hap2, hap3;

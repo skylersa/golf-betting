@@ -10,6 +10,7 @@ import java.util.List;
 /*
  * Prints score cards of given types to the console
  * TODO: Improve alignment in printing
+ * TODO: ensure not necessary to cover in code coverage
  */
 public class ScoreCardPrinter {
     private static final String SPACER = "  ";
