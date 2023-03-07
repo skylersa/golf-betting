@@ -34,10 +34,10 @@ public class GameGolferPerformanceTest {
         strokes3 = new ArrayList<>(Arrays.asList(2, 5, 9, 4));
         
         
-        hap0 = new GameGolferPerformance(holes0, strokes0);
-        hap1 = new GameGolferPerformance(holes1, strokes1);
-        hap2 = new GameGolferPerformance(holes2, strokes2);
-        hap3 = new GameGolferPerformance(holes3, strokes3);
+        hap0 = new GameGolferPerformance(holes0, strokes0, "PLACEHOLDER");
+        hap1 = new GameGolferPerformance(holes1, strokes1, "PLACEHOLDER");
+        hap2 = new GameGolferPerformance(holes2, strokes2, "PLACEHOLDER");
+        hap3 = new GameGolferPerformance(holes3, strokes3, "PLACEHOLDER");
     }
     
     @Test

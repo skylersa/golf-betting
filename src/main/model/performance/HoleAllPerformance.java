@@ -7,7 +7,8 @@ import java.util.InputMismatchException;
 import java.util.List;
 
 /*
- * TODO
+ * Represents the performance of many golfers on one hole
+ * Transient type only, not for storage.
  */
 public final class HoleAllPerformance {
     private List<Golfer> golfers;

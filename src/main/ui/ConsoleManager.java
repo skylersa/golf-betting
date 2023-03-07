@@ -2,13 +2,16 @@ package ui;
 
 import exceptions.NegativeBetException;
 import exceptions.RepeatGolferException;
+import exceptions.RepeatCourseException;
 import model.gambling.League;
 import model.game.Hole;
 import model.performance.GameAllPerformance;
 import model.performance.GameGolferPerformance;
+import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -26,13 +29,15 @@ public class ConsoleManager {
     
     private Scanner kboard = new Scanner(System.in).useDelimiter("\n");
     private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     
-    private final League league;
+    private League league;
     
     // EFFECTS: creates new consoleManager with a league
     private ConsoleManager() {
-        league = new League();
-        jsonWriter = new JsonWriter(JSON_STORE);
+        this.league = new League();
+        this.jsonWriter = new JsonWriter(JSON_STORE);
+        this.jsonReader = new JsonReader(JSON_STORE);
         
         try {
             league.addGolfer("Bob Odenkirk");
@@ -42,9 +47,13 @@ public class ConsoleManager {
         } catch (RepeatGolferException e) {
             throw new Error(e);
         }
-        league.addCourse("WestField Golf", 4);
-        league.addCourse("Albuquerque's finest", 3);
-        league.addCourse("Tiny Golf!", 1);
+        try {
+            league.addCourse("WestField Golf", 4);
+            league.addCourse("Albuquerque's finest", 3);
+            league.addCourse("Tiny Golf!", 1);
+        } catch (RepeatCourseException e) {
+            throw new Error(e);
+        }
     }
     
     // MODIFIES: this
@@ -73,6 +82,7 @@ public class ConsoleManager {
         }
     }
     
+    // EFFECTS: takes user to the options to save, load, and quit the program
     private void saveLoadQuitMenu() {
         List<String> options = new ArrayList<>();
         options.add("Save");
@@ -81,18 +91,11 @@ public class ConsoleManager {
     
         switch (selectFromListMenu(options)) {
             case "Save":
-                try {
-                    jsonWriter.open();
-                    jsonWriter.write(this.league);
-                    jsonWriter.close();
-                    System.out.println("Saved!");
-                } catch (FileNotFoundException e) {
-                    System.out.println("Could find file " + JSON_STORE);
-                }
+                saveThis();
                 mainMenu();
                 break;
             case "Load":
-                // TODO: load function
+                loadThis();
                 mainMenu();
                 break;
             case "Quit":
@@ -100,6 +103,29 @@ public class ConsoleManager {
                 break;
         }
     }
+    
+    // EFFECTS: saves inStance of this to JSON_STORE
+    private void saveThis() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(this.league);
+            jsonWriter.close();
+            System.out.println("Saved!");
+        } catch (FileNotFoundException e) {
+            System.out.println("Could find file " + JSON_STORE);
+        }
+    }
+    
+    // EFFECTS: loadS inStance of this from JSON_STORE
+    private void loadThis() {
+        try {
+            this.league = jsonReader.read();
+            System.out.println("Loaded league from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+    
     
     // MODIFIES: this
     // EFFECTS: lets user view and add courses
@@ -139,9 +165,14 @@ public class ConsoleManager {
             }
         }
         
-        league.addCourse(inName, inNumHoles);
+        try {
+            league.addCourse(inName, inNumHoles);
+            coursesMenu();
+        } catch (RepeatCourseException e) {
+            System.out.println(e.getMessage());
+            addCourseMenu();
+        }
         
-        coursesMenu();
     }
     
     // MODIFIES: this
@@ -180,10 +211,10 @@ public class ConsoleManager {
     // REQUIRES: given golfer is in league
     // EFFECTS: prints a golfer's scorecard in each of their games
     private void viewGolferMenu(String golferName) {
-        System.out.println(golferName + "'s stats");
+        System.out.println(golferName + "'s stats\n");
         for (GameGolferPerformance performance : league.getGolferHistory(golferName)) {
-            System.out.println("=================================");
-            scoreCardPrinter.printScoreCard(performance);
+            scoreCardPrinter.printScoreCard(performance, true);
+            System.out.println();
         }
         System.out.println("\nENTER to continue");
         kboard.next();

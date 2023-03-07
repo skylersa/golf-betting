@@ -2,14 +2,12 @@ package model.performance;
 
 import model.game.Golfer;
 import model.game.Hole;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
 /*
  * Represents the performance of one golfer on one hole.
- * This class is immutable and is the granular performance that the rest of the performance packages hold and manage
- * See Performance structure.jpg for details the structure of performance holders
+ * transient class only, not for storage.
  */
 public final class HoleGolferPerformance implements Writable {
     private final Hole hole;

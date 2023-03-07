@@ -26,16 +26,15 @@ public class Course  implements Writable {
         }
     }
     
-    // REQUIRES: TODO
-    // MODIFIES:
-    // EFFECTS:
+    // EFFECTS: creates new Course with given name and holes
     public Course(String name, List<Hole> holes) {
         this.name = name;
-        this.holes = new Hole[holes.size()];
-        for (int i = 0; i < holes.size(); i++) {
+        this.numHoles = holes.size();
+        this.holes = new Hole[numHoles];
+        
+        for (int i = 0; i < numHoles; i++) {
             this.holes[i] = holes.get(i);
         }
-        
     }
     
     public String getName() {

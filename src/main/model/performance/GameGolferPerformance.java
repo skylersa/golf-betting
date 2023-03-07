@@ -8,21 +8,22 @@ import java.util.List;
 
 /*
  * Represents the performance of one golfer in a game in that entire game.
- * //TODO simplify name
+ * Transient class only, not for storage.
  */
 public final class GameGolferPerformance {
     private List<Hole> holes;
     private List<Integer> strokes;
+    private String courseName;
     
-    // REQUIRES: TODO
-    // MODIFIES:
-    // EFFECTS:
-    public GameGolferPerformance(List<Hole> holes, List<Integer> strokes) {
+    // EFFECTS: Creates new GameGolferPerformance on given holes with given strokes on given course name
+    //       number of holes and number of strokes must be equal, otherwise, will throw InputMismatchException
+    public GameGolferPerformance(List<Hole> holes, List<Integer> strokes, String courseName) {
         if (holes.size() != strokes.size()) {
             throw new InputMismatchException();
         }
         this.holes = new ArrayList<>(holes);
         this.strokes = new ArrayList<>(strokes);
+        this.courseName = courseName;
     }
     
     public List<Hole> getHoles() {
@@ -31,6 +32,10 @@ public final class GameGolferPerformance {
     
     public List<Integer> getStrokes() {
         return strokes;
+    }
+    
+    public String getCourseName() {
+        return courseName;
     }
     
     public Hole getHole(int index) {

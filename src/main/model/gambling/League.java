@@ -3,6 +3,7 @@ package model.gambling;
 import exceptions.CourseNotPresentException;
 import exceptions.GolferNotPresentException;
 import exceptions.RepeatGolferException;
+import exceptions.RepeatCourseException;
 import model.game.Course;
 import model.game.Golfer;
 import model.game.Hole;
@@ -14,17 +15,19 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /*
- * Represents a league of golfers and course that they can play on and their histories of perforances.
+ * Represents a league of golfers, course that they can play on and their histories of perforances.
  * Gives a friendlier manner with which to interact
  *th the various list of things (using strings)
  */
 public class League implements Writable {
-    private List<Golfer> golfers;
+    private List<Golfer> golfers; //todo change to maps
     private List<Course> courses;
-    private final Gambler gambler;
+    private Gambler gambler;
     
     private List<GameAllPerformance> performances;
     
@@ -51,15 +54,45 @@ public class League implements Writable {
     // REQUIRES: name is unique, numHoles > 0
     // MODIFIES: this
     // EFFECTS: adds course with given name and number of holes
-    public void addCourse(String name, int numHoles) {
-        this.courses.add(new Course(name, numHoles));
+    public void addCourse(String name, int numHoles) throws RepeatCourseException {
+        if (courses.stream().map(Course::getName).collect(Collectors.toList()).contains(name)) {
+            throw new RepeatCourseException(name);
+        } else {
+            this.courses.add(new Course(name, numHoles));
+        }
     }
     
-    // REQUIRES: TODO
-    // MODIFIES:
-    // EFFECTS:
-    public void addCourse(String name, List<Hole> holes) {
-        this.courses.add(new Course(name, holes));
+    // MODIFIES: this
+    // EFFECTS: adds course with given name and holes
+    public void addCourse(String name, List<Hole> holes) throws RepeatCourseException {
+        if (courses.stream().map(Course::getName).collect(Collectors.toList()).contains(name)) {
+            throw new RepeatCourseException(name);
+        } else {
+            this.courses.add(new Course(name, holes));
+        }
+    }
+    
+    // MODIFIES: this
+    // EFFECTS: stores given performance
+    // throws input mismatch error if given performance's golfers and course
+    //      are not present in this league
+    public void addPerformance(GameAllPerformance gap) {
+        if (!this.golfers.containsAll(gap.getGolfers())) {
+            throw new InputMismatchException();
+        } else if (!this.courses.stream()
+                .map(Course::getName)
+                .collect(Collectors.toList())
+                .contains(gap.getCourseName())) {
+            throw new InputMismatchException();
+        } else {
+            performances.add(gap);
+        }
+    }
+    
+    // MODIFIES: this
+    // EFFECTS: sets this gambler as given gambler
+    public void setGambler(Gambler gambler) {
+        this.gambler = gambler;
     }
     
     // REQUIRES: golferNames have been added as golfers
@@ -69,7 +102,7 @@ public class League implements Writable {
     public GameAllPerformance playGame(String courseName, List<String> golferNames) {
         Course course = null;
         List<Golfer> golfers = new ArrayList<>();
-    
+        
         for (Course c : this.courses) {
             if (c.getName().equals(courseName)) {
                 course = c;
@@ -90,14 +123,14 @@ public class League implements Writable {
         }
         
         
-        GameAllPerformance gap = new GameAllPerformance(Arrays.asList(course.getHoles()), golfers);
+        GameAllPerformance gap = new GameAllPerformance(Arrays.asList(course.getHoles()), golfers, course.getName());
         
         return playGame(gap);
     }
     
-    // REQUIRES: TODO
-    // MODIFIES:
-    // EFFECTS:
+    // MODIFIES: this, gap
+    // EFFECTS: completes the given performance by generating a performance for
+    //     each slot in it. Also add given gap to this
     private GameAllPerformance playGame(GameAllPerformance gap) {
         for (Hole hole : gap.getHoles()) {
             for (Golfer golfer : gap.getGolfers()) {
@@ -105,7 +138,7 @@ public class League implements Writable {
             }
         }
         
-        performances.add(gap);
+        addPerformance(gap);
         return gap;
     }
     
@@ -187,13 +220,13 @@ public class League implements Writable {
         
         for (GameAllPerformance gap : this.performances) {
             totalStrokesJson.put(gap.toJson());
-    
+            
         }
         
         JSONObject json = new JSONObject();
         json.put("golfers", golfersJson);
         json.put("courses", coursesJson);
-        json.put("strokes", totalStrokesJson);
+        json.put("performances", totalStrokesJson);
         json.put("gambler", gambler.toJson());
         
         return json;

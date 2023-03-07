@@ -13,7 +13,13 @@ public class Gambler implements Writable {
     
     // EFFECTS: creates new gambler with a balance of INITIAL_BALANCE
     public Gambler() {
-        balance = INITIAL_BALANCE;
+        this(INITIAL_BALANCE);
+    }
+    
+    // REQUIRES: balance must be positive
+    // EFFECTS: creates new gambler with given balance
+    public Gambler(int balance) {
+        this.balance = balance;
     }
     
     // REQUIRES: 0 < amountPlaced <= this.getBalance()

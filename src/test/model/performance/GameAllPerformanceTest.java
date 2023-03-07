@@ -40,10 +40,10 @@ public class GameAllPerformanceTest {
         golfers4 = new ArrayList<>(Arrays.asList(g0, g1, g2, g3));
         golfers3 = new ArrayList<>(Arrays.asList(g1, g2, g3));
         
-        gap1x1 = new GameAllPerformance(holes1, golfers1);
-        gap2x2 = new GameAllPerformance(holes2, golfers2);
-        gap3x4 = new GameAllPerformance(holes3, golfers4);
-        gap4x3 = new GameAllPerformance(holes4, golfers3);
+        gap1x1 = new GameAllPerformance(holes1, golfers1, "laceHolder");
+        gap2x2 = new GameAllPerformance(holes2, golfers2, "laceHolder");
+        gap3x4 = new GameAllPerformance(holes3, golfers4, "laceHolder");
+        gap4x3 = new GameAllPerformance(holes4, golfers3, "laceHolder");
     }
     
     @Test

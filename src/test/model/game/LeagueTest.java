@@ -1,6 +1,7 @@
 package model.game;
 
 import exceptions.RepeatGolferException;
+import exceptions.RepeatCourseException;
 import model.gambling.League;
 import model.performance.GameAllPerformance;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,10 +20,14 @@ public class LeagueTest {
     public void setup() {
         l0 = new League();
         l1 = new League();
-    
-        l1.addCourse("west", 6);
-        l1.addCourse("east", 1);
-        l1.addCourse("noot", 15);
+        
+        try {
+            l1.addCourse("west", 6);
+            l1.addCourse("east", 1);
+            l1.addCourse("noot", 15);
+        } catch (RepeatCourseException e) {
+            throw new Error(e);
+        }
         
         try {
             l1.addGolfer("carlo");
