@@ -1,5 +1,6 @@
 package model.persistence;
 
+import exceptions.JsonParseError;
 import model.gambling.League;
 import org.junit.jupiter.api.Test;
 import persistence.JsonReader;
@@ -36,6 +37,48 @@ public class JsonReaderTest {
             // Pass
         } catch (IOException e) {
             fail("Couldn't read from file");
+        }
+        // Pass
+    }
+    
+    @Test
+    void testReaderExtraGolferInPerfLeague() {
+        JsonReader reader = new JsonReader("./data/testReaderExtraGolferInPerf.json");
+        try {
+            League league = reader.read();
+            fail("read file when it shouldn't be able to");
+        } catch (JsonParseError e) {
+            // Pass
+        } catch (IOException e) {
+            fail("couldn't read file");
+        }
+        // Pass
+    }
+    
+    @Test
+    void testReaderRepeatGolferLeague() {
+        JsonReader reader = new JsonReader("./data/testReaderRepeatGolfer.json");
+        try {
+            League league = reader.read();
+            fail("read file when it shouldn't be able to");
+        } catch (JsonParseError e) {
+            // Pass
+        } catch (IOException e) {
+            fail("couldn't read file");
+        }
+        // Pass
+    }
+    
+    @Test
+    void testReaderRepeatCourseLeague() {
+        JsonReader reader = new JsonReader("./data/testReaderRepeatCourse.json");
+        try {
+            League league = reader.read();
+            fail("read file when it shouldn't be able to");
+        } catch (JsonParseError e) {
+            // Pass
+        } catch (IOException e) {
+            fail("couldn't read file");
         }
         // Pass
     }

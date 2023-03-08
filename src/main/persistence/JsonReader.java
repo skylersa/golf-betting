@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.GolferNotPresentException;
 import exceptions.JsonParseError;
 import exceptions.RepeatGolferException;
 import exceptions.RepeatCourseException;
@@ -53,7 +54,7 @@ public class JsonReader {
     }
     
     // EFFECTS: parses league from JSON object and returns it
-    private League parseLeague(JSONObject jsonObject) {
+    private League parseLeague(JSONObject jsonObject) throws JsonParseError {
         League league = new League();
         addGolfers(league, jsonObject.getJSONArray("golfers"));
         addCourses(league, jsonObject.getJSONArray("courses"));
@@ -64,20 +65,20 @@ public class JsonReader {
     
     // MODIFIES: league
     // EFFECTS: adds golfers from given JSONArray to the given league
-    private void addGolfers(League league, JSONArray golfersJson) {
+    private void addGolfers(League league, JSONArray golfersJson) throws JsonParseError {
         for (Object golferJson : golfersJson) {
             JSONObject golferJsonCasted = (JSONObject) golferJson;
             try {
                 league.addGolfer(golferJsonCasted.getString("name"));
             } catch (RepeatGolferException e) {
-                throw new Error("Json edited between runs?", e);
+                throw new JsonParseError(e);
             }
         }
     }
     
     // MODIFIES: league
     // EFFECTS: adds the courses contained in given JSONArray to the League
-    private void addCourses(League league, JSONArray coursesJson) {
+    private void addCourses(League league, JSONArray coursesJson) throws JsonParseError {
         for (Object golferJson : coursesJson) {
             JSONObject golferJsonCasted = (JSONObject) golferJson;
             addCourse(league, golferJsonCasted);
@@ -86,7 +87,7 @@ public class JsonReader {
     
     // MODIFIES: league
     // EFFECTS: Adds course in given JSONObject to given League
-    private void addCourse(League league, JSONObject json) {
+    private void addCourse(League league, JSONObject json) throws JsonParseError {
         List<Hole> holes = new ArrayList<>();
         JSONArray holesJson = json.getJSONArray("holes");
         for (Object holeJson : holesJson) {
@@ -145,16 +146,16 @@ public class JsonReader {
     // EFFECTS: Retrieves the Golfer objects from the league that are defined in the given JSONArray
     private List<Golfer> parseGolfers(League league, JSONArray golfersJson) {
         List<Golfer> result = new ArrayList<>();
-        for (Object golferObject : golfersJson) {
-            JSONObject golferJson = (JSONObject) golferObject;
-            result.add(league.getGolfer(golferJson.getString("name")));
-        }
-        
-        if (golfersJson.length() != result.size()) {
+        try {
+            for (Object golferObject : golfersJson) {
+                JSONObject golferJson = (JSONObject) golferObject;
+                result.add(league.getGolfer(golferJson.getString("name")));
+            }
+        } catch (GolferNotPresentException e) {
             throw new JsonParseError("Golfer from performance is missing in league");
-        } else {
-            return result;
         }
+        return result;
+        
     }
     
     

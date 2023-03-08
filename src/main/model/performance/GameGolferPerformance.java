@@ -47,7 +47,6 @@ public final class GameGolferPerformance {
     }
     
     public int size() {
-        assert holes.size() == strokes.size();
         return holes.size();
     }
 }

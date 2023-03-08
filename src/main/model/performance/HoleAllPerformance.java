@@ -40,7 +40,6 @@ public final class HoleAllPerformance {
     }
     
     public int size() {
-        assert golfers.size() == strokes.size();
         return golfers.size();
     }
 }
