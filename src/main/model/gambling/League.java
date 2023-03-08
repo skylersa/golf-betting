@@ -2,8 +2,8 @@ package model.gambling;
 
 import exceptions.CourseNotPresentException;
 import exceptions.GolferNotPresentException;
-import exceptions.RepeatGolferException;
 import exceptions.RepeatCourseException;
+import exceptions.RepeatGolferException;
 import model.game.Course;
 import model.game.Golfer;
 import model.game.Hole;
@@ -15,7 +15,6 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,17 +76,16 @@ public class League implements Writable {
     // throws input mismatch error if given performance's golfers and course
     //      are not present in this league
     public void addPerformance(GameAllPerformance gap) {
-        if (!this.golfers.containsAll(gap.getGolfers())) {
-            throw new InputMismatchException();
-        } else if (!this.courses.stream()
-                .map(Course::getName)
-                .collect(Collectors.toList())
+        if (!getCourseNames()
                 .contains(gap.getCourseName())) {
-            throw new InputMismatchException();
+            throw new CourseNotPresentException();
+        } else if (!this.golfers.containsAll(gap.getGolfers())) {
+            throw new GolferNotPresentException();
         } else {
             performances.add(gap);
         }
     }
+    
     
     // MODIFIES: this
     // EFFECTS: sets this gambler as given gambler
@@ -177,19 +175,18 @@ public class League implements Writable {
     // EFFECTS: return the names of the courses in the league
     public List<String> getCourseNames() {
         List<String> courseNames = new ArrayList<>();
-        for (Course course : this.courses) {
-            courseNames.add(course.getName());
-        }
-        return courseNames;
+        return this.courses.stream()
+                .map(Course::getName)
+                .collect(Collectors
+                        .toList());
     }
     
     // EFFECTS: return the names of the golfers in the league
     public List<String> getGolferNames() {
-        List<String> golferNames = new ArrayList<>();
-        for (Golfer golfer : this.golfers) {
-            golferNames.add(golfer.getName());
-        }
-        return golferNames;
+        return this.golfers.stream()
+                .map(Golfer::getName)
+                .collect(Collectors
+                        .toList());
     }
     
     public List<Course> getCourses() {
@@ -198,6 +195,10 @@ public class League implements Writable {
     
     public List<Golfer> getGolfers() {
         return golfers;
+    }
+    
+    public List<GameAllPerformance> getPerformances() {
+        return performances;
     }
     
     public Gambler getGambler() {

@@ -2,14 +2,12 @@ package model.performance;
 
 import model.game.Golfer;
 import model.game.Hole;
-import org.json.JSONObject;
-import persistence.Writable;
 
 /*
  * Represents the performance of one golfer on one hole.
  * transient class only, not for storage.
  */
-public final class HoleGolferPerformance implements Writable {
+public final class HoleGolferPerformance {
     private final Hole hole;
     private final Golfer golfer;
     private final int strokes;
@@ -22,12 +20,6 @@ public final class HoleGolferPerformance implements Writable {
         this.strokes = strokes;
     }
     
-    // EFFECTS: returns golfer's performance compared to par
-    //          < means better score, -ve means below par, +ve means above par
-    public int getParDeviation() {
-        return strokes - hole.getPar();
-    }
-    
     public int getStrokes() {
         return this.strokes;
     }
@@ -38,15 +30,5 @@ public final class HoleGolferPerformance implements Writable {
     
     public Golfer getGolfer() {
         return this.golfer;
-    }
-    
-    @Override
-    public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        json.put("hole", this.hole.toJson());
-        json.put("golfer", this.golfer.toJson());
-        json.put("strokes", this.strokes);
-        
-        return json;
     }
 }

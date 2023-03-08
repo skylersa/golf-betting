@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// TODO: test toJson
 public class GolferTest {
     private Golfer g0, g1, g2, g3;
     
@@ -23,5 +22,13 @@ public class GolferTest {
         assertEquals("g1", g1.getName());
         assertEquals("g2", g2.getName());
         assertEquals("g3", g3.getName());
+    }
+    
+    @Test
+    public void toJsonTest() {
+        assertEquals("g0", g0.toJson().getString("name"));
+        assertEquals("g1", g1.toJson().getString("name"));
+        assertEquals("g2", g2.toJson().getString("name"));
+        assertEquals("g3", g3.toJson().getString("name"));
     }
 }

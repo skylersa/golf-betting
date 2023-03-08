@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// TODO: test to Json + exception throw
 public class GameGolferPerformanceTest {
     private Hole h0, h1, h2, h3;
     private GameGolferPerformance hap0, hap1, hap2, hap3;
@@ -35,10 +35,10 @@ public class GameGolferPerformanceTest {
         strokes3 = new ArrayList<>(Arrays.asList(2, 5, 9, 4));
         
         
-        hap0 = new GameGolferPerformance(holes0, strokes0, "PLACEHOLDER");
-        hap1 = new GameGolferPerformance(holes1, strokes1, "PLACEHOLDER");
-        hap2 = new GameGolferPerformance(holes2, strokes2, "PLACEHOLDER");
-        hap3 = new GameGolferPerformance(holes3, strokes3, "PLACEHOLDER");
+        hap0 = new GameGolferPerformance(holes0, strokes0, "course0");
+        hap1 = new GameGolferPerformance(holes1, strokes1, "course1");
+        hap2 = new GameGolferPerformance(holes2, strokes2, "course2");
+        hap3 = new GameGolferPerformance(holes3, strokes3, "course3");
     }
     
     @Test
@@ -52,7 +52,13 @@ public class GameGolferPerformanceTest {
         assertEquals(holes1, hap1.getHoles());
         assertEquals(holes2, hap2.getHoles());
         assertEquals(holes3, hap3.getHoles());
-        
+    
+        assertEquals("course0", hap0.getCourseName());
+        assertEquals("course1", hap1.getCourseName());
+        assertEquals("course2", hap2.getCourseName());
+        assertEquals("course3", hap3.getCourseName());
+    
+    
         assertEquals(holes0.get(0), hap0.getHole(0));
         
         assertEquals(holes1.get(0), hap1.getHole(0));
@@ -80,5 +86,35 @@ public class GameGolferPerformanceTest {
         assertEquals(strokes3.get(1), hap3.getStroke(1));
         assertEquals(strokes3.get(2), hap3.getStroke(2));
         assertEquals(strokes3.get(3), hap3.getStroke(3));
+    }
+    
+    @Test
+    public void ConstructorThrowsInputMismatchTest() {
+        try {
+            new GameGolferPerformance(holes0, strokes1, "");
+        } catch (InputMismatchException e) {
+            // Pass
+        }
+        // Pass
+        try {
+            new GameGolferPerformance(holes3, strokes1, "");
+        } catch (InputMismatchException e) {
+            // Pass
+        }
+        // Pass
+        try {
+            new GameGolferPerformance(holes1, strokes0, "");
+        } catch (InputMismatchException e) {
+            // Pass
+        }
+        // Pass
+    }
+    
+    @Test
+    public void sizeTest() {
+        assertEquals(1, hap0.size());
+        assertEquals(2, hap1.size());
+        assertEquals(3, hap2.size());
+        assertEquals(4, hap3.size());
     }
 }

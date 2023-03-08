@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-// TODO: test toJson
 public class HoleTest {
     private Golfer g0, g1, g2;
     private Hole h0, h1, h2, h3, h4, h5, h6, h7, h8, h9;
@@ -77,7 +76,19 @@ public class HoleTest {
         int maxStrokes = hole.getPar() + hole.getMaxDeviation();
         int minStrokes = hole.getPar() - hole.getMaxDeviation();
         assertTrue((minStrokes <= hgp.getStrokes()) && (hgp.getStrokes() <= maxStrokes));
-        
-        
+    }
+    
+    @Test
+    public void tojsonTest() {
+        assertEquals(h0.getPar(), h0.toJson().getInt("par"));
+        assertEquals(h1.getPar(), h1.toJson().getInt("par"));
+        assertEquals(h2.getPar(), h2.toJson().getInt("par"));
+        assertEquals(h3.getPar(), h3.toJson().getInt("par"));
+        assertEquals(h4.getPar(), h4.toJson().getInt("par"));
+        assertEquals(h5.getPar(), h5.toJson().getInt("par"));
+        assertEquals(h6.getPar(), h6.toJson().getInt("par"));
+        assertEquals(h7.getPar(), h7.toJson().getInt("par"));
+        assertEquals(h8.getPar(), h8.toJson().getInt("par"));
+        assertEquals(h9.getPar(), h9.toJson().getInt("par"));
     }
 }
