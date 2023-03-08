@@ -1,15 +1,6 @@
 {
   "courses": [
     {
-      "name": "WestField Golf",
-      "holes": [
-        {"par": 1},
-        {"par": 2},
-        {"par": 3},
-        {"par": 4}
-      ]
-    },
-    {
       "name": "Albuquerque's finest",
       "holes": [
         {"par": 5},
@@ -24,30 +15,7 @@
       ]
     }
   ],
-  "golfers": [
-    {"name": "Bob Odenkirk"},
-    {"name": "Bryan Cranston"}
-  ],
+  "golfers": [],
   "gambler": {"balance": 4342},
-  "performances": [{
-    "strokes": [
-      [
-        7,
-        8
-      ],
-      [
-        9,
-        10
-      ]
-    ],
-    "courseName": "Albuquerque's finest",
-    "golfers": [
-      {"name": "Bob Odenkirk"},
-      {"name": "Bryan Cranston"}
-    ],
-    "holes": [
-      {"par": 5},
-      {"par": 6}
-    ]
-  }]
+  "performances": []
 }
