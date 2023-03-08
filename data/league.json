@@ -4,22 +4,22 @@
             "name": "WestField Golf",
             "holes": [
                 {"par": 7},
-                {"par": 3},
-                {"par": 3},
-                {"par": 6}
+                {"par": 4},
+                {"par": 4},
+                {"par": 4}
             ]
         },
         {
             "name": "Albuquerque's finest",
             "holes": [
-                {"par": 3},
-                {"par": 3},
-                {"par": 2}
+                {"par": 4},
+                {"par": 2},
+                {"par": 5}
             ]
         },
         {
             "name": "Tiny Golf!",
-            "holes": [{"par": 4}]
+            "holes": [{"par": 5}]
         }
     ],
     "golfers": [
@@ -28,6 +28,39 @@
         {"name": "Aaron Paul"},
         {"name": "Billiam Zero"}
     ],
-    "gambler": {"balance": 5000},
-    "performances": []
+    "gambler": {"balance": 4996},
+    "performances": [{
+        "strokes": [
+            [
+                6,
+                2,
+                4,
+                5
+            ],
+            [
+                1,
+                2,
+                1,
+                2
+            ],
+            [
+                5,
+                8,
+                4,
+                8
+            ]
+        ],
+        "courseName": "Albuquerque's finest",
+        "golfers": [
+            {"name": "Bob Odenkirk"},
+            {"name": "Bryan Cranston"},
+            {"name": "Aaron Paul"},
+            {"name": "Billiam Zero"}
+        ],
+        "holes": [
+            {"par": 4},
+            {"par": 2},
+            {"par": 5}
+        ]
+    }]
 }
