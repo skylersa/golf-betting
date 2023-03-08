@@ -2,8 +2,8 @@ package persistence;
 
 import exceptions.GolferNotPresentException;
 import exceptions.JsonParseError;
-import exceptions.RepeatGolferException;
 import exceptions.RepeatCourseException;
+import exceptions.RepeatGolferException;
 import model.gambling.Gambler;
 import model.gambling.League;
 import model.game.Course;
@@ -20,7 +20,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -136,11 +135,8 @@ public class JsonReader {
                         holeStrokeJson.getInt(golferIndex)));
             }
         }
-        try {
-            league.addPerformance(gap);
-        } catch (InputMismatchException e) {
-            throw new JsonParseError(e);
-        }
+        
+        league.addPerformance(gap);
     }
     
     // EFFECTS: Retrieves the Golfer objects from the league that are defined in the given JSONArray

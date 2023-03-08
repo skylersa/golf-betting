@@ -43,7 +43,7 @@ public class JsonReaderTest {
     
     @Test
     void testReaderExtraGolferInPerfLeague() {
-        JsonReader reader = new JsonReader("./data/testReaderExtraGolferInPerf.json");
+        JsonReader reader = new JsonReader("./data/testReaderInvalidPerformanceGolfer.json");
         try {
             League league = reader.read();
             fail("read file when it shouldn't be able to");

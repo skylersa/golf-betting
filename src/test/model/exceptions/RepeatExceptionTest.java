@@ -1,5 +1,6 @@
 package model.exceptions;
 
+import exceptions.NegativeBetException;
 import exceptions.RepeatCourseException;
 import exceptions.RepeatGolferException;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,11 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class RepeatExceptionTest {
     RepeatGolferException repeatGolferException;
     RepeatCourseException repeatCourseException;
+    NegativeBetException negativeBetException;
     
     @BeforeEach
     public void setup() {
         repeatGolferException = new RepeatGolferException("bob");
         repeatCourseException = new RepeatCourseException("west");
+        negativeBetException = new NegativeBetException();
     }
     
     @Test
