@@ -15,6 +15,7 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,6 +46,8 @@ public class League implements Writable {
     public void addGolfer(String name) throws RepeatGolferException {
         if (getGolferNames().contains(name)) {
             throw new RepeatGolferException(name);
+        } else if (name.length() == 0) {
+            throw new InputMismatchException();
         } else {
             this.golfers.add(new Golfer(name));
         }
