@@ -104,7 +104,7 @@ public class ConsoleManager {
         }
     }
     
-    // EFFECTS: saves inStance of this to JSON_STORE
+    // EFFECTS: saves instance of this to JSON_STORE
     private void saveThis() {
         try {
             jsonWriter.open();
@@ -116,7 +116,7 @@ public class ConsoleManager {
         }
     }
     
-    // EFFECTS: loadS inStance of this from JSON_STORE
+    // EFFECTS: loads instance of this from JSON_STORE
     private void loadThis() {
         try {
             this.league = jsonReader.read();

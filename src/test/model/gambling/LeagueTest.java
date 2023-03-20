@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -122,6 +123,39 @@ public class LeagueTest {
             l1.addCourse("west", 4);
             fail();
         } catch (RepeatCourseException e) {
+            // Do nothing, pass
+        }
+        // Do nothing, pass
+    }
+    
+    @Test
+    public void addCourseTestNumThrowsInputMismatch() {
+        try {
+            l1.addCourse("team", 0);
+            fail();
+        } catch (RepeatCourseException e) {
+            fail();
+        } catch (InputMismatchException e) {
+            // Do nothing, pass
+        }
+        // Do nothing, pass
+    
+        try {
+            l1.addCourse("team", -1);
+            fail();
+        } catch (RepeatCourseException e) {
+            fail();
+        } catch (InputMismatchException e) {
+            // Do nothing, pass
+        }
+        // Do nothing, pass
+    
+        try {
+            l1.addCourse("team", -25);
+            fail();
+        } catch (RepeatCourseException e) {
+            fail();
+        } catch (InputMismatchException e) {
             // Do nothing, pass
         }
         // Do nothing, pass

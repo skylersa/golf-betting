@@ -3,157 +3,56 @@
         {
             "name": "WestField Golf",
             "holes": [
-                {"par": 7},
-                {"par": 4},
-                {"par": 4},
+                {"par": 2},
+                {"par": 2},
+                {"par": 3},
                 {"par": 4}
             ]
         },
         {
             "name": "Albuquerque's finest",
             "holes": [
-                {"par": 4},
-                {"par": 2},
-                {"par": 5}
+                {"par": 7},
+                {"par": 6},
+                {"par": 4}
             ]
         },
         {
             "name": "Tiny Golf!",
-            "holes": [{"par": 5}]
+            "holes": [{"par": 7}]
+        },
+        {
+            "name": "tromp womp",
+            "holes": [
+                {"par": 7},
+                {"par": 4},
+                {"par": 4},
+                {"par": 2},
+                {"par": 6},
+                {"par": 7},
+                {"par": 4},
+                {"par": 6},
+                {"par": 4},
+                {"par": 7},
+                {"par": 3},
+                {"par": 3},
+                {"par": 7},
+                {"par": 6},
+                {"par": 4},
+                {"par": 7},
+                {"par": 2},
+                {"par": 3},
+                {"par": 4}
+            ]
         }
     ],
     "golfers": [
         {"name": "Bob Odenkirk"},
         {"name": "Bryan Cranston"},
         {"name": "Aaron Paul"},
-        {"name": "Billiam Zero"}
+        {"name": "Billiam Zero"},
+        {"name": "timmy mortonwood"}
     ],
-    "gambler": {"balance": 5003},
-    "performances": [
-        {
-            "strokes": [
-                [
-                    6,
-                    2,
-                    4,
-                    5
-                ],
-                [
-                    1,
-                    2,
-                    1,
-                    2
-                ],
-                [
-                    5,
-                    8,
-                    4,
-                    8
-                ]
-            ],
-            "courseName": "Albuquerque's finest",
-            "golfers": [
-                {"name": "Bob Odenkirk"},
-                {"name": "Bryan Cranston"},
-                {"name": "Aaron Paul"},
-                {"name": "Billiam Zero"}
-            ],
-            "holes": [
-                {"par": 4},
-                {"par": 2},
-                {"par": 5}
-            ]
-        },
-        {
-            "strokes": [
-                [
-                    2,
-                    5,
-                    1,
-                    2
-                ],
-                [
-                    1,
-                    1,
-                    2,
-                    1
-                ],
-                [
-                    1,
-                    2,
-                    4,
-                    6
-                ]
-            ],
-            "courseName": "Albuquerque's finest",
-            "golfers": [
-                {"name": "Bob Odenkirk"},
-                {"name": "Bryan Cranston"},
-                {"name": "Aaron Paul"},
-                {"name": "Billiam Zero"}
-            ],
-            "holes": [
-                {"par": 4},
-                {"par": 2},
-                {"par": 5}
-            ]
-        },
-        {
-            "strokes": [
-                [
-                    2,
-                    11,
-                    12,
-                    10
-                ],
-                [
-                    6,
-                    1,
-                    4,
-                    3
-                ],
-                [
-                    3,
-                    6,
-                    1,
-                    5
-                ],
-                [
-                    3,
-                    5,
-                    4,
-                    2
-                ]
-            ],
-            "courseName": "WestField Golf",
-            "golfers": [
-                {"name": "Bob Odenkirk"},
-                {"name": "Bryan Cranston"},
-                {"name": "Aaron Paul"},
-                {"name": "Billiam Zero"}
-            ],
-            "holes": [
-                {"par": 7},
-                {"par": 4},
-                {"par": 4},
-                {"par": 4}
-            ]
-        },
-        {
-            "strokes": [[
-                2,
-                1,
-                8,
-                3
-            ]],
-            "courseName": "Tiny Golf!",
-            "golfers": [
-                {"name": "Bob Odenkirk"},
-                {"name": "Bryan Cranston"},
-                {"name": "Aaron Paul"},
-                {"name": "Billiam Zero"}
-            ],
-            "holes": [{"par": 5}]
-        }
-    ]
+    "gambler": {"balance": 5000},
+    "performances": []
 }

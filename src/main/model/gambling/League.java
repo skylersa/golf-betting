@@ -59,6 +59,8 @@ public class League implements Writable {
     public void addCourse(String name, int numHoles) throws RepeatCourseException {
         if (courses.stream().map(Course::getName).collect(Collectors.toList()).contains(name)) {
             throw new RepeatCourseException(name);
+        } else if (numHoles <= 0) {
+            throw new InputMismatchException();
         } else {
             this.courses.add(new Course(name, numHoles));
         }
