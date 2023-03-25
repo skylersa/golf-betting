@@ -1,16 +1,17 @@
-package ui.components;
+package ui.gui.components;
 
 import model.game.Course;
 
 import javax.swing.*;
 
-public class CourseJLabel extends JLabel {
+/*
+ * A JButton which stores and is labelled with the given course
+ */
+public class CourseJButton extends JButton {
     private Course course;
     
-    // REQUIRES: TODO
-    // MODIFIES:
-    // EFFECTS:
-    public CourseJLabel(Course course) {
+    // EFFECTS: creates new CourseJButton with given course
+    public CourseJButton(Course course) {
         super(course.getName() + ", " + course.getNumHoles());
         this.course = course;
     }

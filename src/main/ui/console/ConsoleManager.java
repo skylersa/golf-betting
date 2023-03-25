@@ -1,4 +1,4 @@
-package ui;
+package ui.console;
 
 import exceptions.NegativeBetException;
 import exceptions.RepeatGolferException;
