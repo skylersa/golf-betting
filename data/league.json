@@ -3,56 +3,71 @@
         {
             "name": "WestField Golf",
             "holes": [
-                {"par": 2},
-                {"par": 2},
+                {"par": 7},
+                {"par": 7},
                 {"par": 3},
-                {"par": 4}
+                {"par": 3}
             ]
         },
         {
             "name": "Albuquerque's finest",
             "holes": [
-                {"par": 7},
+                {"par": 3},
                 {"par": 6},
-                {"par": 4}
+                {"par": 5}
             ]
         },
         {
             "name": "Tiny Golf!",
-            "holes": [{"par": 7}]
-        },
-        {
-            "name": "tromp womp",
-            "holes": [
-                {"par": 7},
-                {"par": 4},
-                {"par": 4},
-                {"par": 2},
-                {"par": 6},
-                {"par": 7},
-                {"par": 4},
-                {"par": 6},
-                {"par": 4},
-                {"par": 7},
-                {"par": 3},
-                {"par": 3},
-                {"par": 7},
-                {"par": 6},
-                {"par": 4},
-                {"par": 7},
-                {"par": 2},
-                {"par": 3},
-                {"par": 4}
-            ]
+            "holes": [{"par": 3}]
         }
     ],
     "golfers": [
         {"name": "Bob Odenkirk"},
         {"name": "Bryan Cranston"},
         {"name": "Aaron Paul"},
-        {"name": "Billiam Zero"},
-        {"name": "timmy mortonwood"}
+        {"name": "Billiam Zero"}
     ],
-    "gambler": {"balance": 5000},
-    "performances": []
+    "gambler": {"balance": 4600},
+    "performances": [{
+        "strokes": [
+            [
+                4,
+                5,
+                11,
+                10
+            ],
+            [
+                8,
+                2,
+                11,
+                10
+            ],
+            [
+                4,
+                4,
+                3,
+                3
+            ],
+            [
+                1,
+                1,
+                2,
+                2
+            ]
+        ],
+        "courseName": "WestField Golf",
+        "golfers": [
+            {"name": "Bob Odenkirk"},
+            {"name": "Bryan Cranston"},
+            {"name": "Aaron Paul"},
+            {"name": "Billiam Zero"}
+        ],
+        "holes": [
+            {"par": 7},
+            {"par": 7},
+            {"par": 3},
+            {"par": 3}
+        ]
+    }]
 }

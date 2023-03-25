@@ -103,5 +103,13 @@ public class HoleAllPerformanceTest {
         }
         // Pass
     }
+    
+    @Test
+    public void getBestGolferTest() {
+        assertEquals(g0, hap0.getBestGolfer());
+        assertEquals(g1, hap1.getBestGolfer());
+        assertEquals(g1, hap2.getBestGolfer());
+        assertEquals(g0, hap3.getBestGolfer());
+    }
 }
 

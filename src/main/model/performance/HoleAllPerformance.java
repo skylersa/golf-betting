@@ -3,6 +3,7 @@ package model.performance;
 import model.game.Golfer;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.List;
 
@@ -21,6 +22,14 @@ public final class HoleAllPerformance {
         }
         this.golfers = new ArrayList<>(golfers);
         this.strokes = new ArrayList<>(strokes);
+        // todo, take and store hole, simplify BetOnHolePanel
+    }
+    
+    // EFFECTS: returns the golfer with the lowest score
+    public Golfer getBestGolfer() {
+        List<Integer> sortedList = new ArrayList<>(strokes);
+        Collections.sort(sortedList);
+        return golfers.get(strokes.indexOf(sortedList.get(0)));
     }
     
     public List<Golfer> getGolfers() {
