@@ -107,6 +107,19 @@ public class LeagueTest {
     }
     
     @Test
+    public void addGolferTestThrowsInputMismatch() {
+        try {
+            l1.addGolfer("");
+            fail();
+        } catch (RepeatGolferException e) {
+            fail();
+        } catch (InputMismatchException e) {
+            // Do nothing, pass
+        }
+        // Do nothing, pass
+    }
+    
+    @Test
     public void addCourseTestNumNormalExecution() {
         assertEquals("west", l1.getCourses().get(0).getName());
         assertEquals("east", l1.getCourses().get(1).getName());
