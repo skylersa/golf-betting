@@ -38,4 +38,21 @@ hopefully educate people not to bet their money away.
 - Launch
 - Click save or load
 
+**Phase 4: Task 2**
+Made new league
+Added new golfer: Bob Odenkirk \
+Added new golfer: Bryan Cranston \
+Added new golfer: Aaron Paul\
+Added new golfer: Billiam Zero\
+Added new course: WestField Golf\
+Added new course: Albuquerque's finest\
+Added new course: Tiny Golf!\
+played game on WestField Golf\
+Added new GAP on WestField Golf\
+Added new golfer: asdljh\
+Added new course: ello matey\
+played game on ello matey\
+Added new GAP on ello matey\
+Added new golfer: timothy vibes\
+
 ###### Persistence model is adapted from the JsonSerializationDemo

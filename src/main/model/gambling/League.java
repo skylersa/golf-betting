@@ -4,6 +4,8 @@ import exceptions.CourseNotPresentException;
 import exceptions.GolferNotPresentException;
 import exceptions.RepeatCourseException;
 import exceptions.RepeatGolferException;
+import logging.Event;
+import logging.EventLog;
 import model.game.Course;
 import model.game.Golfer;
 import model.game.Hole;
@@ -32,8 +34,9 @@ public class League implements Writable {
     private List<GameAllPerformance> performances;
     
     
-    // EFFECTS: new league with no players or courses
+    // EFFECTS: new league with no players or courses, logs
     public League() {
+        EventLog.getInstance().logEvent(new Event("Made new league"));
         this.golfers = new ArrayList<>();
         this.courses = new ArrayList<>();
         this.gambler = new Gambler();
@@ -42,42 +45,45 @@ public class League implements Writable {
     
     // REQUIRES: name is unique
     // MODIFIES: this
-    // EFFECTS: adds golfer with given name
+    // EFFECTS: adds golfer with given name, logs
     public void addGolfer(String name) throws RepeatGolferException {
         if (getGolferNames().contains(name)) {
             throw new RepeatGolferException(name);
         } else if (name.length() == 0) {
             throw new InputMismatchException();
         } else {
+            EventLog.getInstance().logEvent(new Event("Added new golfer: " + name));
             this.golfers.add(new Golfer(name));
         }
     }
     
     // REQUIRES: name is unique, numHoles > 0
     // MODIFIES: this
-    // EFFECTS: adds course with given name and number of holes
+    // EFFECTS: adds course with given name and number of holes, logs
     public void addCourse(String name, int numHoles) throws RepeatCourseException {
         if (courses.stream().map(Course::getName).collect(Collectors.toList()).contains(name)) {
             throw new RepeatCourseException(name);
         } else if (numHoles <= 0) {
             throw new InputMismatchException();
         } else {
+            EventLog.getInstance().logEvent(new Event("Added new course: " + name));
             this.courses.add(new Course(name, numHoles));
         }
     }
     
     // MODIFIES: this
-    // EFFECTS: adds course with given name and holes
+    // EFFECTS: adds course with given name and holes, logs
     public void addCourse(String name, List<Hole> holes) throws RepeatCourseException {
         if (courses.stream().map(Course::getName).collect(Collectors.toList()).contains(name)) {
             throw new RepeatCourseException(name);
         } else {
+            EventLog.getInstance().logEvent(new Event("Added new course: " + name));
             this.courses.add(new Course(name, holes));
         }
     }
     
     // MODIFIES: this
-    // EFFECTS: stores given performance
+    // EFFECTS: stores given performance, logs
     // throws input mismatch error if given performance's golfers and course
     //      are not present in this league
     public void addPerformance(GameAllPerformance gap) {
@@ -87,21 +93,23 @@ public class League implements Writable {
         } else if (!this.golfers.containsAll(gap.getGolfers())) {
             throw new GolferNotPresentException();
         } else {
+            EventLog.getInstance().logEvent(new Event("Added new GAP on " + gap.getCourseName()));
             performances.add(gap);
         }
     }
     
     
     // MODIFIES: this
-    // EFFECTS: sets this gambler as given gambler
+    // EFFECTS: sets this gambler as given gambler, logs
     public void setGambler(Gambler gambler) {
+        EventLog.getInstance().logEvent(new Event("Set gambler with balance " + gambler.getBalance()));
         this.gambler = gambler;
     }
     
     // REQUIRES: golferNames have been added as golfers
     //           courseName has been added as course
-    // EFFECTS: return a game with the given golfers on the given course
-    //          does not play the game
+    // EFFECTS: plays game with the given golfers on the given course
+    //          returns resulting GAP, logs
     public GameAllPerformance playGame(String courseName, List<String> golferNames) {
         Course course = null;
         List<Golfer> golfers = new ArrayList<>();
@@ -127,7 +135,8 @@ public class League implements Writable {
         
         
         GameAllPerformance gap = new GameAllPerformance(Arrays.asList(course.getHoles()), golfers, course.getName());
-        
+    
+        EventLog.getInstance().logEvent(new Event("played game on " + courseName));
         return playGame(gap);
     }
     
@@ -146,7 +155,7 @@ public class League implements Writable {
     }
     
     
-    // EFFECTS: returns all stored game performances for given golfer
+    // EFFECTS: returns all stored game performances for given golfer, logs
     public List<GameGolferPerformance> getGolferHistory(String golferName) {
         Golfer golfer = this.getGolfer(golferName);
         
@@ -156,7 +165,8 @@ public class League implements Writable {
                 result.add(performance.getGolferPerformance(golfer));
             }
         }
-        
+    
+        EventLog.getInstance().logEvent(new Event("retrieved history for " + golferName));
         return result;
     }
     

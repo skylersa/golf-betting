@@ -2,6 +2,8 @@ package ui.gui;
 
 import exceptions.RepeatCourseException;
 import exceptions.RepeatGolferException;
+import logging.Event;
+import logging.EventLog;
 import model.gambling.League;
 import model.game.Course;
 import model.game.Golfer;
@@ -311,12 +313,20 @@ public class GuiManager {
                 } else if (loadButton == source) {
                     loadThis(); // TODO: add message
                 } else if (quitButton == source) {
-                    System.exit(16);
+                    exitThis();
                 }
             }
         };
-        
         addMainMenuButtonsToListener();
+    }
+    
+    // MODIFIES: this
+    // EFFECTS: prints current EventLog and shuts dow application
+    private void exitThis() {
+        for (Event ev : EventLog.getInstance()) {
+            System.out.println(ev.getDescription());
+        }
+        System.exit(16);
     }
     
     // REQUIRES: buttons are not null
