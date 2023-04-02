@@ -38,8 +38,8 @@ hopefully educate people not to bet their money away.
 - Launch
 - Click save or load
 
-**Phase 4: Task 2**
-Made new league
+**Phase 4: Task 2**\
+Made new league\
 Added new golfer: Bob Odenkirk \
 Added new golfer: Bryan Cranston \
 Added new golfer: Aaron Paul\
@@ -55,4 +55,19 @@ played game on ello matey\
 Added new GAP on ello matey\
 Added new golfer: timothy vibes\
 
+**Phase 4: Task 3**\
+By far the most complex piece of the UML diagram is the connections between 
+the game package and the performance package. Each of them accesses golfer 
+and either course or hole with varying multiplicities. This is genuinely 
+easier to see in the code than in the diagram, but it is still confusing. 
+I'd like to design a 2d HashMap data structure to store everything with one 
+abstracted GAP. It is important to note that only GAP is a mutable class, 
+the others are simply for passing as return values and parameters (they are 
+final). The 2d hashmap would eliminate all need for these classes and would 
+simplify my project significantly. After switching to GUI I was much less 
+inclined to use the "simplicity" of my league abstraction (the use of names 
+and not the golfer/course reference itself) so I'd likely remove it. though it 
+was vital in the JsonReader class.
+
 ###### Persistence model is adapted from the JsonSerializationDemo
+###### Logging model is adapted from the AlarmSystemDemo
