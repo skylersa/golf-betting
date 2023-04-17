@@ -1,6 +1,7 @@
 package model.performance;
 
 import model.game.Golfer;
+import model.game.Hole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,10 +37,10 @@ public class HoleAllPerformanceTest {
         strokes3 = new ArrayList<>(Arrays.asList(2, 5, 9, 4));
         
         
-        hap0 = new HoleAllPerformance(golfers0, strokes0);
-        hap1 = new HoleAllPerformance(golfers1, strokes1);
-        hap2 = new HoleAllPerformance(golfers2, strokes2);
-        hap3 = new HoleAllPerformance(golfers3, strokes3);
+        hap0 = new HoleAllPerformance(new Hole(0), golfers0, strokes0);
+        hap1 = new HoleAllPerformance(new Hole(1), golfers1, strokes1);
+        hap2 = new HoleAllPerformance(new Hole(2), golfers2, strokes2);
+        hap3 = new HoleAllPerformance(new Hole(3), golfers3, strokes3);
     }
     
     @Test
@@ -95,6 +96,7 @@ public class HoleAllPerformanceTest {
     public void constructorThrowsInputMismatchTest() {
         try {
             new HoleAllPerformance(
+                    new Hole(),
                     Arrays.asList(new Golfer("j"), new Golfer("")),
                     Arrays.asList(1, 2, 3));
             fail();

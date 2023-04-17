@@ -59,7 +59,7 @@ public class GameAllPerformance implements Writable {
             throw new HoleNotPresentException();
         }
     
-        return new HoleAllPerformance(golfers, Arrays.asList(performances[holeIndex]));
+        return new HoleAllPerformance(hole, golfers, Arrays.asList(performances[holeIndex]));
     }
     
     // REQUIRES: this must be full of performances
